@@ -45,7 +45,7 @@ def start_loki_conversation():
     Si no, usará otro user_id (p.ej. 'anon') o lo que desees para otras pruebas.
     """
     init_firebase()
-    print("Firebase initialized. Escribe 'loki: Hola' para que Werbly te hable como Loki. O 'salir' para terminar.\n")
+    print("Firebase initialized. Ahora puedes hablar directamente como Loki o cualquier otro usuario. Escribe 'salir' para terminar.\n")
 
     while True:
         user_input = input("Tú: ")
@@ -53,20 +53,21 @@ def start_loki_conversation():
             print("¡Hasta luego!")
             break
 
-        # Si la frase comienza con 'loki:' => user_id = 'loki'
+        # Identificar el usuario según el prefijo
         if user_input.lower().startswith("loki:"):
             user_id = "loki"
-            # quitar 'loki:' para que no forme parte del prompt
             clean_input = user_input[5:].strip()
         else:
-            # Caso general, por ejemplo un usuario anónimo
             user_id = "anon"
             clean_input = user_input
 
-        # Llamar a la IA
+        # Obtener respuesta personalizada de Werbly
         werbly_response = talk_as_werbly_for_user(user_id, clean_input)
         print(f"Werbly (para {user_id}):", werbly_response)
 
         # Guardar la conversación en Firestore
+        save_message(user_id, "user", clean_input)
+        save_message(user_id, "werbly", werbly_response)
+
         save_message(user_id, "user", clean_input)
         save_message(user_id, "werbly", werbly_response)
