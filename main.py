@@ -10,23 +10,26 @@ from modules.analysis_engine import analyze_user_data
 from modules.nutrition_planner import generate_nutrition_plan
 from modules.training_planner import generate_training_plan
 from modules.security_guard import validate_plans
-from modules.firestore_accessory_files import get_all_documents_in_collection
+from modules.firestore_accessory_files import get_subcollection_documents
 
 
 def fetch_accessory_files():
     """
-    Recupera y muestra datos de la colección AccessoryFiles para usar con Werbly.
+    Recupera y muestra datos de la subcolección AnswerList dentro de AccessoryFiles/AnswerFile.
     """
-    print("Obteniendo datos de AccessoryFiles...")
-    collection_path = "AccessoryFiles/AnswerFile"  # Cambia a otra subcolección si es necesario.
-    documents = get_all_documents_in_collection(collection_path)
-
-    if documents:
-        print(f"Se encontraron {len(documents)} documentos en {collection_path}:")
-        for doc in documents:
-            print(doc)
-    else:
-        print(f"No se encontraron documentos en {collection_path}.")
+    print("Obteniendo datos de AccessoryFiles/AnswerFile/AnswerList...")
+    document_path = "AccessoryFiles/AnswerFile"  # Documento principal
+    subcollection_name = "AnswerList"  # Nombre de la subcolección
+    try:
+        documents = get_subcollection_documents(document_path, subcollection_name)
+        if documents:
+            print(f"Se encontraron {len(documents)} documentos en {document_path}/{subcollection_name}:")
+            for doc in documents:
+                print(doc)
+        else:
+            print(f"No se encontraron documentos en {document_path}/{subcollection_name}.")
+    except Exception as e:
+        print(f"Error al obtener documentos de {document_path}/{subcollection_name}: {e}")
 
 
 def start_conversation():
