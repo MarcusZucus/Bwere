@@ -10,75 +10,45 @@ from modules.analysis_engine import analyze_user_data
 from modules.nutrition_planner import generate_nutrition_plan
 from modules.training_planner import generate_training_plan
 from modules.security_guard import validate_plans
-# from modules.firestore_accessory_files import get_all_documents_in_collection
-
-
-# def fetch_accessory_files():
-#     """
-#     Recupera y muestra datos de la colección AccessoryFiles para usar con Werbly.
-#     """
-#     print("Obteniendo datos de AccessoryFiles...")
-#     collection_path = "AccessoryFiles/AnswerFile"  # Cambia a otra subcolección si es necesario.
-#     documents = get_all_documents_in_collection(collection_path)
-
-#     if documents:
-#         print(f"Se encontraron {len(documents)} documentos en {collection_path}:")
-#         for doc in documents:
-#             print(doc)
-#     else:
-#         print(f"No se encontraron documentos en {collection_path}.")
-
 
 def start_conversation():
     """
     Inicia un bucle interactivo para conversar con Werbly en tiempo real.
     """
-    print("Firebase initialized. ¡Comencemos una conversación con Werbly!\n")
-    print("Werbly: ¡Hola! Soy Werbly, tu asistente de bienestar personalizado. ¿En qué puedo ayudarte hoy?\n")
+    print("Firebase initialized. \u00a1Comencemos una conversaci\u00f3n con Werbly!\n")
+    print("Werbly: \u00a1Hola! Soy Werbly, tu asistente de bienestar personalizado. \u00bfEn qu\u00e9 puedo ayudarte hoy?\n")
 
-    user_id = "loki"  # Puedes cambiar este ID según el usuario con el que deseas interactuar.
+    user_id = "loki"  # Puedes cambiar este ID seg\u00fan el usuario con el que deseas interactuar.
     while True:
-        user_input = input("Tú: ")
-        if user_input.lower() in ["salir", "exit", "quit"]:
-            print("Werbly: ¡Hasta luego! Siempre estaré aquí para ayudarte.")
-            break
+        try:
+            user_input = input("T\u00fa: ")
+            print("Recibido del usuario:", user_input)  # Depuraci\u00f3n
+            if user_input.lower() in ["salir", "exit", "quit"]:
+                print("Werbly: \u00a1Hasta luego! Siempre estar\u00e9 aqu\u00ed para ayudarte.")
+                break
 
-        # Obtener respuesta de Werbly usando GPT-3.5-turbo
-        response = ask_werbly(user_input)
-        print(f"Werbly: {response}\n")
+            # Obtener respuesta de Werbly usando GPT-3.5-turbo
+            response = ask_werbly(user_input)
+            print("Respuesta generada por Werbly:", response)  # Depuraci\u00f3n
+            print(f"Werbly: {response}\n")
 
-        # Guardar la conversación en Firebase
-        save_message(user_id, "user", user_input)
-        save_message(user_id, "werbly", response)
+            # Guardar la conversaci\u00f3n en Firebase (comentado temporalmente)
+            # save_message(user_id, "user", user_input)
+            # save_message(user_id, "werbly", response)
 
+        except Exception as e:
+            print("Error durante la conversaci\u00f3n:", e)
 
 def run_app():
     """
-    Flujo principal de la aplicación.
+    Flujo principal de la aplicaci\u00f3n.
     """
     # 1. Inicializar Firebase
     init_firebase()
     print("Firebase initialized.")
 
-    # 2. Recuperar datos de AccessoryFiles (deshabilitado temporalmente)
-    # fetch_accessory_files()
-
-    # 3. Iniciar conversación interactiva
+    # 2. Iniciar conversaci\u00f3n interactiva
     start_conversation()
-
-    # 4. Ejemplo de flujo de análisis y planes
-    user_id = "andres_123"
-    user_data = get_user_data(user_id)
-    analysis = analyze_user_data(user_data)
-    nutrition_plan = generate_nutrition_plan(user_data, analysis)
-    training_plan = generate_training_plan(user_data, analysis)
-
-    # 5. Validar los planes
-    if validate_plans(nutrition_plan, training_plan):
-        print("Planes válidos. Listo para mostrar al usuario.")
-    else:
-        print("Planes peligrosos. Ajustar recomendaciones.")
-
 
 if __name__ == "__main__":
     run_app()
