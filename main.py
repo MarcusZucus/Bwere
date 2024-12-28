@@ -11,32 +11,55 @@ from modules.nutrition_planner import generate_nutrition_plan
 from modules.training_planner import generate_training_plan
 from modules.security_guard import validate_plans
 
+
+def start_conversation():
+    """
+    Inicia un bucle interactivo para conversar con Werbly en tiempo real.
+    """
+    print("Firebase initialized. ¡Comencemos una conversación con Werbly!\n")
+    print("Werbly: ¡Hola! Soy Werbly, tu asistente de bienestar personalizado. ¿En qué puedo ayudarte hoy?\n")
+
+    user_id = "loki"  # Puedes cambiar este ID según el usuario con el que deseas interactuar.
+    while True:
+        user_input = input("Tú: ")
+        if user_input.lower() in ["salir", "exit", "quit"]:
+            print("Werbly: ¡Hasta luego! Siempre estaré aquí para ayudarte.")
+            break
+
+        # Obtener respuesta de Werbly usando GPT-3.5-turbo
+        response = ask_werbly(user_input)
+        print(f"Werbly: {response}\n")
+
+        # Guardar la conversación en Firebase
+        save_message(user_id, "user", user_input)
+        save_message(user_id, "werbly", response)
+
+
 def run_app():
+    """
+    Flujo principal de la aplicación.
+    """
     # 1. Inicializar Firebase
     init_firebase()
     print("Firebase initialized.")
 
-    # 2. Probar llamada a OpenAI (Werbly)
-    user_input = "Hola Werbly, ¿cómo me ayudas?"
-    response = ask_werbly(user_input)
-    print("Werbly responde:", response)
+    # 2. Iniciar conversación interactiva
+    start_conversation()
 
-    # 3. Guardar una conversación
+    # 3. Ejemplo de flujo de análisis y planes
     user_id = "andres_123"
-    save_message(user_id, "user", user_input)
-    save_message(user_id, "werbly", response)
-
-    # 4. Ejemplo de flujo de análisis y planes
     user_data = get_user_data(user_id)
     analysis = analyze_user_data(user_data)
     nutrition_plan = generate_nutrition_plan(user_data, analysis)
     training_plan = generate_training_plan(user_data, analysis)
 
-    # 5. Validar los planes
+    # 4. Validar los planes
     if validate_plans(nutrition_plan, training_plan):
         print("Planes válidos. Listo para mostrar al usuario.")
     else:
         print("Planes peligrosos. Ajustar recomendaciones.")
 
+
 if __name__ == "__main__":
     run_app()
+
