@@ -16,19 +16,13 @@ db = firestore.client()
 def get_all_documents_in_collection(collection_path):
     """
     Obtiene todos los documentos en una colección específica de Firestore.
-    :param collection_path: Ruta de la colección (por ejemplo, 'AccessoryFiles/AnswerFile').
+    :param collection_path: Ruta de la colección (por ejemplo, 'AccessoryFiles/AnswerFile/AnswerList').
     :return: Lista de documentos (cada documento es un diccionario).
     """
     try:
-        # Verifica si collection_path se refiere a una subcolección
-        path_parts = collection_path.split("/")
-        if len(path_parts) % 2 == 0:
-            raise ValueError(f"La ruta {collection_path} apunta a un documento, no a una colección.")
-
         collection_ref = db.collection(collection_path)
         docs = collection_ref.stream()
         return [doc.to_dict() for doc in docs]
-
     except Exception as e:
         print(f"Error al obtener documentos de {collection_path}: {e}")
         return []
@@ -46,8 +40,23 @@ def get_document_by_id(collection_path, document_id):
         if doc.exists:
             return doc.to_dict()
         else:
-            print(f"Documento con ID {document_id} no encontrado en {collection_path}.")
+            print(f"El documento con ID {document_id} no existe en {collection_path}.")
             return None
     except Exception as e:
-        print(f"Error al obtener el documento {document_id} en {collection_path}: {e}")
+        print(f"Error al obtener el documento {document_id} de {collection_path}: {e}")
         return None
+
+def get_subcollection_documents(document_path, subcollection_name):
+    """
+    Obtiene los documentos dentro de una subcolección específica.
+    :param document_path: Ruta del documento principal (por ejemplo, 'AccessoryFiles/AnswerFile').
+    :param subcollection_name: Nombre de la subcolección (por ejemplo, 'AnswerList').
+    :return: Lista de documentos en la subcolección.
+    """
+    try:
+        subcollection_ref = db.document(document_path).collection(subcollection_name)
+        docs = subcollection_ref.stream()
+        return [doc.to_dict() for doc in docs]
+    except Exception as e:
+        print(f"Error al obtener documentos de la subcolección {subcollection_name} en {document_path}: {e}")
+        return []
