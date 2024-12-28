@@ -12,8 +12,8 @@ from modules.training_planner import generate_training_plan
 from modules.security_guard import validate_plans
 from modules.firestore_accessory_files import get_subcollection_documents
 
-
-def fetch_accessory_files():
+# 2. Recuperar datos de AccessoryFiles
+# fetch_accessory_files()  # Temporalmente deshabilitado.
     """
     Recupera y muestra datos de la subcolección AnswerList dentro de AccessoryFiles/AnswerFile.
     """
