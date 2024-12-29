@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Werbly</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</head>
+<body>
+  <div id="chat-container">
+    <!-- Encabezado -->
+    <div id="chat-header">
+      Werbly
+      <button id="menu-button">
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+      </button>
+    </div>
+
+    <!-- Área de Mensajes -->
+    <div id="messages"></div>
+
+    <!-- Barra de Entrada -->
+    <div id="input-area">
+      <input id="message-input" type="text" placeholder="Escribe un mensaje..." />
+      <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Menú Lateral -->
+  <div id="sidebar">
+    <h2>Conversaciones</h2>
+    <div class="conversation" data-id="1">Conversación 1</div>
+    <div class="conversation" data-id="2">Conversación 2</div>
+    <div class="conversation" data-id="3">Conversación 3</div>
+  </div>
+
+  <!-- Cargar los módulos -->
+  <script type="module" src="./modules/menu.js"></script>
+  <script type="module" src="./modules/chat.js"></script>
+</body>
+</html>
+
