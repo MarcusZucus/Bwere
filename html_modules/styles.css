@@ -19,8 +19,8 @@ body {
 /* Contenedor Principal */
 #chat-container {
   width: 100%;
-  max-width: 800px;
-  height: 100%;
+  max-width: none; /* Elimina el límite de ancho */
+  height: 100vh; /* Altura completa de la pantalla */
   display: flex;
   flex-direction: column;
   background-color: #1e1f24;
@@ -31,10 +31,10 @@ body {
 
 /* Encabezado */
 #chat-header {
-  padding: 12px 20px;
+  padding: 2vh 5vw; /* Margen relativo */
   background-color: #202225;
   border-bottom: 1px solid #444654;
-  font-size: 18px;
+  font-size: 2vw; /* Tamaño relativo */
   font-weight: 500;
   display: flex;
   justify-content: space-between;
@@ -45,7 +45,7 @@ body {
 #menu-button {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 2vw;
   color: #e5e5e5;
   cursor: pointer;
   position: relative;
@@ -91,14 +91,14 @@ body {
 
 /* Área de Mensajes */
 #messages {
-  padding: 20px;
+  padding: 2vw;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
 .message {
-  margin-bottom: 30px; /* Mayor distancia entre mensajes */
+  margin-bottom: 3vh; /* Mayor distancia entre mensajes */
   display: flex;
   align-items: center;
 }
@@ -113,14 +113,14 @@ body {
 
 .message-content {
   max-width: 75%;
-  font-size: 16px;
+  font-size: 1.5vw;
   line-height: 1.4;
   word-wrap: break-word;
   display: inline-block;
 }
 
 .message.user .message-content {
-  padding: 10px 20px;
+  padding: 1vw 2vw;
   border-radius: 20px;
   background-color: #2f80ed;
   color: white;
@@ -146,26 +146,26 @@ body {
 #input-area {
   display: flex;
   align-items: center;
-  padding: 12px 20px;
+  padding: 2vw;
   background-color: #202225;
   border-top: 1px solid #444654;
 }
 
 #message-input {
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 16px;
+  flex: 1; /* Ocupa todo el espacio disponible */
+  padding: 1vh 1.5vw;
+  font-size: 1.5vw;
   border-radius: 30px;
   background-color: #333842;
   border: 1px solid #444654;
   color: white;
   outline: none;
-  margin-right: 12px;
+  margin-right: 2vw;
 }
 
 #send-button {
-  width: 50px;
-  height: 50px;
+  width: 10vw; /* Botón proporcional al ancho de la pantalla */
+  height: 10vw; /* Botón perfectamente cuadrado */
   background-color: #2f80ed;
   border: none;
   border-radius: 50%;
@@ -177,7 +177,7 @@ body {
 }
 
 #send-button i {
-  font-size: 18px;
+  font-size: 1.8vw;
   color: white;
 }
 
@@ -189,8 +189,9 @@ body {
 #sidebar {
   position: fixed;
   top: 0;
-  left: -250px; /* Oculto inicialmente */
-  width: 250px;
+  left: -80%; /* Oculto inicialmente */
+  width: 80%; /* Ocupa el 80% del ancho */
+  max-width: 300px; /* Máximo ancho */
   height: 100%;
   background-color: #202225;
   color: #e5e5e5;
@@ -205,7 +206,7 @@ body {
 }
 
 #sidebar h2 {
-  font-size: 18px;
+  font-size: 2vw;
   margin-bottom: 20px;
 }
 
@@ -222,12 +223,10 @@ body {
 }
 
 /* Estilos para pantallas pequeñas (320px de ancho, móviles) */
-@media (max-width: 320px) {
+@media (max-width: 600px) {
   #chat-container {
     width: 100%;
     height: 100vh;
-    max-width: 320px;
-    overflow: hidden;
   }
 
   #chat-header {
