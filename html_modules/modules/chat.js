@@ -16,6 +16,12 @@ sendButton.addEventListener('click', () => {
   }
 });
 
+inputField.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    sendButton.click();
+  }
+});
+
 function renderMessage(role, content) {
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${role}`;
@@ -52,3 +58,4 @@ function typeMessage(role, content) {
     }
   }, 50);
 }
+
