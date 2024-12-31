@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Werbly - Selecciona tu smartwatch</title>
+  <title>Werbly</title>
   <link rel="stylesheet" href="home.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="PrimeraPagina">
     <div class="Rectangle355"></div>
-    <div class="HolaSoyWerbly">
-      <span class="big">¡Hola!<br/></span>
-      <span class="medium">soy </span><span class="highlight">Werbly</span>,<br/>
-      <span class="small">tu asistente personal de bienestar.<br/></span>
+    <div class="HolaSoyWerblyTuAsistentePersonalDeBienestar">
+      <span>¡Hola!</span><br>
+      <span>soy </span><span class="highlight">Werbly</span>,<br>
+      <span>tu asistente personal de bienestar.</span>
     </div>
-    <div class="AQuMarcaPerteneceTuSmartwatch">
-      ¿A qué marca pertenece tu smartwatch?
-    </div>
-    <div class="SeleccionaUnaMarcaContainer">
-      <select id="smartwatchSelect" class="SeleccionaUnaMarca">
+    <div class="AQuMarcaPerteneceTuSmartwatch">¿A qué marca pertenece tu smartwatch?</div>
+    <div class="SeleccionaMarcaContainer">
+      <select id="marca-select" class="SeleccionaUnaMarca">
         <option value="" disabled selected>Selecciona una marca</option>
         <option value="samsung">Samsung</option>
         <option value="apple">Apple</option>
         <option value="huawei">Huawei</option>
-        <option value="fitbit">Fitbit</option>
         <option value="garmin">Garmin</option>
+        <option value="fitbit">Fitbit</option>
       </select>
+      <div class="Arrow"></div>
     </div>
   </div>
   <script src="home.js"></script>
