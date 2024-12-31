@@ -1,31 +1,22 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Werbly</title>
   <link rel="stylesheet" href="home.css">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="PrimeraPagina">
-    <div class="Rectangle355"></div>
-    <div class="HolaSoyWerblyTuAsistentePersonalDeBienestar">
-      <span>¡Hola!</span><br>
-      <span>soy </span><span class="highlight">Werbly</span>,<br>
-      <span>tu asistente personal de bienestar.</span>
-    </div>
-    <div class="AQuMarcaPerteneceTuSmartwatch">¿A qué marca pertenece tu smartwatch?</div>
-    <div class="SeleccionaMarcaContainer">
-      <select id="marca-select" class="SeleccionaUnaMarca">
-        <option value="" disabled selected>Selecciona una marca</option>
-        <option value="samsung">Samsung</option>
-        <option value="apple">Apple</option>
-        <option value="huawei">Huawei</option>
-        <option value="garmin">Garmin</option>
-        <option value="fitbit">Fitbit</option>
+  <div class="container">
+    <h1>¡Hola!</h1>
+    <p>soy <span class="highlight">Werbly</span>,<br>tu asistente personal de bienestar.</p>
+    <p class="question">¿A qué marca pertenece tu smartwatch?</p>
+    <div class="dropdown">
+      <select>
+        <option selected disabled>Selecciona una marca</option>
+        <!-- Opciones de marcas -->
       </select>
-      <div class="Arrow"></div>
     </div>
   </div>
   <script src="home.js"></script>
