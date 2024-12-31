@@ -3,22 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Werbly</title>
-  <link rel="stylesheet" href="home.css">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <title>Werbly - Personal Wellness Assistant</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    window.FontAwesomeConfig = {
+      autoReplaceSvg: 'nest',
+    };
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
-<body>
-  <div class="container">
-    <h1>¡Hola!</h1>
-    <p>soy <span class="highlight">Werbly</span>,<br>tu asistente personal de bienestar.</p>
-    <p class="question">¿A qué marca pertenece tu smartwatch?</p>
-    <div class="dropdown">
-      <select>
-        <option selected disabled>Selecciona una marca</option>
-        <!-- Opciones de marcas -->
-      </select>
+<body class="h-full text-base-content">
+  <div id="welcome-screen" class="min-h-screen">
+    <div id="welcome-content" class="container">
+      <div id="header-section" class="text-center">
+        <h1 class="header">¡Hola!</h1>
+        <p class="subtitle">
+          soy <span class="highlight">Werbly</span>, tu asistente personal de bienestar.
+        </p>
+      </div>
+      <div id="question-section" class="dropdown-section">
+        <h2 class="question">Which brand does your smartwatch belong to?</h2>
+        <div class="dropdown-wrapper">
+          <select id="brand-dropdown" class="dropdown">
+            <option value="" disabled selected>Select a brand</option>
+            <option value="apple">Apple Watch</option>
+            <option value="samsung">Samsung Galaxy Watch</option>
+            <option value="fitbit">Fitbit</option>
+            <option value="garmin">Garmin</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="dropdown-icon">
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+      <div id="assistant-avatar" class="avatar-section">
+        <img class="avatar" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/6c97daf35e-9da0c289866d71b336f4.png" alt="3D wellness assistant mascot">
+      </div>
     </div>
   </div>
-  <script src="home.js"></script>
 </body>
 </html>
