@@ -1,93 +1,81 @@
-/* Estilo general */
+/* General */
 body {
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
-  font-family: 'Quicksand', sans-serif;
   background: #efefef;
+  font-family: 'Quicksand', sans-serif;
 }
 
-/* Contenedor principal */
+/* Contenedor principal (móvil por defecto) */
 .frame-306 {
-  width: 320px;
-  height: 710px;
+  width: 100%;
+  max-width: 320px;
+  height: 100vh;
+  max-height: 710px;
   position: relative;
   background: linear-gradient(0deg, #EFEEEE 0%, #EFEEEE 100%);
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid #ccc;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Título "Hola!" */
+/* Título "¡Hola!" */
 .hola {
-  width: 320px;
-  height: 275px;
   position: absolute;
-  top: 39px;
-  left: 0;
+  width: 100%;
+  top: 5%;
   text-align: center;
   color: #A1A1A1;
   font-size: 64px;
   font-weight: 600;
-  line-height: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  line-height: 1.2;
 }
 
-/* Rectángulo del texto "huawei" */
+/* Rectángulo gris detrás de "huawei" */
 .rectangle-373 {
-  width: 174px;
+  width: 60%; /* Relativo al ancho del contenedor */
   height: 34px;
   position: absolute;
-  top: 321px;
-  left: 76px;
+  top: 45%;
+  left: 20%;
   background: #D9D9D9;
   border-radius: 5px;
 }
 
 /* Texto "huawei" */
 .huawei {
-  width: 145px;
-  height: 24px;
   position: absolute;
-  top: 326px;
-  left: 91px;
+  width: 60%;
+  height: 24px;
+  top: 45.5%;
+  left: 20%;
   text-align: center;
   color: black;
   font-size: 16px;
   font-weight: 600;
-  line-height: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* Botón "Conecta tu smartwatch" */
 .rectangle-372 {
-  width: 234px;
+  width: 75%;
   height: 48px;
   position: absolute;
-  top: 490px;
-  left: 46px;
+  top: 75%;
+  left: 12.5%;
   background: #00A2BF;
   border-radius: 20px;
 }
 
 .conecta-smartwatch {
-  width: 184px;
-  height: 14px;
   position: absolute;
-  top: 507px;
-  left: 71px;
+  width: 75%;
   text-align: center;
   color: white;
   font-size: 16px;
   font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 77%;
+  left: 12.5%;
 }
