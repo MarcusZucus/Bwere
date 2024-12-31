@@ -3,31 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Werbly - Home</title>
-  
-  <!-- Enlace al archivo CSS de Home -->
-  <link rel="stylesheet" href="home/home.css">
+  <title>Home</title>
+  <link rel="stylesheet" href="home.css">
 </head>
 <body>
-  <div id="home-container">
-    <div id="welcome-message">
-      <h1>¡Bienvenido a Werbly!</h1>
-      <p>Selecciona tu smartwatch para empezar:</p>
-    </div>
-    <div id="brand-selector">
+  <div class="container">
+    <h1 class="greeting">¡Hola!</h1>
+    <div class="dropdown-container">
       <select id="brand-dropdown">
-        <option value="" disabled selected>Elige una marca...</option>
-        <option value="apple">Apple Watch</option>
-        <option value="samsung">Samsung Galaxy Watch</option>
-        <option value="fitbit">Fitbit</option>
-        <option value="garmin">Garmin</option>
+        <option value="" disabled selected>Selecciona tu smartwatch</option>
+        <option value="apple">Apple</option>
+        <option value="samsung">Samsung</option>
         <option value="huawei">Huawei</option>
+        <option value="fitbit">Fitbit</option>
       </select>
     </div>
-    <button id="connect-button" class="hidden">Conecta tu wearable con Werbly</button>
+    <button id="connect-button">Conecta tu smartwatch</button>
   </div>
-
-  <!-- Enlace al archivo JS de Home -->
-  <script defer src="home/home.js"></script>
+  <script src="home.js" defer></script>
 </body>
 </html>
