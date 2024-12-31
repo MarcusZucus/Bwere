@@ -578,42 +578,44 @@
       </script>
       </head>
               <body class="h-full text-base-content">
-                <div id="mobile-app" class="flex flex-col items-center justify-center min-h-screen bg-[#121212] px-6">
-    <div id="welcome-content" class="w-full max-w-md space-y-12">
-        <div id="brand" class="text-center mb-8">
-            <img class="w-32 h-32 mx-auto" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/46f0a92e01-6a7ede13fd2ebb91af6a.png" alt="minimal wellness app logo, circular shape with abstract wellness symbol, light yellow color #F9E98E, modern and simple design" >
+                <div id="app" class="min-h-screen bg-neutral-950 flex flex-col items-center justify-center px-4 py-8">
+    <main id="welcome-screen" class="w-full max-w-md mx-auto">
+        <div id="logo-container" class="mb-8 text-center">
+            <i class="fa-solid fa-heart-pulse text-4xl text-white mb-4"></i>
         </div>
-        <div id="welcome-text" class="text-center space-y-4">
-            <h1 class="text-5xl font-semibold text-white">¡Hola!</h1>
-            <p class="text-xl text-white leading-relaxed">
-                soy <span class="text-[#F9E98E] font-semibold">Werbly</span>,
-                <br>tu asistente personal de bienestar.
-            </p>
+        <div id="greeting-section" class="text-center mb-12">
+            <h1 class="text-5xl font-semibold text-white mb-4">¡Hola!</h1>
+            <p class="text-xl text-white mb-2">soy</p>
+            <p class="text-3xl font-semibold text-neutral-200 mb-2">Werbly</p>
+            <p class="text-lg text-neutral-300">tu asistente personal de bienestar</p>
         </div>
-        <div id="smartwatch-selection" class="space-y-4 mt-12">
-            <label class="block text-lg text-white text-center mb-4">
-                Which brand does your smartwatch belong to?
-            </label>
+        <div id="smartwatch-section" class="space-y-6">
+            <div class="text-center">
+                <p class="text-lg text-neutral-300 mb-6">¿Which brand does your smartwatch belong to?</p>
+            </div>
             <div class="relative">
-                <select class="w-full px-4 py-3 bg-[#444444] text-white rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-[#F9E98E] transition-all cursor-pointer">
+                <select id="brand-selector" class="w-full bg-neutral-800 text-white py-4 px-4 rounded-lg appearance-none cursor-pointer border border-neutral-700 focus:border-neutral-300 focus:outline-none">
                     <option value="" disabled selected>Select a brand</option>
                     <option value="apple">Apple Watch</option>
                     <option value="samsung">Samsung Galaxy Watch</option>
                     <option value="fitbit">Fitbit</option>
                     <option value="garmin">Garmin</option>
-                    <option value="other">Other</option>
                 </select>
-                <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-white">
-                    <i class="fa-solid fa-chevron-down"></i>
+                <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    <i class="fa-solid fa-chevron-down text-neutral-400"></i>
                 </div>
             </div>
         </div>
-        <div id="decorative-elements" class="absolute bottom-8 left-0 right-0 flex justify-center space-x-4 text-[#444444]">
-            <i class="fa-solid fa-heart text-xl"></i>
-            <i class="fa-solid fa-running text-xl"></i>
-            <i class="fa-solid fa-brain text-xl"></i>
+        <div id="helper-text" class="mt-8 text-center">
+            <p class="text-sm text-neutral-400">You can change this later in settings</p>
         </div>
-    </div>
+    </main>
+    <footer id="footer" class="w-full max-w-md mx-auto mt-auto pt-8">
+        <div class="flex justify-center space-x-4">
+            <i class="fa-solid fa-shield-heart text-neutral-500"></i>
+            <i class="fa-solid fa-user-lock text-neutral-500"></i>
+        </div>
+    </footer>
 </div>
               </body>
             </html>
