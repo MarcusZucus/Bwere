@@ -17,7 +17,7 @@ document.getElementById('smartwatchSelect').addEventListener('change', function 
         break;
       case 'fitbit':
         // Redirigir directamente a index.html si es Fitbit
-        window.location.href = 'index.html';
+        window.location.href = './html_modules/modules/index.html';
         break;
       case 'garmin':
         openOAuthPopup('https://connect.garmin.com/oauth/authorize');
