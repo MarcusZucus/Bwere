@@ -1,62 +1,93 @@
-/* Configuración general */
+/* Estilo general */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f5f5; /* Fondo blanco */
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: #efefef;
+}
+
+/* Contenedor principal */
+.frame-306 {
+  width: 320px;
+  height: 710px;
+  position: relative;
+  background: linear-gradient(0deg, #EFEEEE 0%, #EFEEEE 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Título "Hola!" */
+.hola {
+  width: 320px;
+  height: 275px;
+  position: absolute;
+  top: 39px;
+  left: 0;
+  text-align: center;
+  color: #A1A1A1;
+  font-size: 64px;
+  font-weight: 600;
+  line-height: 14px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Contenedor principal */
-.container {
-  width: 90%;
-  max-width: 400px;
+/* Rectángulo del texto "huawei" */
+.rectangle-373 {
+  width: 174px;
+  height: 34px;
+  position: absolute;
+  top: 321px;
+  left: 76px;
+  background: #D9D9D9;
+  border-radius: 5px;
+}
+
+/* Texto "huawei" */
+.huawei {
+  width: 145px;
+  height: 24px;
+  position: absolute;
+  top: 326px;
+  left: 91px;
   text-align: center;
-  padding: 20px;
-  background-color: #ffffff; /* Fondo del contenedor */
-  border-radius: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Título */
-.greeting {
-  font-size: 36px;
-  color: #7d7d7d; /* Gris suave */
-  margin-bottom: 20px;
-}
-
-/* Dropdown */
-.dropdown-container select {
-  width: 100%;
-  padding: 10px;
+  color: black;
   font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: #e8e8e8;
-  color: #333;
-  margin-bottom: 20px;
+  font-weight: 600;
+  line-height: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Botón */
-#connect-button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #00bcd4; /* Azul claro */
-  color: #ffffff;
-  border: none;
+/* Botón "Conecta tu smartwatch" */
+.rectangle-372 {
+  width: 234px;
+  height: 48px;
+  position: absolute;
+  top: 490px;
+  left: 46px;
+  background: #00A2BF;
   border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-#connect-button:hover {
-  background-color: #0097a7; /* Azul oscuro */
-}
-
-.hidden {
-  display: none;
+.conecta-smartwatch {
+  width: 184px;
+  height: 14px;
+  position: absolute;
+  top: 507px;
+  left: 71px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
