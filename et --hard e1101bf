@@ -1,0 +1,464 @@
+[33mcommit 33fc5205229369597151124f5ac575804be818e6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: 8797c40 d4d83e4
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Tue Dec 31 01:08:26 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Tue Dec 31 01:08:26 2024 +0100
+
+    Merge branch 'main' of https://github.com/MarcusZucus/WerblyAI
+
+[33mcommit 8797c40a51895e8cb254d471ebe979f84d4e2e29[m
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Tue Dec 31 00:54:29 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Tue Dec 31 00:54:29 2024 +0100
+
+    Se incluyó api key de github
+
+[33mcommit d4d83e4a66d73a7135baa30f08fff48de2ccac26[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Tue Dec 31 00:50:23 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Dec 31 00:50:23 2024 +0100
+
+    Update animations.js
+
+[33mcommit e1101bf090594d3c0d30c674b94372d3a3c096b2[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Tue Dec 31 00:48:44 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Tue Dec 31 00:48:44 2024 +0100
+
+    Update styles.css
+
+[33mcommit 6e9fe22c81a8b2cd9982263a9715a9d668805ae9[m
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Tue Dec 31 00:39:49 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Tue Dec 31 00:39:49 2024 +0100
+
+    ss
+
+[33mcommit f659473b6654f84e1b4977f579bc7640af589dc3[m
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 13:48:12 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Mon Dec 30 13:48:25 2024 +0100
+
+    se añade script de ejecucion loid
+
+[33mcommit be0f9d8314174325fc3c2ecf12ba0957b1a7d05d[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 13:46:45 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Dec 30 13:46:45 2024 +0100
+
+    Create README.md
+
+[33mcommit 97f84afaf21ea0cbde0b3d8b1f0abdeeca71361e[m
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 12:49:12 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Mon Dec 30 12:49:12 2024 +0100
+
+    Added requirements.txt for project dependencies
+
+[33mcommit 4f335651f06b1c2f8c53e7b4a7076268cf7a7995[m
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 11:58:14 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Mon Dec 30 11:58:14 2024 +0100
+
+    Actualización de chat.js
+
+[33mcommit 343eaf01951be1baaa69ddb046f4b33bffdaba44[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 00:21:38 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Dec 30 00:21:38 2024 +0100
+
+    Update styles.css
+
+[33mcommit 87a13495bed82e84acdda4c15da453161b95144d[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 00:18:54 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Dec 30 00:18:54 2024 +0100
+
+    Update styles.css
+
+[33mcommit e15ce72d4c24de79c092538a1e5e2d01e51087be[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 00:13:06 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Dec 30 00:13:06 2024 +0100
+
+    Update styles.css
+
+[33mcommit 05f347b258ddca3d6d0c092e1b74b7dd6c9aa495[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 00:08:18 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Dec 30 00:08:18 2024 +0100
+
+    Update menu.js
+
+[33mcommit 99ddf88c423d63f19591343a024bb4a5e2176537[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 00:07:55 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Dec 30 00:07:55 2024 +0100
+
+    Update chat.js
+
+[33mcommit 33fab2f12f19a03f9b83faeb6ac989ff6f74cf01[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 00:07:23 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Dec 30 00:07:23 2024 +0100
+
+    Update styles.css
+
+[33mcommit b9ab7ea60c81159798f63bd7c13b13dda8067434[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 00:06:43 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Mon Dec 30 00:06:43 2024 +0100
+
+    Update index.html
+
+[33mcommit ec147b0d58e55693f0dc34988cd4d4e435d4c396[m
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Mon Dec 30 00:01:58 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Mon Dec 30 00:01:58 2024 +0100
+
+    mensaje descriptivo
+
+[33mcommit 1c1853beeb8afc474baa83d59ab3f10e244f5654[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sun Dec 29 23:11:52 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Dec 29 23:11:52 2024 +0100
+
+    Delete modules/loki_conversation.py
+
+[33mcommit c217d18f7cfefcd47bc811c03f3eb3e8f9eeeaab[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sun Dec 29 23:11:35 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sun Dec 29 23:11:35 2024 +0100
+
+    Delete test_loki.py
+
+[33mcommit 0080ba8e2d3ba2163af0ff52c3175c3cdec1ba60[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 22:23:27 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 22:23:27 2024 +0100
+
+    Update main.py
+
+[33mcommit 0bf075714d7d29ea98d02e038606ecfd855ce85e[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 22:21:22 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 22:21:22 2024 +0100
+
+    Update openai_api.py
+
+[33mcommit 787701666967f86449690c843d4c599d8c7c9737[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 22:20:22 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 22:20:22 2024 +0100
+
+    Update prompt_manager.py
+
+[33mcommit 6995107b5c1a998cbe11ef01ed7849e29c7d7948[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 22:08:31 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 22:08:31 2024 +0100
+
+    Update main.py
+
+[33mcommit 730b582fe15e1ba1172865b23a01978b26eeceae[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 22:04:02 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 22:04:02 2024 +0100
+
+    Update main.py
+
+[33mcommit 092571989cdba204a1bbfdc65322e3a43f6574b0[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 21:51:19 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 21:51:19 2024 +0100
+
+    Update main.py
+
+[33mcommit dab1fe68e5950e06c2f2541a357b3f3664357dcd[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 21:37:11 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 21:37:11 2024 +0100
+
+    Update main.py
+
+[33mcommit 3123080d60243c2c9c0680e18290b67a0e4e7532[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 21:35:58 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 21:35:58 2024 +0100
+
+    Update firestore_accessory_files.py
+
+[33mcommit f659377781f6bf147ecf2758ce40d02e38510c1c[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 21:33:19 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 21:33:19 2024 +0100
+
+    Update firestore_accessory_files.py
+
+[33mcommit 7417f2146c0abb7e01522622b3fd234db2a8512e[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 21:30:52 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 21:30:52 2024 +0100
+
+    Update firebase_connection.py
+
+[33mcommit ff39087eac0433a31dbab462c8b1848cbc23c439[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 21:28:31 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 21:28:31 2024 +0100
+
+    Update firebase_connection.py
+
+[33mcommit 063d70cc7f0dcf282049ee579463e4f5d8b1884d[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 21:24:30 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 21:24:30 2024 +0100
+
+    Update main.py
+
+[33mcommit 3167415bd171b82e51f36f9f7f3d4b9e768f990a[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 21:17:04 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 21:17:04 2024 +0100
+
+    Create firestore_accessory_files.py
+
+[33mcommit cdad1610cc4ad7f09ee724e0cb25ae34e6f8b3c2[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 20:10:20 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 20:10:20 2024 +0100
+
+    Update main.py
+
+[33mcommit 232652b49f2f9c4b59e819be11ed935b80ce193b[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 19:10:44 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 19:10:44 2024 +0100
+
+    Update loki_conversation.py
+
+[33mcommit d37041412f91aba4dff426906e63a00b8fad18f6[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 19:10:23 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 19:10:23 2024 +0100
+
+    Update test_loki.py
+
+[33mcommit 92595af364c857a815683e4b613dd82d0cd2151b[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 19:09:05 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 19:09:05 2024 +0100
+
+    Update loki_conversation.py
+
+[33mcommit 5620690178a9866add08f24ba8e94c584836ebcd[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 19:06:17 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 19:06:17 2024 +0100
+
+    Update1 loki_conversation.py
+
+[33mcommit 832005220f3a2d2ad729143fb04fdbab299fce20[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 19:03:00 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 19:03:00 2024 +0100
+
+    Update1 test_loki.py
+
+[33mcommit e6835b21eefdcf489cc3e585fd7a2829b82654e1[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:55:51 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:55:51 2024 +0100
+
+    Create test_loki.py
+
+[33mcommit 6a47b3aec871adda2d17b2a463f23e76bf24e4c2[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:53:05 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:53:05 2024 +0100
+
+    Create loki_conversation.py
+
+[33mcommit 71d734152bfc9748efb86bf5096b89e8d0975cb8[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:44:07 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:44:07 2024 +0100
+
+    Update1 main.py
+
+[33mcommit 45a97e0d8f3461098d34d2bbc7ec47b8839ef201[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:43:13 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:43:13 2024 +0100
+
+    Update1 security_guard.py
+
+[33mcommit 5dbc207dbfeba38ff05f5e4d6222abc2391329b1[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:42:43 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:42:43 2024 +0100
+
+    Update1 motivation_tracker.py
+
+[33mcommit 65bf0b01566cab45b7cef1c9b66dc84f092748b7[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:42:06 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:42:06 2024 +0100
+
+    Update1 supermarket_integration.py
+
+[33mcommit ca0903efb7b04e52b7a042adabbffd19352ee552[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:41:46 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:41:46 2024 +0100
+
+    Update1 supplement_manager.py
+
+[33mcommit 617ab09d18d30a8118ecd1cda0a6cc77ab46e736[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:41:25 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:41:25 2024 +0100
+
+    Update1 training_planner.py
+
+[33mcommit 762e02f772b671d5aba0ec89873ec96283aa8cd0[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:40:59 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:40:59 2024 +0100
+
+    Update1 nutrition_planner.py
+
+[33mcommit 55848c791f12c61f975b76662193224d39ace4ad[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:40:41 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:40:41 2024 +0100
+
+    Update1 analysis_engine.py
+
+[33mcommit 1b612f5410b1caa2dad66375e85d111878edb00d[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:40:18 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:40:18 2024 +0100
+
+    Update1 conversation_manager.py
+
+[33mcommit 6c83f1fcafc714278490d3530d5894b5ff78f3a4[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:39:56 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:39:56 2024 +0100
+
+    Update1 user_data.py
+
+[33mcommit a578421f92503791d8fe93efb2e72123fe7b5e9d[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:39:18 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:39:18 2024 +0100
+
+    Update1 wearable_auth.py
+
+[33mcommit 54adfce4ad01188dcdb5d94fea472016da77dd3c[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:38:54 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:38:54 2024 +0100
+
+    Update1 openai_api.py
+
+[33mcommit a751872cd10e8c76a820df9e8af0cce07c80951d[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:38:34 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:38:34 2024 +0100
+
+    Update1 prompt_manager.py
+
+[33mcommit a0d3a59f0b0c6d7de6a6815d44d54306754d963a[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:38:12 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:38:12 2024 +0100
+
+    Update1 firebase_connection.py
+
+[33mcommit 02f0a194412ad2aceaaca56f49385f3f427b8324[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:37:48 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:37:48 2024 +0100
+
+    Update2 config.py
+
+[33mcommit 212db03eb7857d71838184ec2dca8991ee0f6413[m
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:31:22 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Sat Dec 28 18:32:20 2024 +0100
+
+    chore: add .gitignore for sensitive files
+
+[33mcommit e2e07a922e3f29bb0af60182e5846405f61ab6a0[m
+Author:     MarcusZucus <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:29:17 2024 +0100
+Commit:     GitHub <noreply@github.com>
+CommitDate: Sat Dec 28 18:29:17 2024 +0100
+
+    Update 1 config.py
+
+[33mcommit 794b8372e1fb4063711468aff79a6894fac74354[m
+Author:     Marco <marcozucoia@gmail.com>
+AuthorDate: Sat Dec 28 18:19:06 2024 +0100
+Commit:     Marco <marcozucoia@gmail.com>
+CommitDate: Sat Dec 28 18:19:06 2024 +0100
+
+    feat: add initial project structure with modules
