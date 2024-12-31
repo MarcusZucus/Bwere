@@ -1,7 +1,7 @@
 /**
  * Aplica un efecto de desvanecimiento a un elemento.
- * @param {HTMLElement} element - El elemento al que se aplicará el efecto.
- * @param {number} duration - Duración de la animación en milisegundos.
+ * @param {HTMLElement} element - El elemento al que se aplicarÃ¡ el efecto.
+ * @param {number} duration - DuraciÃ³n de la animaciÃ³n en milisegundos.
  */
 export function fadeIn(element, duration = 500) {
   element.style.opacity = 0;
@@ -15,7 +15,7 @@ export function fadeIn(element, duration = 500) {
  * Aplica un efecto de escritura letra por letra a un mensaje.
  * @param {HTMLElement} messageContent - Contenedor del mensaje.
  * @param {string} content - El texto que se va a escribir.
- * @param {number} speed - Velocidad de escritura en milisegundos por carácter.
+ * @param {number} speed - Velocidad de escritura en milisegundos por carÃ¡cter.
  */
 export function typeMessageEffect(messageContent, content, speed = 50) {
   let index = 0;
@@ -25,7 +25,7 @@ export function typeMessageEffect(messageContent, content, speed = 50) {
       const span = document.createElement('span');
       span.textContent = content[index];
       span.style.opacity = 0;
-      span.style.animation = 'fade-in 0.5s ease forwards'; // Aplicar animación de desvanecimiento
+      span.style.animation = 'fade-in 0.1s ease forwards'; // Aplicar animaciÃ³n de desvanecimiento
       messageContent.appendChild(span);
       index++;
     } else {
@@ -35,9 +35,9 @@ export function typeMessageEffect(messageContent, content, speed = 50) {
 }
 
 /**
- * Aplica un efecto de apertura/cierre animado para un menú lateral.
- * @param {HTMLElement} menuButton - Botón que activa el menú.
- * @param {HTMLElement} sidebar - Menú lateral a mostrar/ocultar.
+ * Aplica un efecto de apertura/cierre animado para un menÃº lateral.
+ * @param {HTMLElement} menuButton - BotÃ³n que activa el menÃº.
+ * @param {HTMLElement} sidebar - MenÃº lateral a mostrar/ocultar.
  */
 export function toggleMenuAnimation(menuButton, sidebar) {
   sidebar.classList.toggle('open');
