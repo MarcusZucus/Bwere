@@ -17,7 +17,7 @@ export function fadeIn(element, duration = 500) {
  * @param {string} content - El texto que se va a escribir.
  * @param {number} speed - Velocidad de escritura en milisegundos por carácter.
  */
-export function typeMessageEffect(messageContent, content, speed = 50) {
+export function typeMessageEffect(messageContent, content, speed = 24) {
   let index = 0;
 
   const typingInterval = setInterval(() => {
