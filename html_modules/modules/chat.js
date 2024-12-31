@@ -2,15 +2,22 @@ const sendButton = document.getElementById('send-button');
 const inputField = document.getElementById('message-input');
 const messagesContainer = document.getElementById('messages');
 
+const apiUrl = "http://127.0.0.1:5000/chat"; // URL del endpoint de la API
+
 sendButton.addEventListener('click', () => {
   const message = inputField.value.trim();
   if (message) {
     renderMessage('user', message);
 
-    // Simulación de respuesta del bot con animación de escritura
-    setTimeout(() => {
-      typeMessage('bot', `Esto es una respuesta a: "${message}"`);
-    }, 1000);
+    // Llamar a la API para obtener la respuesta del bot
+    sendMessageToApi(message)
+      .then((response) => {
+        typeMessage('bot', response); // Mostrar respuesta de la API
+      })
+      .catch((error) => {
+        console.error("Error al comunicarse con la API:", error);
+        typeMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
+      });
 
     inputField.value = '';
   }
@@ -22,6 +29,7 @@ inputField.addEventListener('keypress', (event) => {
   }
 });
 
+// Renderizar mensajes instantáneamente en el chat
 function renderMessage(role, content) {
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${role}`;
@@ -34,6 +42,7 @@ function renderMessage(role, content) {
   messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll automático
 }
 
+// Simular animación de escritura para mensajes del bot
 function typeMessage(role, content) {
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${role}`;
@@ -58,4 +67,24 @@ function typeMessage(role, content) {
     }
   }, 50);
 }
+
+// Función para enviar mensajes a la API
+async function sendMessageToApi(message) {
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message }),
+    });
+
+    const data = await response.json();
+    return data.response; // Retorna la respuesta del bot desde la API
+  } catch (error) {
+    console.error("Error al comunicarse con la API:", error);
+    throw error; // Lanza el error para que sea manejado en la llamada
+  }
+}
+
 
