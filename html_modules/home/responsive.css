@@ -1,0 +1,107 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Ensure responsiveness for small screens */
+#mobile-app {
+    padding: 16px;
+    background-color: #121212;
+}
+
+/* Brand logo responsiveness */
+#brand img {
+    width: 100px;
+    height: 100px;
+}
+
+/* Welcome text responsiveness */
+#welcome-text h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+#welcome-text p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Dropdown responsiveness */
+#smartwatch-selection select {
+    padding: 12px 16px;
+    font-size: 1rem;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+}
+
+#smartwatch-selection select:focus {
+    outline: none;
+    box-shadow: 0 0 4px #F9E98E;
+}
+
+/* Decorative icons responsiveness */
+#decorative-elements i {
+    font-size: 1.2rem;
+}
+
+/* Media Query for smartphones */
+@media (max-width: 768px) {
+    #mobile-app {
+        padding: 12px;
+    }
+
+    #brand img {
+        width: 80px;
+        height: 80px;
+    }
+
+    #welcome-text h1 {
+        font-size: 1.8rem;
+    }
+
+    #welcome-text p {
+        font-size: 0.9rem;
+    }
+
+    #smartwatch-selection select {
+        font-size: 0.9rem;
+        padding: 10px 12px;
+    }
+
+    #decorative-elements i {
+        font-size: 1rem;
+    }
+}
+
+/* Media Query for extra-small devices */
+@media (max-width: 480px) {
+    #mobile-app {
+        padding: 8px;
+    }
+
+    #brand img {
+        width: 60px;
+        height: 60px;
+    }
+
+    #welcome-text h1 {
+        font-size: 1.5rem;
+    }
+
+    #welcome-text p {
+        font-size: 0.8rem;
+    }
+
+    #smartwatch-selection select {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+    }
+
+    #decorative-elements i {
+        font-size: 0.8rem;
+    }
+}
