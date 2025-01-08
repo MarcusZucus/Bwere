@@ -1,7 +1,7 @@
 {
   "name": "Werbly",
   "short_name": "Werbly",
-  "start_url": "./html_modules/index.html",  // Como está dentro de html_modules
+  "start_url": "https://reliable-puffpuff-387df2.netlify.app/html_modules/index.html",  // Ruta absoluta a la página de inicio
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
