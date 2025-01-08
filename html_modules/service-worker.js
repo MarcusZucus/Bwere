@@ -1,11 +1,11 @@
 const CACHE_NAME = "werbly-cache-v1";
 const urlsToCache = [
-  "index.html",
-  "styles.css",
-  "modules/chat.js",
-  "../icon-192x192.png", // Icono en la raíz
-  "../icon-512x512.png", // Icono en la raíz
-  "manifest.json"
+  "html_modules/index.html", // Ruta ajustada
+  "html_modules/styles.css", // Ruta ajustada
+  "html_modules/modules/chat.js", // Ruta ajustada
+  "html_modules/icon-192x192.png", // Ruta ajustada
+  "html_modules/icon-512x512.png", // Ruta ajustada
+  "html_modules/manifest.json" // Ruta ajustada
 ];
 
 // Instalación del Service Worker y almacenamiento en caché
