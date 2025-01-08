@@ -1,7 +1,7 @@
 {
   "name": "Werbly",
   "short_name": "Werbly",
-  "start_url": "./index.html",  // Como está dentro de html_modules
+  "start_url": "./html_modules/index.html",  // Como está dentro de html_modules
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
