@@ -1,11 +1,14 @@
 const CACHE_NAME = "werbly-cache-v1";
 const urlsToCache = [
-  "/index.html",
-  "/styles.css",
-  "/icon-192x192.png",
-  "/icon-512x512.png"
+  "index.html",
+  "styles.css",
+  "modules/chat.js",
+  "../icon-192x192.png", // Icono en la raíz
+  "../icon-512x512.png", // Icono en la raíz
+  "manifest.json"
 ];
 
+// Instalación del Service Worker y almacenamiento en caché
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
@@ -14,6 +17,7 @@ self.addEventListener("install", event => {
   );
 });
 
+// Gestión de solicitudes de red
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(response => {
@@ -22,6 +26,7 @@ self.addEventListener("fetch", event => {
   );
 });
 
+// Activación del Service Worker y limpieza de cachés antiguas
 self.addEventListener("activate", event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
