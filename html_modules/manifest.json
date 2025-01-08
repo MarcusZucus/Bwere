@@ -1,18 +1,18 @@
 {
   "name": "Werbly",
   "short_name": "Werbly",
-  "start_url": "/html_modules/index.html",  // Usa una ruta relativa
+  "start_url": "./index.html",  // Como está dentro de html_modules
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/html_modules/icon-192x192.png",  // Asegúrate de que esta ruta sea correcta
+      "src": "./icon-192x192.png",  // Íconos dentro de html_modules
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/html_modules/icon-512x512.png",  // Asegúrate de que esta ruta sea correcta
+      "src": "./icon-512x512.png",  // Íconos dentro de html_modules
       "sizes": "512x512",
       "type": "image/png"
     }
