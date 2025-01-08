@@ -6,7 +6,7 @@
   <title>Werbly</title>
   
   <!-- Manifest para PWA -->
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="/html_modules/manifest.json">
 
   <!-- Meta para el color del tema -->
   <meta name="theme-color" content="#000000">
@@ -62,7 +62,7 @@
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
       navigator.serviceWorker
-        .register("/service-worker.js")
+        .register("/html_modules/service-worker.js")
         .then(function (registration) {
           console.log("ServiceWorker registrado con éxito: ", registration.scope);
         })
