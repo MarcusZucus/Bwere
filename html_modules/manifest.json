@@ -1,7 +1,7 @@
 {
   "name": "Werbly",
   "short_name": "Werbly",
-  "start_url": "/index.html",  // Usa una ruta relativa
+  "start_url": "/html_modules/index.html",  // Usa una ruta relativa
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
