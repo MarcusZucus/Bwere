@@ -58,19 +58,6 @@
   </div>
 
   <!-- Registro del Service Worker -->
-  <script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () {
-        navigator.serviceWorker
-            .register("/html_modules/service-worker.js")
-            .then(function (registration) {
-                console.log("ServiceWorker registrado con éxito: ", registration.scope);
-            })
-            .catch(function (err) {
-                console.error("Error al registrar el ServiceWorker:", err);
-            });
-    });
-}
-  </script>
+  <script src="/html_modules/service-worker-registration.js"></script>
 </body>
 </html>
