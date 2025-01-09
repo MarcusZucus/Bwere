@@ -3,6 +3,9 @@ const urlsToCache = [
   "/html_modules/index.html",
   "/html_modules/styles.css",
   "/html_modules/modules/animations.js",
+  "/html_modules/modules/chat.js",
+  "/html_modules/modules/gpt.js",
+  "/html_modules/modules/menu.js",
   "/html_modules/icon-192x192.png",
   "/html_modules/icon-512x512.png",
   "/html_modules/manifest.json",
@@ -21,12 +24,8 @@ self.addEventListener("install", event => {
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(response => {
-      // Si el archivo está en caché, lo devuelve, si no, hace una solicitud de red
-      return response || fetch(event.request)
-        .catch(() => {
-          // Si la solicitud falla, redirige a una página offline (puedes agregar esta página si lo deseas)
-          return caches.match("/html_modules/offline.html");
-        });
+      // Si el archivo está en caché, lo devuelve; si no, hace una solicitud de red
+      return response || fetch(event.request);
     })
   );
 });
