@@ -204,6 +204,29 @@ body {
     background-color: #e96b3a; /* Tono más oscuro de naranja */
 }
 
+/* Botón de Adjuntar */
+#attach-button {
+    height: 40px;
+    width: 40px;
+    background-color: #dddddd; /* Gris */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+#attach-button i {
+    font-size: 16px;
+    color: #333333;
+}
+
+#attach-button:hover {
+    background-color: #bbbbbb; /* Tono más oscuro de gris */
+}
+
 /* Menú Lateral */
 #sidebar {
     position: fixed;
@@ -292,7 +315,7 @@ body {
         font-size: 14px;
     }
 
-    #send-button {
+    #send-button, #attach-button {
         width: 100%;
         height: auto;
     }
