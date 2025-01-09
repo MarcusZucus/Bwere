@@ -29,7 +29,7 @@
   <div id="chat-container">
     <!-- Encabezado -->
     <div id="chat-header">
-      Werbly
+      <span style="font-family: 'Quicksand', sans-serif; font-weight: 600;">Werbly</span>
       <!-- Botón del menú -->
       <button id="menu-button">
         <span class="line line-1"></span>
@@ -72,5 +72,24 @@
         });
     }
   </script>
+
+  <!-- Script para pantalla completa -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen(); // Para navegadores basados en WebKit
+      }
+    });
+
+    // Opcional: vuelve a pantalla completa al regresar a la app desde el fondo
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+    });
+  </script>
 </body>
 </html>
+
