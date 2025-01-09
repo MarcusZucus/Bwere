@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #ffffff;
+    background-color: #ffffff; /* Fondo blanco */
     color: #333333;
     display: flex;
     justify-content: center;
@@ -24,7 +24,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #f5f5f5;
+    background-color: #ffffff; /* Fondo blanco */
     overflow: hidden;
     position: relative;
 }
@@ -32,7 +32,6 @@ body {
 /* Encabezado */
 #chat-header {
     padding: 12px 20px;
-    background-color: #f0f0f0;
     font-size: 18px;
     font-weight: 500;
     display: flex;
@@ -43,6 +42,8 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000; /* Asegura que esté sobre el contenido */
+    background-color: transparent; /* Sin color */
+    border-bottom: 1px solid #eeeeee; /* Línea ligera para separar */
 }
 
 /* Botón para abrir/cerrar el menú lateral */
@@ -159,13 +160,14 @@ body {
     display: flex;
     align-items: center;
     padding: 12px 20px;
-    background-color: #f0f0f0;
+    background-color: transparent; /* Sin color */
     gap: 10px;
     position: fixed; /* Siempre fija abajo */
     bottom: 0;
     left: 0;
     width: 100%;
     z-index: 1000; /* Asegura que esté sobre el contenido */
+    border-top: 1px solid #eeeeee; /* Línea ligera para separar */
 }
 
 /* Campo de Entrada */
@@ -175,7 +177,7 @@ body {
     padding: 10px 15px;
     font-size: 16px;
     border-radius: 30px;
-    background-color: #ffffff;
+    background-color: #f5f5f5; /* Fondo gris claro */
     border: none;
     color: #333333;
     outline: none;
@@ -234,7 +236,7 @@ body {
     left: -250px;
     width: 250px;
     height: 100%;
-    background-color: #f0f0f0;
+    background-color: #ffffff; /* Fondo blanco */
     color: #333333;
     overflow-y: auto;
     padding: 20px;
@@ -319,6 +321,14 @@ body {
         width: 100%;
         height: auto;
     }
+
+    #sidebar {
+        width: 100%;
+        height: auto;
+        font-size: 14px;
+    }
+}
+
 
     #sidebar {
         width: 100%;
