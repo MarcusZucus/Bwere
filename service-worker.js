@@ -7,7 +7,7 @@ const urlsToCache = [
   "/html_modules/modules/menu.js",
   "/html_modules/icon-192x192.png",
   "/html_modules/icon-512x512.png",
-  "/html_modules/manifest.json",
+  "/manifest.json",
 ];
 
 // Instalación del Service Worker y almacenamiento en caché
