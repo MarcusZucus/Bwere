@@ -67,6 +67,26 @@
     <div class="conversation" data-id="3">Conversación 3</div>
   </div>
 
+  <!-- JavaScript para ajustar la posición del input-area -->
+  <script>
+    // Detecta cambios en el tamaño de la ventana (por ejemplo, apertura del teclado)
+    window.addEventListener('resize', () => {
+      const inputArea = document.getElementById('input-area');
+      const viewportHeight = window.innerHeight;
+
+      // Si la altura de la ventana es menor (teclado visible)
+      if (viewportHeight < 600) {
+        inputArea.style.position = 'fixed'; // Asegura que esté siempre visible
+        inputArea.style.bottom = '0';      // Colócalo al frente
+        inputArea.style.zIndex = '1000';   // Colócalo sobre el teclado
+      } else {
+        // Restaurar posición normal cuando el teclado esté cerrado
+        inputArea.style.position = 'fixed';
+        inputArea.style.bottom = '0';
+      }
+    });
+  </script>
+
   <!-- Registro del Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
