@@ -97,13 +97,14 @@ body {
 #messages {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding-top: 60px; /* Altura del header para evitar superposición */
+    padding-bottom: 60px; /* Altura del input para evitar superposición */
+    padding-left: 20px;
+    padding-right: 20px;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    margin-top: 60px; /* Altura del header para evitar superposición */
-    margin-bottom: 60px; /* Altura del input para evitar superposición */
 }
 
 /* Mensajes */
@@ -255,6 +256,8 @@ body {
 
     #messages {
         padding: 10px;
+        padding-top: 60px;
+        padding-bottom: 60px;
         flex: 1;
         overflow-y: auto;
         font-size: 14px;
