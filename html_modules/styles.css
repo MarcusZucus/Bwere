@@ -14,6 +14,7 @@ body {
     align-items: center;
     height: 100vh;
     padding: 0;
+    overflow: hidden; /* Previene el scroll del cuerpo */
 }
 
 /* Contenedor Principal */
@@ -39,6 +40,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed; /* Fija la barra */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que esté sobre el contenido */
 }
 
 /* Botón para abrir/cerrar el menú lateral */
@@ -92,16 +98,17 @@ body {
 /* Área de Mensajes */
 #messages {
     display: flex;
-    flex-direction: column; /* Invierte el orden de los mensajes */
+    flex-direction: column;
     padding: 20px;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    scroll-behavior: smooth; /* Desplazamiento suave */
+    scroll-behavior: smooth;
+    margin-top: 60px; /* Ajusta el margen para evitar superposición con el encabezado */
 }
 
 .message {
-    margin-bottom: 30px; /* Espaciado entre mensajes */
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
 }
@@ -113,7 +120,6 @@ body {
     .message.bot {
         justify-content: flex-start;
     }
-
 
 .message-content {
     max-width: 85%;
@@ -132,8 +138,8 @@ body {
 
 .message.bot .message-content {
     color: #e5e5e5;
-    opacity: 0; /* Inicialmente invisible */
-    animation: fade-in 0.5s ease forwards; /* Animación de desvanecimiento */
+    opacity: 0;
+    animation: fade-in 0.5s ease forwards;
 }
 
 /* Animación de desvanecimiento */
@@ -154,12 +160,12 @@ body {
     padding: 12px 20px;
     background-color: #202225;
     border-top: 1px solid #444654;
-    gap: 10px; /* Espacio entre el input y el botón */
+    gap: 10px;
 }
 
 #message-input {
-    flex: 1; /* Ocupa todo el espacio disponible */
-    height: 40px; /* Define una altura consistente */
+    flex: 1;
+    height: 40px;
     padding: 10px 15px;
     font-size: 16px;
     border-radius: 30px;
@@ -170,8 +176,8 @@ body {
 }
 
 #send-button {
-    height: 40px; /* Tamaño reducido para coincidir con el input */
-    width: 40px; /* Mantiene el círculo perfecto */
+    height: 40px;
+    width: 40px;
     background-color: #2f80ed;
     border: none;
     border-radius: 50%;
@@ -183,7 +189,7 @@ body {
 }
 
     #send-button i {
-        font-size: 16px; /* Ajusta el tamaño del ícono */
+        font-size: 16px;
         color: white;
     }
 
@@ -195,7 +201,7 @@ body {
 #sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* Oculto inicialmente */
+    left: -250px;
     width: 250px;
     height: 100%;
     background-color: #202225;
@@ -207,7 +213,7 @@ body {
 }
 
     #sidebar.open {
-        left: 0; /* Despliega el menú */
+        left: 0;
     }
 
     #sidebar h2 {
@@ -227,7 +233,7 @@ body {
         background-color: #444654;
     }
 
-/* Estilos para pantallas pequeñas (320px de ancho, móviles) */
+/* Estilos para pantallas pequeñas */
 @media (max-width: 320px) {
     #chat-container {
         width: 100%;
@@ -245,27 +251,28 @@ body {
         padding: 10px;
         flex: 1;
         overflow-y: auto;
-        font-size: 14px; /* Ajusta el tamaño del texto */
+        font-size: 14px;
     }
 
     #input-area {
         padding: 10px;
-        flex-direction: column; /* Cambia la disposición del input y botón */
+        flex-direction: column;
     }
 
     #message-input {
-        margin-bottom: 10px; /* Espaciado entre input y botón */
+        margin-bottom: 10px;
         font-size: 14px;
     }
 
     #send-button {
-        width: 100%; /* Botón ocupa todo el ancho */
-        height: auto; /* Ajusta la altura automáticamente */
+        width: 100%;
+        height: auto;
     }
 
     #sidebar {
-        width: 100%; /* Menú lateral ocupa todo el ancho */
-        height: auto; /* Ajusta la altura automáticamente */
+        width: 100%;
+        height: auto;
         font-size: 14px;
     }
 }
+
