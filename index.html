@@ -69,22 +69,30 @@
 
   <!-- JavaScript para ajustar la posición del input-area -->
   <script>
-    // Detecta cambios en el tamaño de la ventana (por ejemplo, apertura del teclado)
+    // Detecta cambios en el tamaño de la ventana
     window.addEventListener('resize', () => {
       const inputArea = document.getElementById('input-area');
+      const messagesArea = document.getElementById('messages');
       const viewportHeight = window.innerHeight;
 
-      // Si la altura de la ventana es menor (teclado visible)
+      // Si la altura de la ventana disminuye (teclado visible)
       if (viewportHeight < 600) {
-        inputArea.style.position = 'fixed'; // Asegura que esté siempre visible
-        inputArea.style.bottom = '0';      // Colócalo al frente
-        inputArea.style.zIndex = '1000';   // Colócalo sobre el teclado
+        inputArea.style.position = 'fixed'; // Siempre visible
+        inputArea.style.bottom = '0';      // Por encima del teclado
+        inputArea.style.zIndex = '1000';   // Mayor z-index para asegurar que esté al frente
+
+        // Ajustar la altura del área de mensajes
+        messagesArea.style.paddingBottom = '120px'; // Espacio adicional para evitar solapamientos
       } else {
-        // Restaurar posición normal cuando el teclado esté cerrado
+        // Restaurar posición y altura cuando el teclado no esté visible
         inputArea.style.position = 'fixed';
         inputArea.style.bottom = '0';
+        messagesArea.style.paddingBottom = '60px'; // Altura normal del input-area
       }
     });
+
+    // Ajuste inicial al cargar la página
+    window.dispatchEvent(new Event('resize'));
   </script>
 
   <!-- Registro del Service Worker -->
