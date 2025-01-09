@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
   <title>Werbly</title>
 
@@ -74,28 +74,6 @@
           console.log('Service Worker registration failed:', error);
         });
     }
-  </script>
-
-  <!-- Script para pantalla completa -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch((err) => {
-          console.log('Fullscreen request failed:', err);
-        });
-      } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen(); // Para navegadores basados en WebKit
-      }
-    });
-
-    // Opcional: vuelve a pantalla completa al regresar a la app desde el fondo
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible" && document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch((err) => {
-          console.log('Fullscreen request on visibility change failed:', err);
-        });
-      }
-    });
   </script>
 </body>
 </html>
