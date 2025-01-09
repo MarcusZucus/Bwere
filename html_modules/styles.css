@@ -40,7 +40,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky; /* Fija la barra */
+    position: fixed; /* Fija la barra */
     top: 0;
     left: 0;
     width: 100%;
