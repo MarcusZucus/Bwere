@@ -240,6 +240,25 @@ body {
     background-color: #dcdcdc;
 }
 
+/* Superposición para oscurecer el fondo */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0); /* Inicialmente transparente */
+    z-index: 1099; /* Debajo del menú (#sidebar) */
+    pointer-events: none; /* No bloquea clics inicialmente */
+    transition: background-color 0.3s ease; /* Suaviza la transición */
+}
+
+/* Cuando el menú está abierto */
+#sidebar.open + #overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscurecido */
+    pointer-events: auto; /* Habilita clics para cerrarlo si es necesario */
+}
+
 /* Estilos para pantallas pequeñas */
 @media (max-width: 320px) {
     #chat-container {
