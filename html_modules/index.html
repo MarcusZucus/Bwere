@@ -61,7 +61,7 @@
   <script>
     // Intenta cargar el script de registro
     const script = document.createElement('script');
-    script.src = '/html_modules/service-worker-registration.js';
+    script.src = '/html_modules/modules/service-worker-registration.js'; // Ruta corregida
     script.onload = function() {
       console.log('service-worker-registration.js loaded successfully.');
     };
@@ -71,7 +71,7 @@
       // Código para registrar el Service Worker directamente
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/html_modules/service-worker.js')
+          navigator.serviceWorker.register('/html_modules/modules/service-worker.js')
             .then(function(registration) {
               console.log('Service Worker registered with scope:', registration.scope);
             })
