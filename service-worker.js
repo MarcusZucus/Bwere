@@ -1,10 +1,10 @@
 const CACHE_NAME = "werbly-cache-v1";
 const urlsToCache = [
   "/index.html",
-  "/styles.css",
-  "/modules/animations.js",
-  "/modules/chat.js",
-  "/modules/menu.js",
+  "/html_modules/styles.css",
+  "/html_modules/modules/animations.js",
+  "/html_modules/modules/chat.js",
+  "/html_modules/modules/menu.js",
   "/icon-192x192.png",
   "/icon-512x512.png",
   "/manifest.json",
