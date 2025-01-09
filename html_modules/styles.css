@@ -15,7 +15,6 @@ body {
     height: 100vh;
     padding: 0;
     overflow: hidden; /* Previene el scroll del cuerpo */
-    touch-action: manipulation; /* Evita comportamientos inesperados */
 }
 
 /* Contenedor Principal */
@@ -29,7 +28,6 @@ body {
     border-radius: 0px;
     overflow: hidden;
     position: relative;
-    touch-action: manipulation; /* Mejora la estabilidad */
 }
 
 /* Encabezado */
@@ -62,40 +60,40 @@ body {
     height: 16px;
 }
 
-#menu-button .line {
-    position: absolute;
-    width: 100%;
-    height: 1.5px;
-    background-color: #e5e5e5;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
+    #menu-button .line {
+        position: absolute;
+        width: 100%;
+        height: 1.5px;
+        background-color: #e5e5e5;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
 
-#menu-button .line-1 {
-    top: 0;
-}
+    #menu-button .line-1 {
+        top: 0;
+    }
 
-#menu-button .line-2 {
-    top: 50%;
-    transform: translateY(-50%);
-}
+    #menu-button .line-2 {
+        top: 50%;
+        transform: translateY(-50%);
+    }
 
-#menu-button .line-3 {
-    bottom: 0;
-}
+    #menu-button .line-3 {
+        bottom: 0;
+    }
 
-#menu-button.open .line-1 {
-    transform: rotate(45deg);
-    top: 50%;
-}
+    #menu-button.open .line-1 {
+        transform: rotate(45deg);
+        top: 50%;
+    }
 
-#menu-button.open .line-2 {
-    opacity: 0;
-}
+    #menu-button.open .line-2 {
+        opacity: 0;
+    }
 
-#menu-button.open .line-3 {
-    transform: rotate(-45deg);
-    top: 50%;
-}
+    #menu-button.open .line-3 {
+        transform: rotate(-45deg);
+        top: 50%;
+    }
 
 /* Área de Mensajes */
 #messages {
@@ -115,13 +113,13 @@ body {
     align-items: center;
 }
 
-.message.user {
-    justify-content: flex-end;
-}
+    .message.user {
+        justify-content: flex-end;
+    }
 
-.message.bot {
-    justify-content: flex-start;
-}
+    .message.bot {
+        justify-content: flex-start;
+    }
 
 .message-content {
     max-width: 85%;
@@ -190,14 +188,14 @@ body {
     transition: background-color 0.3s ease;
 }
 
-#send-button i {
-    font-size: 16px;
-    color: white;
-}
+    #send-button i {
+        font-size: 16px;
+        color: white;
+    }
 
-#send-button:hover {
-    background-color: #2682d1;
-}
+    #send-button:hover {
+        background-color: #2682d1;
+    }
 
 /* Menú Lateral */
 #sidebar {
@@ -214,14 +212,14 @@ body {
     transition: left 0.3s ease;
 }
 
-#sidebar.open {
-    left: 0;
-}
+    #sidebar.open {
+        left: 0;
+    }
 
-#sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
+    #sidebar h2 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
 
 .conversation {
     padding: 10px;
@@ -231,9 +229,9 @@ body {
     cursor: pointer;
 }
 
-.conversation:hover {
-    background-color: #444654;
-}
+    .conversation:hover {
+        background-color: #444654;
+    }
 
 /* Estilos para pantallas pequeñas */
 @media (max-width: 320px) {
@@ -254,7 +252,6 @@ body {
         flex: 1;
         overflow-y: auto;
         font-size: 14px;
-        margin-top: 60px; /* Mantiene la compensación del encabezado fijo */
     }
 
     #input-area {
