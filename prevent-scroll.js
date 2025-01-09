@@ -14,3 +14,17 @@ window.addEventListener("beforeunload", (e) => {
   e.preventDefault();
   e.returnValue = "";
 });
+
+// Ajusta el comportamiento del encabezado para evitar que desaparezca con el teclado
+window.addEventListener("resize", () => {
+  const header = document.getElementById("chat-header");
+  if (window.innerHeight < window.outerHeight * 0.8) {
+    // El teclado probablemente está abierto
+    header.style.position = "absolute";
+    header.style.top = `${window.scrollY}px`; // Ajusta la posición según el desplazamiento
+  } else {
+    // El teclado probablemente está cerrado
+    header.style.position = "fixed";
+    header.style.top = "0";
+  }
+});
