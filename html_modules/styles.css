@@ -165,7 +165,8 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Asegura que esté sobre el contenido */
+    z-index: 2000; /* Asegura que esté por delante de otros elementos */
+    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1); /* Sutil sombra para separar del contenido */
 }
 
 /* Campo de Entrada */
