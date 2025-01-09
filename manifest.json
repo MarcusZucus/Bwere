@@ -4,8 +4,8 @@
   "start_url": "/index.html",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#202225",
-  "theme_color": "#202225",
+  "background_color": "#F5F5F5",
+  "theme_color": "#F5F5F5",
   "description": "Werbly es una aplicación de chat avanzada y optimizada.",
   "scope": "/",
   "icons": [
