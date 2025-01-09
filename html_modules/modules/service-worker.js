@@ -1,14 +1,13 @@
 const CACHE_NAME = "werbly-cache-v1";
 const urlsToCache = [
-  "/html_modules/index.html",
-  "/html_modules/styles.css",
-  "/html_modules/modules/animations.js",
-  "/html_modules/modules/chat.js",
-  "/html_modules/modules/gpt.js",
-  "/html_modules/modules/menu.js",
-  "/html_modules/icon-192x192.png",
-  "/html_modules/icon-512x512.png",
-  "/html_modules/manifest.json",
+  "index.html",
+  "styles.css",
+  "modules/animations.js",
+  "modules/chat.js",
+  "modules/menu.js",
+  "icon-192x192.png",
+  "icon-512x512.png",
+  "manifest.json",
 ];
 
 // Instalación del Service Worker y almacenamiento en caché
