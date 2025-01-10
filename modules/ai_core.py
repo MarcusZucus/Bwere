@@ -10,6 +10,7 @@ incluyendo OpenAI, modelos entrenados localmente (como LLaMA) u otros backends.
 **Conexión con otros módulos**:
 - Es utilizado por módulos como `analysis_engine`, `motivation_tracker`, `nutrition_planner`, etc., 
   para enviar prompts y recibir respuestas de la IA.
+- Integra `backend_manager` para gestionar backends personalizados dinámicamente.
 '''
 
 import os
@@ -20,6 +21,7 @@ from typing import Dict, Any, Optional
 from tenacity import retry, stop_after_attempt, wait_exponential
 import openai
 import requests
+from backend_manager import BackendManager
 
 # Configuración del sistema de logs
 logging_level = os.getenv("LOGGING_LEVEL", "INFO").upper()
@@ -40,7 +42,7 @@ class AICore:
 
     def __init__(self):
         self.backend = DEFAULT_BACKEND
-        self.custom_backends = {}
+        self.backend_manager = BackendManager()
         self._validate_configuration()
 
     def _validate_configuration(self):
@@ -70,8 +72,8 @@ class AICore:
                 response = self._query_openai(prompt, self._validate_options(options, "openai"))
             elif self.backend == "llama":
                 response = self._query_llama(prompt, self._validate_options(options, "llama"))
-            elif self.backend in self.custom_backends:
-                response = self.custom_backends[self.backend](prompt, options)
+            elif self.backend in self.backend_manager.list_backends():
+                response = self.backend_manager.query_backend(self.backend, prompt, options)
             else:
                 raise ValueError(f"[{query_id}] Backend de IA desconocido: {self.backend}")
             elapsed_time = time.time() - start_time
@@ -169,7 +171,7 @@ class AICore:
         :param name: Nombre del backend.
         :param handler: Función que maneja las consultas para este backend.
         """
-        self.custom_backends[name] = handler
+        self.backend_manager.register_backend(name, handler)
         logging.info(f"Backend personalizado registrado: {name}")
 
     def remove_backend(self, name: str):
@@ -178,11 +180,8 @@ class AICore:
 
         :param name: Nombre del backend a eliminar.
         """
-        if name in self.custom_backends:
-            del self.custom_backends[name]
-            logging.info(f"Backend personalizado eliminado: {name}")
-        else:
-            logging.warning(f"Intento de eliminar un backend no registrado: {name}")
+        self.backend_manager.remove_backend(name)
+        logging.info(f"Backend personalizado eliminado: {name}")
 
     def get_available_backends(self) -> Dict[str, Any]:
         """
@@ -193,7 +192,7 @@ class AICore:
         backends_status = {
             "openai": bool(OPENAI_API_KEY),
             "llama": bool(LLAMA_API_ENDPOINT),
-            **{name: True for name in self.custom_backends}
+            **{name: True for name in self.backend_manager.list_backends()}
         }
         logging.info(f"Backends disponibles: {backends_status}")
         return backends_status
@@ -211,8 +210,8 @@ class AICore:
             elif backend == "llama":
                 response = requests.get(LLAMA_API_ENDPOINT, timeout=5)
                 return response.status_code == 200
-            elif backend in self.custom_backends:
-                return True  # Los backends personalizados se consideran disponibles por definición
+            elif backend in self.backend_manager.list_backends():
+                return self.backend_manager.test_backend(backend)
             return False
         except Exception as e:
             logging.error(f"Error al probar el backend {backend}: {str(e)}")
@@ -220,15 +219,16 @@ class AICore:
 
     def test_all_backends(self) -> Dict[str, bool]:
         """
-        Prueba todos los backends configurados y devuelve su estado.
+        Prueba la disponibilidad de todos los backends configurados.
 
         :return: Diccionario con el estado de cada backend (True si está disponible, False si no lo está).
         """
         results = {}
-        for backend in ["openai", "llama", *self.custom_backends.keys()]:
+        for backend in ["openai", "llama", *self.backend_manager.list_backends()]:
             results[backend] = self.test_backend(backend)
         logging.info(f"Resultados de las pruebas de backends: {results}")
         return results
+
     def log_performance(self, backend: str, elapsed_time: float):
         """
         Registra el tiempo de ejecución de una consulta al backend.
@@ -256,7 +256,7 @@ class AICore:
         """
         prompt = "Este es un prompt de prueba para la integración del backend."
         results = {}
-        for backend in ["openai", "llama", *self.custom_backends.keys()]:
+        for backend in ["openai", "llama", *self.backend_manager.list_backends()]:
             try:
                 logging.info(f"Realizando prueba de integración para el backend: {backend}")
                 self.backend = backend  # Cambiar dinámicamente el backend
