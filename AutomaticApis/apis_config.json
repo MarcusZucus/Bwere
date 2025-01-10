@@ -1,0 +1,23 @@
+{
+    "USDA": {
+        "url": "https://api.nal.usda.gov/fdc/v1/foods/list",
+        "method": "GET",
+        "headers": {},
+        "params": {
+            "api_key": "${USDA_API_KEY}",
+            "pageSize": 50
+        },
+        "response_format": "json"
+    },
+    "Edamam": {
+        "url": "https://api.edamam.com/api/food-database/v2/parser",
+        "method": "GET",
+        "headers": {},
+        "params": {
+            "app_id": "${EDAMAM_API_ID}",
+            "app_key": "${EDAMAM_API_KEY}",
+            "ingr": "apple"
+        },
+        "response_format": "json"
+    }
+}
