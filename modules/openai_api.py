@@ -1,11 +1,19 @@
-"""
-Módulo de Interacción con OpenAI.
-Encapsula las llamadas a la API de ChatGPT/GPT.
-"""
-
 import openai
 from modules.config import get_openai_key
 from modules.conversation_manager import save_message, get_conversation_history
+from modules.firebase_connection import get_firestore_client
+
+def get_base_prompt():
+    """
+    Recupera el prompt base desde Firestore para usarlo como contexto del sistema.
+    """
+    db = get_firestore_client()
+    doc_ref = db.collection("prompts").document("prompt_usuario")
+    doc = doc_ref.get()
+    if doc.exists:
+        return doc.to_dict().get("contenido", "No se encontró el prompt base.")
+    else:
+        return "No se encontró el prompt base."
 
 def ask_werbly(user_id, user_input):
     """
@@ -14,17 +22,23 @@ def ask_werbly(user_id, user_input):
     """
     openai.api_key = get_openai_key()
 
+    # Recuperar el prompt base desde Firestore
+    base_prompt = get_base_prompt()
+
     # Recuperar el historial completo de la conversación
     conversation_history = get_conversation_history(user_id)
 
     # Agregar el mensaje actual del usuario al historial
     conversation_history.append({"role": "user", "content": user_input})
 
+    # Construir el contexto completo para la IA
+    messages = [{"role": "system", "content": base_prompt}] + conversation_history
+
     try:
         # Enviar el historial completo a la IA
         response = openai.ChatCompletion.create(
             model="gpt-4",
-            messages=conversation_history,
+            messages=messages,
             max_tokens=1000  # Límite para la respuesta
         )
 
@@ -41,13 +55,16 @@ def ask_werbly(user_id, user_input):
         if "maximum context length" in str(e):
             # Resumir historial si supera los límites
             summarized_history = summarize_history(conversation_history)
-            conversation_history = [{"role": "system", "content": "Resumen del contexto previo: " + summarized_history}]
-            conversation_history.append({"role": "user", "content": user_input})
+            messages = [
+                {"role": "system", "content": base_prompt},
+                {"role": "system", "content": "Resumen del contexto previo: " + summarized_history},
+                {"role": "user", "content": user_input}
+            ]
 
             # Reintentar la solicitud con el historial resumido
             response = openai.ChatCompletion.create(
                 model="gpt-4",
-                messages=conversation_history,
+                messages=messages,
                 max_tokens=1000
             )
 
