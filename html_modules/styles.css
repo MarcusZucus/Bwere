@@ -48,32 +48,32 @@ body {
 
 /* Botón para abrir/cerrar el menú lateral */
 #menu-button {
+    width: 24px;
+    height: 24px;
     background: none;
     border: none;
-    font-size: 18px;
-    color: #FF7F50; /* Mismo color que "werbly" */
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    margin-right: 7px;
-    width: 24px; /* Ajustado para mejor alineación */
-    height: 16px; /* Ajustado para mejor alineación */
 }
 
 #menu-button .line {
+    width: 20px;
+    height: 2px;
+    background-color: #FF7F50;
+    border-radius: 5px;
     position: absolute;
-    width: 100%;
-    height: 2px; /* Mismo grosor que las letras */
-    background-color: #FF7F50; /* Mismo color que "werbly" */
-    border-radius: 5px; /* Bordes redondeados */
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 #menu-button .line-1 {
-    top: 2px; /* Ajuste para espacio correcto */
+    top: 6px;
 }
 
 #menu-button .line-2 {
-    bottom: 2px; /* Ajuste para espacio correcto */
+    bottom: 6px;
 }
 
 #menu-button.open .line-1 {
