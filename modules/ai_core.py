@@ -15,9 +15,11 @@ incluyendo OpenAI, modelos entrenados localmente (como LLaMA) u otros backends.
 import os
 import logging
 from typing import Dict, Any, Optional
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 # Configuración del sistema de logs
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging_level = os.getenv("LOGGING_LEVEL", "INFO").upper()
+logging.basicConfig(level=logging_level, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # OpenAI (u otros proveedores externos de IA) importaciones
 import openai
@@ -27,7 +29,6 @@ import requests
 DEFAULT_BACKEND = os.getenv("AI_BACKEND", "openai")  # "openai", "llama", "custom"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 LLAMA_API_ENDPOINT = os.getenv("LLAMA_API_ENDPOINT")  # Si usas un modelo local/servidor
-
 
 class AICore:
     """
@@ -50,7 +51,7 @@ class AICore:
 
     def query_model(self, prompt: str, options: Optional[Dict[str, Any]] = None) -> str:
         """
-        Envia un prompt al modelo configurado y devuelve la respuesta generada.
+        Envía un prompt al modelo configurado y devuelve la respuesta generada.
 
         :param prompt: Texto que se enviará al modelo de IA.
         :param options: Opciones adicionales específicas del backend (como temperatura, tokens, etc.).
@@ -59,16 +60,27 @@ class AICore:
         try:
             logging.info(f"Enviando prompt al backend {self.backend}: {prompt}")
             if self.backend == "openai":
-                return self._query_openai(prompt, options)
+                return self._query_openai(prompt, self._validate_options(options))
             elif self.backend == "llama":
-                return self._query_llama(prompt, options)
+                return self._query_llama(prompt, self._validate_options(options))
             else:
                 raise ValueError(f"Backend de IA desconocido: {self.backend}")
         except Exception as e:
             logging.error(f"Error al procesar el prompt: {str(e)}")
             return f"Error al consultar el modelo {self.backend}: {str(e)}"
 
-    def _query_openai(self, prompt: str, options: Optional[Dict[str, Any]] = None) -> str:
+    def _validate_options(self, options: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Valida y completa las opciones proporcionadas con valores predeterminados.
+
+        :param options: Opciones adicionales.
+        :return: Opciones validadas y completadas.
+        """
+        default_options = {"temperature": 0.7, "max_tokens": 300, "model": "gpt-3.5-turbo"}
+        return {**default_options, **(options or {})}
+
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+    def _query_openai(self, prompt: str, options: Dict[str, Any]) -> str:
         """
         Envía un prompt a OpenAI y devuelve la respuesta.
 
@@ -79,10 +91,10 @@ class AICore:
         try:
             openai.api_key = OPENAI_API_KEY
             response = openai.ChatCompletion.create(
-                model=options.get("model", "gpt-3.5-turbo"),
+                model=options["model"],
                 messages=[{"role": "user", "content": prompt}],
-                temperature=options.get("temperature", 0.7),
-                max_tokens=options.get("max_tokens", 300)
+                temperature=options["temperature"],
+                max_tokens=options["max_tokens"]
             )
             message = response["choices"][0]["message"]["content"].strip()
             logging.info(f"Respuesta de OpenAI: {message}")
@@ -94,7 +106,8 @@ class AICore:
             logging.error(f"Respuesta de OpenAI en formato inesperado: {str(e)}")
             return "Error: La respuesta de OpenAI no tiene el formato esperado."
 
-    def _query_llama(self, prompt: str, options: Optional[Dict[str, Any]] = None) -> str:
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+    def _query_llama(self, prompt: str, options: Dict[str, Any]) -> str:
         """
         Envía un prompt al modelo LLaMA (o modelo local) y devuelve la respuesta.
 
@@ -105,8 +118,8 @@ class AICore:
         try:
             payload = {
                 "prompt": prompt,
-                "temperature": options.get("temperature", 0.7),
-                "max_tokens": options.get("max_tokens", 300)
+                "temperature": options["temperature"],
+                "max_tokens": options["max_tokens"]
             }
             response = requests.post(LLAMA_API_ENDPOINT, json=payload)
             response.raise_for_status()
