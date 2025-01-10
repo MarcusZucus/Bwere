@@ -24,7 +24,7 @@ def start_conversation():
                 break
 
             # Obtener respuesta de Werbly usando GPT
-            response = ask_werbly(user_input)
+            response = ask_werbly(user_id, user_input)  # Proporcionamos ambos argumentos
 
             # Mostrar la respuesta al usuario
             print(f"Werbly: {response}\n")
@@ -39,13 +39,13 @@ def start_conversation():
 
 def run_app():
     """
-    Flujo principal de la aplicaci\u00f3n.
+    Flujo principal de la aplicación.
     """
     # 1. Inicializar Firebase
     init_firebase()
     print("Firebase initialized.")
 
-    # 2. Iniciar conversaci\u00f3n interactiva
+    # 2. Iniciar conversación interactiva
     start_conversation()
 
 if __name__ == "__main__":
