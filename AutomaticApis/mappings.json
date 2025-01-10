@@ -1,0 +1,10 @@
+{
+    "USDA": {
+        "name": "description",
+        "calories": "foodNutrients[0].value"
+    },
+    "Edamam": {
+        "name": "text",
+        "calories": "nutrients.ENERC_KCAL"
+    }
+}
