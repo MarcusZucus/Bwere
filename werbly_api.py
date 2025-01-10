@@ -21,13 +21,14 @@ def chat():
         data = request.get_json()
         if not data:
             return jsonify({"error": "No se proporcionaron datos en la solicitud."}), 400
-        
-        user_message = data.get("message", "")
-        if not user_message:
-            return jsonify({"error": "No se proporcionó ningún mensaje."}), 400
 
-        # Obtener respuesta de Werbly
-        response = ask_werbly(user_message)
+        user_id = data.get("user_id", "")
+        user_message = data.get("message", "")
+        if not user_id or not user_message:
+            return jsonify({"error": "No se proporcionó el ID de usuario o el mensaje."}), 400
+
+        # Obtener respuesta de Werbly con historial
+        response = ask_werbly(user_id, user_message)
 
         return jsonify({"response": response})
 
