@@ -15,6 +15,7 @@ incluyendo OpenAI, modelos entrenados localmente (como LLaMA) u otros backends.
 import os
 import logging
 import time
+import uuid
 from typing import Dict, Any, Optional
 from tenacity import retry, stop_after_attempt, wait_exponential
 import openai
@@ -60,23 +61,24 @@ class AICore:
         :param options: Opciones adicionales específicas del backend (como temperatura, tokens, etc.).
         :return: Respuesta generada por la IA.
         """
+        query_id = uuid.uuid4()
         self._validate_prompt(prompt)
         start_time = time.time()
         try:
-            logging.info(f"Enviando prompt al backend {self.backend}: {prompt}")
+            logging.info(f"[{query_id}] Enviando prompt al backend {self.backend}: {prompt}")
             if self.backend == "openai":
-                response = self._query_openai(prompt, self._validate_options(options))
+                response = self._query_openai(prompt, self._validate_options(options, "openai"))
             elif self.backend == "llama":
-                response = self._query_llama(prompt, self._validate_options(options))
+                response = self._query_llama(prompt, self._validate_options(options, "llama"))
             elif self.backend in self.custom_backends:
                 response = self.custom_backends[self.backend](prompt, options)
             else:
-                raise ValueError(f"Backend de IA desconocido: {self.backend}")
+                raise ValueError(f"[{query_id}] Backend de IA desconocido: {self.backend}")
             elapsed_time = time.time() - start_time
-            logging.info(f"Consulta completada en {elapsed_time:.2f} segundos.")
+            self.log_performance(self.backend, elapsed_time)
             return response
         except Exception as e:
-            logging.error(f"Error al procesar el prompt: {str(e)}")
+            self.log_error(self.backend, e)
             return f"Error al consultar el modelo {self.backend}: {str(e)}"
     def _validate_prompt(self, prompt: str):
         """
@@ -87,15 +89,19 @@ class AICore:
         if not prompt or not isinstance(prompt, str) or len(prompt) > 5000:
             raise ValueError("El prompt no es válido: debe ser un string no vacío y de menos de 5000 caracteres.")
 
-    def _validate_options(self, options: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    def _validate_options(self, options: Optional[Dict[str, Any]], backend: str) -> Dict[str, Any]:
         """
-        Valida y completa las opciones proporcionadas con valores predeterminados.
+        Valida y completa las opciones proporcionadas con valores predeterminados específicos del backend.
 
         :param options: Opciones adicionales.
+        :param backend: Nombre del backend para el cual se validan las opciones.
         :return: Opciones validadas y completadas.
         """
-        default_options = {"temperature": 0.7, "max_tokens": 300, "model": "gpt-3.5-turbo"}
-        return {**default_options, **(options or {})}
+        default_options = {
+            "openai": {"temperature": 0.7, "max_tokens": 300, "model": "gpt-3.5-turbo"},
+            "llama": {"temperature": 0.7, "max_tokens": 300}
+        }
+        return {**default_options.get(backend, {}), **(options or {})}
 
     def _validate_response(self, response: dict, backend: str, key: str = "generated_text") -> str:
         """
@@ -166,6 +172,18 @@ class AICore:
         self.custom_backends[name] = handler
         logging.info(f"Backend personalizado registrado: {name}")
 
+    def remove_backend(self, name: str):
+        """
+        Elimina un backend personalizado registrado.
+
+        :param name: Nombre del backend a eliminar.
+        """
+        if name in self.custom_backends:
+            del self.custom_backends[name]
+            logging.info(f"Backend personalizado eliminado: {name}")
+        else:
+            logging.warning(f"Intento de eliminar un backend no registrado: {name}")
+
     def get_available_backends(self) -> Dict[str, Any]:
         """
         Devuelve una lista de los backends disponibles y configurados.
@@ -211,18 +229,6 @@ class AICore:
             results[backend] = self.test_backend(backend)
         logging.info(f"Resultados de las pruebas de backends: {results}")
         return results
-    def remove_backend(self, name: str):
-        """
-        Elimina un backend personalizado registrado.
-
-        :param name: Nombre del backend a eliminar.
-        """
-        if name in self.custom_backends:
-            del self.custom_backends[name]
-            logging.info(f"Backend personalizado eliminado: {name}")
-        else:
-            logging.warning(f"Intento de eliminar un backend no registrado: {name}")
-
     def log_performance(self, backend: str, elapsed_time: float):
         """
         Registra el tiempo de ejecución de una consulta al backend.
@@ -240,3 +246,22 @@ class AICore:
         :param error: Objeto de la excepción capturada.
         """
         logging.error(f"Error en el backend '{backend}': {str(error)}")
+
+    def integration_test(self) -> Dict[str, Any]:
+        """
+        Realiza una prueba de integración para todos los backends configurados
+        enviando un prompt genérico y verificando la respuesta.
+
+        :return: Diccionario con los resultados de la prueba para cada backend.
+        """
+        prompt = "Este es un prompt de prueba para la integración del backend."
+        results = {}
+        for backend in ["openai", "llama", *self.custom_backends.keys()]:
+            try:
+                logging.info(f"Realizando prueba de integración para el backend: {backend}")
+                self.backend = backend  # Cambiar dinámicamente el backend
+                results[backend] = self.query_model(prompt, options={})
+            except Exception as e:
+                results[backend] = f"Error: {str(e)}"
+                self.log_error(backend, e)
+        return results
