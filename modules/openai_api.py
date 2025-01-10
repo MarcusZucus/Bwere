@@ -37,7 +37,7 @@ def ask_werbly(user_id, user_input):
     try:
         # Enviar el historial completo a la IA
         response = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=messages,
             max_tokens=1000  # Límite para la respuesta
         )
@@ -63,7 +63,7 @@ def ask_werbly(user_id, user_input):
 
             # Reintentar la solicitud con el historial resumido
             response = openai.ChatCompletion.create(
-                model="gpt-4",
+                model="gpt-3.5-turbo",
                 messages=messages,
                 max_tokens=1000
             )
