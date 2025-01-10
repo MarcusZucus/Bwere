@@ -1,13 +1,13 @@
 """
 Módulo de Planificación Nutricional de Werbly.
-Proporciona el contexto necesario para que la IA genere planes de alimentación personalizados.
+Proporciona el contexto necesario para que la IA genere planes de alimentación personalizados y dinámicos.
 
 **Propósito**:
-Este módulo actúa como puente entre los datos del usuario y la IA, asegurando que esta reciba toda la información relevante para crear un plan de alimentación dinámico y completamente personalizado.
+Este módulo recopila y organiza toda la información relevante del usuario para que la IA pueda tomar decisiones informadas y generar planes personalizados sin restricciones predefinidas.
 
 **Conexión con otros módulos**:
 - **Entrada de datos:** Recibe información desde `user_data`, análisis desde `analysis_engine` y datos dinámicos desde Firestore.
-- **Salida de contexto:** Proporciona un resumen estructurado al módulo `ai_core` para que la IA diseñe planes de alimentación únicos.
+- **Salida de contexto:** Proporciona un resumen estructurado al módulo `ai_core` para que la IA diseñe planes únicos.
 """
 from typing import Dict, Any
 from modules.analysis_engine import analyze_user_data
@@ -33,21 +33,25 @@ def prepare_nutrition_context(user_id: str) -> Dict[str, Any]:
         # Analizar datos del usuario
         analysis = analyze_user_data(user_data)
 
-        # Recuperar preferencias y restricciones
+        # Recuperar preferencias, restricciones y datos adicionales
         dietary_preferences = user_data.get("dietary_preferences", [])
         dietary_restrictions = user_data.get("dietary_restrictions", [])
+        previous_plans = user_data.get("previous_plans", [])
+        local_availability = user_data.get("local_availability", "unknown")
 
-        # Crear contexto estructurado
+        # Crear contexto estructurado con datos ampliados
         context = {
             "recommended_calories": analysis.get("recommended_calories", 2000),
             "needs_more_protein": analysis.get("needs_more_protein", False),
             "dietary_preferences": dietary_preferences,
             "dietary_restrictions": dietary_restrictions,
+            "previous_plans": previous_plans,
             "long_term_goals": user_data.get("long_term_goals", "No definidos"),
             "recent_achievements": user_data.get("recent_achievements", []),
             "current_weight": user_data.get("weight", None),
             "height": user_data.get("height", None),
-            "activity_level": user_data.get("activity_level", "unknown")
+            "activity_level": user_data.get("activity_level", "unknown"),
+            "local_availability": local_availability
         }
 
         return context
@@ -67,17 +71,16 @@ def generate_nutrition_plan_with_ai(user_id: str, ai_core) -> str:
         # Preparar contexto
         context = prepare_nutrition_context(user_id)
 
-        # Crear prompt para la IA
+        # Crear prompt dinámico para la IA
         prompt = (
-            "Eres un asistente nutricional avanzado. Genera un plan de alimentación personalizado basado en el "
-            "siguiente contexto:\n"
+            "Eres un asistente nutricional avanzado. Tu objetivo es generar un plan de alimentación completamente "
+            "personalizado basado en el siguiente contexto:\n"
             f"{context}\n"
-            "El plan debe incluir las calorías diarias recomendadas, comidas principales y sugerencias de alimentos. "
-            "También debe considerar las preferencias y restricciones alimenticias del usuario."
+            "Si necesitas más información para generar el plan, indica qué datos faltan."
         )
 
         # Generar plan usando la IA
-        nutrition_plan = ai_core.query_model(prompt)
-        return nutrition_plan
+        response = ai_core.query_model(prompt)
+        return response
     except Exception as e:
         return f"Error al generar el plan nutricional con IA: {str(e)}"
