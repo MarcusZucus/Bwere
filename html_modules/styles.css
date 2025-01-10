@@ -120,7 +120,7 @@ body {
 .message-content {
     max-width: 85%;
     font-size: 16px;
-    font-weight: 400; /* Reducido el grosor de la letra */
+    font-weight: 450; /* Ajustado el grosor de la letra */
     line-height: 1.4;
     word-wrap: break-word;
     display: inline-block;
@@ -163,6 +163,7 @@ body {
     width: 100%;
     z-index: 2000; /* Asegura que esté por delante */
     box-sizing: border-box; /* Asegura consistencia en el espaciado */
+    font-weight: 450; /* Ajustado el grosor de la letra en el input */
 }
 
 /* Campo de Entrada */
