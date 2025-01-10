@@ -3,28 +3,27 @@ Módulo de Motivación y Seguimiento de Werbly.
 Proporciona el contexto necesario a la IA para que genere mensajes motivacionales adaptados al estado actual del usuario.
 
 **Propósito**:
-Este módulo actúa como puente entre los datos de progreso del usuario y la IA, asegurándose de que esta reciba toda la información relevante para generar mensajes únicos, personalizados y dinámicos en cada situación.
+Este módulo recopila y organiza datos dinámicamente para que la IA genere mensajes motivacionales únicos y personalizados en cada situación, sin imponer limitaciones ni reglas predefinidas.
 
 **Conexión con otros módulos**:
-- **Entrada de datos:** Integra información de `user_data`, `analysis_engine` y Firestore (a través de `firebase_connection`).
-- **Salida de contexto:** Proporciona un resumen estructurado al módulo `ai_core`, que luego utiliza la IA para crear mensajes motivacionales.
-- **Uso en lógica central:** Sirve como enlace para convertir datos en contexto claro y comprensible para la IA, sin imponer limitaciones en las respuestas.
+- **Entrada de datos:** Integra información de `user_data`, `analysis_engine` y Firestore.
+- **Salida de contexto:** Proporciona un resumen dinámico al módulo `ai_core`.
 """
-
 from typing import Dict, Any
-from modules.analysis_engine import analyze_user_data
 from modules.firebase_connection import get_firestore_client
+from modules.analysis_engine import prepare_analysis_context
+from modules.ai_core import query_model
 
 
 def prepare_motivation_context(user_id: str) -> Dict[str, Any]:
     """
-    Genera un contexto estructurado basado en los datos del usuario y su progreso.
-    Este contexto será enviado a la IA para que genere mensajes motivacionales personalizados.
+    Genera un contexto dinámico basado en todos los datos disponibles del usuario.
 
     :param user_id: Identificador único del usuario.
-    :return: Diccionario con contexto relevante para la motivación.
+    :return: Diccionario con el contexto dinámico para la motivación.
     """
     try:
+        # Conexión con Firestore para obtener datos del usuario
         db = get_firestore_client()
         user_ref = db.collection("usuarios").document(user_id)
         user_data = user_ref.get().to_dict()
@@ -32,50 +31,41 @@ def prepare_motivation_context(user_id: str) -> Dict[str, Any]:
         if not user_data:
             raise ValueError(f"No se encontraron datos para el usuario {user_id}.")
 
-        # Analizar datos del usuario
-        analysis = analyze_user_data(user_data)
+        # Incorporar análisis dinámico desde analysis_engine
+        analysis = prepare_analysis_context(user_id)
 
-        # Obtener progreso desde Firestore
-        progress_percentage = user_data.get("progress_percentage", 0)
+        # Combinar datos del usuario y análisis dinámico en un único contexto
+        context = {**user_data, **analysis}
 
-        # Crear contexto estructurado
-        context = {
-            "progress_percentage": progress_percentage,
-            "fatigue_level": analysis.get("fatigue_level", "unknown"),
-            "bmi": analysis.get("bmi", None),
-            "calories_goal": user_data.get("calories_goal", None),
-            "calories_consumed": user_data.get("calories_consumed", None),
-            "recent_achievements": user_data.get("recent_achievements", []),
-            "long_term_goals": user_data.get("long_term_goals", "No definidos")
-        }
+        # Agregar datos adicionales si están disponibles
+        context["recent_achievements"] = user_data.get("recent_achievements", [])
+        context["long_term_goals"] = user_data.get("long_term_goals", "No definidos")
 
         return context
     except Exception as e:
         raise RuntimeError(f"Error al preparar el contexto de motivación para el usuario {user_id}: {str(e)}")
 
 
-def generate_motivational_message(user_id: str, ai_core) -> str:
+def generate_motivational_message(user_id: str) -> str:
     """
-    Envía el contexto de motivación a la IA y obtiene un mensaje motivacional único.
+    Envía el contexto dinámico de motivación a la IA y obtiene un mensaje motivacional único.
 
     :param user_id: Identificador único del usuario.
-    :param ai_core: Referencia al módulo `ai_core` para generar mensajes con la IA.
     :return: Mensaje motivacional generado por la IA.
     """
     try:
-        # Preparar contexto
+        # Preparar contexto dinámico
         context = prepare_motivation_context(user_id)
 
-        # Crear prompt para la IA
+        # Crear un prompt dinámico basado en el estado del usuario
         prompt = (
-            "Eres un asistente motivacional avanzado. Genera un mensaje motivador para el usuario "
-            "basado en el siguiente contexto:\n"
+            "Eres un asistente motivacional avanzado. Con base en los siguientes datos del usuario:\n"
             f"{context}\n"
-            "Tu mensaje debe ser motivador, personalizado y único, basado en el progreso y el estado del usuario."
+            "Por favor, genera un mensaje motivador que sea único, personalizado y adaptado a su progreso, logros y metas."
         )
 
         # Generar mensaje usando la IA
-        message = ai_core.query_model(prompt)
+        message = query_model(prompt)
         return message
     except Exception as e:
         return f"Error al generar mensaje motivacional: {str(e)}"
