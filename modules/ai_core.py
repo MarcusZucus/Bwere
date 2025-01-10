@@ -1,4 +1,4 @@
-"""
+'''
 Módulo Central de Interacciones con IA (ai_core).
 Gestiona todas las interacciones con modelos de inteligencia artificial, 
 incluyendo OpenAI, modelos entrenados localmente (como LLaMA) u otros backends.
@@ -10,25 +10,25 @@ incluyendo OpenAI, modelos entrenados localmente (como LLaMA) u otros backends.
 **Conexión con otros módulos**:
 - Es utilizado por módulos como `analysis_engine`, `motivation_tracker`, `nutrition_planner`, etc., 
   para enviar prompts y recibir respuestas de la IA.
-"""
+'''
 
 import os
 import logging
+import time
 from typing import Dict, Any, Optional
 from tenacity import retry, stop_after_attempt, wait_exponential
+import openai
+import requests
 
 # Configuración del sistema de logs
 logging_level = os.getenv("LOGGING_LEVEL", "INFO").upper()
 logging.basicConfig(level=logging_level, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# OpenAI (u otros proveedores externos de IA) importaciones
-import openai
-import requests
-
 # Configuración global para el módulo
 DEFAULT_BACKEND = os.getenv("AI_BACKEND", "openai")  # "openai", "llama", "custom"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 LLAMA_API_ENDPOINT = os.getenv("LLAMA_API_ENDPOINT")  # Si usas un modelo local/servidor
+LLAMA_TIMEOUT = int(os.getenv("LLAMA_TIMEOUT", 10))
 
 class AICore:
     """
@@ -37,6 +37,7 @@ class AICore:
 
     def __init__(self):
         self.backend = DEFAULT_BACKEND
+        self.custom_backends = {}
         self._validate_configuration()
 
     def _validate_configuration(self):
@@ -57,17 +58,33 @@ class AICore:
         :param options: Opciones adicionales específicas del backend (como temperatura, tokens, etc.).
         :return: Respuesta generada por la IA.
         """
+        self._validate_prompt(prompt)
+        start_time = time.time()
         try:
             logging.info(f"Enviando prompt al backend {self.backend}: {prompt}")
             if self.backend == "openai":
-                return self._query_openai(prompt, self._validate_options(options))
+                response = self._query_openai(prompt, self._validate_options(options))
             elif self.backend == "llama":
-                return self._query_llama(prompt, self._validate_options(options))
+                response = self._query_llama(prompt, self._validate_options(options))
+            elif self.backend in self.custom_backends:
+                response = self.custom_backends[self.backend](prompt, options)
             else:
                 raise ValueError(f"Backend de IA desconocido: {self.backend}")
+            elapsed_time = time.time() - start_time
+            logging.info(f"Consulta completada en {elapsed_time:.2f} segundos.")
+            return response
         except Exception as e:
             logging.error(f"Error al procesar el prompt: {str(e)}")
             return f"Error al consultar el modelo {self.backend}: {str(e)}"
+
+    def _validate_prompt(self, prompt: str):
+        """
+        Valida que el prompt sea válido.
+
+        :param prompt: Texto que se enviará al modelo.
+        """
+        if not prompt or not isinstance(prompt, str) or len(prompt) > 5000:
+            raise ValueError("El prompt no es válido: debe ser un string no vacío y de menos de 5000 caracteres.")
 
     def _validate_options(self, options: Optional[Dict[str, Any]]) -> Dict[str, Any]:
         """
@@ -78,6 +95,19 @@ class AICore:
         """
         default_options = {"temperature": 0.7, "max_tokens": 300, "model": "gpt-3.5-turbo"}
         return {**default_options, **(options or {})}
+
+    def _validate_response(self, response: dict, backend: str, key: str = "generated_text") -> str:
+        """
+        Valida que la respuesta tenga el formato esperado.
+
+        :param response: Respuesta del modelo de IA.
+        :param backend: Nombre del backend que generó la respuesta.
+        :param key: Clave esperada en la respuesta.
+        :return: Texto generado por la IA.
+        """
+        if not response or key not in response:
+            raise ValueError(f"Formato de respuesta inesperado del backend {backend}")
+        return response[key].strip()
 
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
     def _query_openai(self, prompt: str, options: Dict[str, Any]) -> str:
@@ -96,9 +126,7 @@ class AICore:
                 temperature=options["temperature"],
                 max_tokens=options["max_tokens"]
             )
-            message = response["choices"][0]["message"]["content"].strip()
-            logging.info(f"Respuesta de OpenAI: {message}")
-            return message
+            return self._validate_response(response["choices"][0]["message"], "openai", "content")
         except openai.error.OpenAIError as e:
             logging.error(f"Error de OpenAI: {str(e)}")
             return f"Error en OpenAI: {str(e)}"
@@ -121,17 +149,22 @@ class AICore:
                 "temperature": options["temperature"],
                 "max_tokens": options["max_tokens"]
             }
-            response = requests.post(LLAMA_API_ENDPOINT, json=payload)
+            response = requests.post(LLAMA_API_ENDPOINT, json=payload, timeout=LLAMA_TIMEOUT)
             response.raise_for_status()
-            generated_text = response.json().get("generated_text", "").strip()
-            logging.info(f"Respuesta de LLaMA: {generated_text}")
-            return generated_text
+            return self._validate_response(response.json(), "llama")
         except requests.exceptions.RequestException as e:
             logging.error(f"Error al consultar el modelo LLaMA: {str(e)}")
             return f"Error en LLaMA: {str(e)}"
-        except KeyError as e:
-            logging.error(f"Respuesta de LLaMA en formato inesperado: {str(e)}")
-            return "Error: La respuesta de LLaMA no tiene el formato esperado."
+
+    def register_backend(self, name: str, handler: callable):
+        """
+        Registra un nuevo backend personalizado.
+
+        :param name: Nombre del backend.
+        :param handler: Función que maneja las consultas para este backend.
+        """
+        self.custom_backends[name] = handler
+        logging.info(f"Backend personalizado registrado: {name}")
 
     def get_available_backends(self) -> Dict[str, Any]:
         """
@@ -141,7 +174,28 @@ class AICore:
         """
         backends_status = {
             "openai": bool(OPENAI_API_KEY),
-            "llama": bool(LLAMA_API_ENDPOINT)
+            "llama": bool(LLAMA_API_ENDPOINT),
+            **{name: True for name in self.custom_backends}
         }
         logging.info(f"Backends disponibles: {backends_status}")
         return backends_status
+
+    def test_backend(self, backend: str) -> bool:
+        """
+        Prueba la disponibilidad de un backend.
+
+        :param backend: Nombre del backend a probar.
+        :return: True si el backend está disponible, False en caso contrario.
+        """
+        try:
+            if backend == "openai":
+                return bool(OPENAI_API_KEY)
+            elif backend == "llama":
+                response = requests.get(LLAMA_API_ENDPOINT, timeout=5)
+                return response.status_code == 200
+            elif backend in self.custom_backends:
+                return True  # Los backends personalizados se consideran disponibles por definición
+            return False
+        except Exception as e:
+            logging.error(f"Error al probar el backend {backend}: {str(e)}")
+            return False
