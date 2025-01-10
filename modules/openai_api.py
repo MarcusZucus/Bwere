@@ -5,21 +5,30 @@ Encapsula las llamadas a la API de ChatGPT/GPT.
 
 import openai
 from modules.config import get_openai_key
-from modules.prompt_manager import build_prompt, get_base_prompt
+from modules.conversation_manager import save_message, get_conversation_history
 
-def ask_werbly(user_input):
+def ask_werbly(user_id, user_input):
     """
-    Envía la entrada del usuario a la IA de Werbly y devuelve la respuesta.
+    Envía la entrada del usuario a la IA de Werbly junto con el historial de conversación y devuelve la respuesta.
     """
     openai.api_key = get_openai_key()
-    base_prompt = get_base_prompt()  # Obtiene el prompt base desde Firestore
-    final_prompt = build_prompt(user_input)  # Construye el prompt final con la entrada del usuario
 
+    # Recuperar el historial completo de la conversación
+    conversation_history = get_conversation_history(user_id)
+
+    # Agregar el mensaje actual del usuario al historial
+    conversation_history.append({"role": "user", "content": user_input})
+
+    # Enviar el historial completo a la IA
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": base_prompt},  # Usa el prompt base dinámico como contexto del sistema
-            {"role": "user", "content": user_input}  # La entrada del usuario directamente
-        ]
+        model="gpt-4",
+        messages=conversation_history
     )
-    return response.choices[0].message["content"]
+
+    # Obtener la respuesta generada por la IA
+    assistant_message = response["choices"][0]["message"]["content"]
+
+    # Guardar la respuesta de la IA en Firestore
+    save_message(user_id, "assistant", assistant_message)
+
+    return assistant_message
