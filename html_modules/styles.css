@@ -120,6 +120,7 @@ body {
 .message-content {
     max-width: 85%;
     font-size: 16px;
+    font-weight: 400; /* Reducido el grosor de la letra */
     line-height: 1.4;
     word-wrap: break-word;
     display: inline-block;
