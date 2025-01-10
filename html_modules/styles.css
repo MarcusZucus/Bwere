@@ -3,6 +3,25 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
+    /* Evita el feedback visual de los navegadores */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+}
+
+*:focus {
+    outline: none !important; /* Quita el outline predeterminado */
+}
+
+*:active {
+    outline: none;
+    background-color: transparent; /* Elimina cualquier cambio visual */
+}
+
+/* Optimización para móviles */
+html, body {
+    overscroll-behavior: none; /* Evita arrastres accidentales */
+    touch-action: manipulation; /* Optimiza para toques */
 }
 
 body {
