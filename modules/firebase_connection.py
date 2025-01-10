@@ -12,8 +12,12 @@ Este módulo es responsable de conectar Werbly con Firebase, gestionando la aute
 """
 
 import os
+import logging
 import firebase_admin
 from firebase_admin import credentials, firestore
+
+# Configuración de logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Variable global para el cliente de Firestore
 _firestore_client = None
@@ -30,13 +34,18 @@ def init_firebase():
         if not firebase_admin._DEFAULT_APP_NAME in firebase_admin._apps:
             cred_path = os.getenv("FIREBASE_CRED_PATH", "serviceAccountKey.json")
             if not os.path.exists(cred_path):
+                logging.error(f"Archivo de credenciales '{cred_path}' no encontrado.")
                 raise FileNotFoundError(f"El archivo de credenciales '{cred_path}' no fue encontrado.")
-            
+
             cred = credentials.Certificate(cred_path)
             firebase_admin.initialize_app(cred)
+            logging.info("Firebase inicializado correctamente.")
+    except FileNotFoundError as fnf_error:
+        logging.critical("Error: Archivo de credenciales no encontrado.")
+        raise fnf_error
     except Exception as e:
+        logging.exception("Error inesperado al inicializar Firebase.")
         raise RuntimeError(f"Error al inicializar Firebase: {str(e)}")
-
 
 def get_firestore_client():
     """
@@ -49,8 +58,8 @@ def get_firestore_client():
     if _firestore_client is None:
         init_firebase()
         _firestore_client = firestore.client()
+        logging.info("Cliente de Firestore inicializado y listo para su uso.")
     return _firestore_client
-
 
 def test_connection():
     """
@@ -62,6 +71,8 @@ def test_connection():
     try:
         client = get_firestore_client()
         client.collection("test").document("connection_check").set({"status": "ok"})
+        logging.info("Prueba de conexión con Firestore completada exitosamente.")
         return "Conexión con Firestore exitosa."
     except Exception as e:
+        logging.error(f"Error al probar la conexión con Firestore: {str(e)}")
         return f"Error al probar la conexión con Firestore: {str(e)}"
