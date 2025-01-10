@@ -29,6 +29,8 @@ DEFAULT_BACKEND = os.getenv("AI_BACKEND", "openai")  # "openai", "llama", "custo
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 LLAMA_API_ENDPOINT = os.getenv("LLAMA_API_ENDPOINT")  # Si usas un modelo local/servidor
 LLAMA_TIMEOUT = int(os.getenv("LLAMA_TIMEOUT", 10))
+RETRY_ATTEMPTS = int(os.getenv("RETRY_ATTEMPTS", 3))
+WAIT_MULTIPLIER = float(os.getenv("WAIT_MULTIPLIER", 1.0))
 
 class AICore:
     """
@@ -76,7 +78,6 @@ class AICore:
         except Exception as e:
             logging.error(f"Error al procesar el prompt: {str(e)}")
             return f"Error al consultar el modelo {self.backend}: {str(e)}"
-
     def _validate_prompt(self, prompt: str):
         """
         Valida que el prompt sea válido.
@@ -109,7 +110,7 @@ class AICore:
             raise ValueError(f"Formato de respuesta inesperado del backend {backend}")
         return response[key].strip()
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+    @retry(stop=stop_after_attempt(RETRY_ATTEMPTS), wait=wait_exponential(multiplier=WAIT_MULTIPLIER, min=4, max=10))
     def _query_openai(self, prompt: str, options: Dict[str, Any]) -> str:
         """
         Envía un prompt a OpenAI y devuelve la respuesta.
@@ -134,7 +135,7 @@ class AICore:
             logging.error(f"Respuesta de OpenAI en formato inesperado: {str(e)}")
             return "Error: La respuesta de OpenAI no tiene el formato esperado."
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+    @retry(stop=stop_after_attempt(RETRY_ATTEMPTS), wait=wait_exponential(multiplier=WAIT_MULTIPLIER, min=4, max=10))
     def _query_llama(self, prompt: str, options: Dict[str, Any]) -> str:
         """
         Envía un prompt al modelo LLaMA (o modelo local) y devuelve la respuesta.
@@ -155,7 +156,6 @@ class AICore:
         except requests.exceptions.RequestException as e:
             logging.error(f"Error al consultar el modelo LLaMA: {str(e)}")
             return f"Error en LLaMA: {str(e)}"
-
     def register_backend(self, name: str, handler: callable):
         """
         Registra un nuevo backend personalizado.
@@ -199,3 +199,44 @@ class AICore:
         except Exception as e:
             logging.error(f"Error al probar el backend {backend}: {str(e)}")
             return False
+
+    def test_all_backends(self) -> Dict[str, bool]:
+        """
+        Prueba todos los backends configurados y devuelve su estado.
+
+        :return: Diccionario con el estado de cada backend (True si está disponible, False si no lo está).
+        """
+        results = {}
+        for backend in ["openai", "llama", *self.custom_backends.keys()]:
+            results[backend] = self.test_backend(backend)
+        logging.info(f"Resultados de las pruebas de backends: {results}")
+        return results
+    def remove_backend(self, name: str):
+        """
+        Elimina un backend personalizado registrado.
+
+        :param name: Nombre del backend a eliminar.
+        """
+        if name in self.custom_backends:
+            del self.custom_backends[name]
+            logging.info(f"Backend personalizado eliminado: {name}")
+        else:
+            logging.warning(f"Intento de eliminar un backend no registrado: {name}")
+
+    def log_performance(self, backend: str, elapsed_time: float):
+        """
+        Registra el tiempo de ejecución de una consulta al backend.
+
+        :param backend: Nombre del backend utilizado.
+        :param elapsed_time: Tiempo transcurrido en segundos.
+        """
+        logging.info(f"Tiempo de ejecución para el backend '{backend}': {elapsed_time:.2f} segundos.")
+
+    def log_error(self, backend: str, error: Exception):
+        """
+        Registra un error asociado a un backend específico.
+
+        :param backend: Nombre del backend en el que ocurrió el error.
+        :param error: Objeto de la excepción capturada.
+        """
+        logging.error(f"Error en el backend '{backend}': {str(error)}")
