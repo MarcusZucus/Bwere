@@ -15,14 +15,16 @@ def save_message(user_id, role, content):
       .collection("conversaciones").add({
           "role": role,
           "content": content,
-          "time": datetime.datetime.utcnow()
+          "timestamp": datetime.datetime.utcnow()
       })
 
 def get_conversation_history(user_id):
     """
+    Recupera el historial completo de la conversación desde Firestore.
     Retorna una lista del historial en orden cronológico.
     """
     db = get_firestore_client()
-    docs = db.collection("usuarios").document(user_id)\
-             .collection("conversaciones").order_by("time").get()
-    return [doc.to_dict() for doc in docs]
+    conversations = db.collection("usuarios").document(user_id)\
+                      .collection("conversaciones").order_by("timestamp").stream()
+    history = [{"role": c.get("role"), "content": c.get("content")} for c in conversations]
+    return history
