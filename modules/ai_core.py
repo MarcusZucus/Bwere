@@ -13,15 +13,21 @@ incluyendo OpenAI, modelos entrenados localmente (como LLaMA) u otros backends.
 """
 
 import os
+import logging
 from typing import Dict, Any, Optional
+
+# Configuración del sistema de logs
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # OpenAI (u otros proveedores externos de IA) importaciones
 import openai
+import requests
 
 # Configuración global para el módulo
 DEFAULT_BACKEND = os.getenv("AI_BACKEND", "openai")  # "openai", "llama", "custom"
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 LLAMA_API_ENDPOINT = os.getenv("LLAMA_API_ENDPOINT")  # Si usas un modelo local/servidor
+
 
 class AICore:
     """
@@ -40,6 +46,7 @@ class AICore:
             raise ValueError("La clave API de OpenAI no está configurada.")
         elif self.backend == "llama" and not LLAMA_API_ENDPOINT:
             raise ValueError("El endpoint del modelo LLaMA no está configurado.")
+        logging.info(f"Backend configurado correctamente: {self.backend}")
 
     def query_model(self, prompt: str, options: Optional[Dict[str, Any]] = None) -> str:
         """
@@ -49,12 +56,17 @@ class AICore:
         :param options: Opciones adicionales específicas del backend (como temperatura, tokens, etc.).
         :return: Respuesta generada por la IA.
         """
-        if self.backend == "openai":
-            return self._query_openai(prompt, options)
-        elif self.backend == "llama":
-            return self._query_llama(prompt, options)
-        else:
-            raise ValueError(f"Backend de IA desconocido: {self.backend}")
+        try:
+            logging.info(f"Enviando prompt al backend {self.backend}: {prompt}")
+            if self.backend == "openai":
+                return self._query_openai(prompt, options)
+            elif self.backend == "llama":
+                return self._query_llama(prompt, options)
+            else:
+                raise ValueError(f"Backend de IA desconocido: {self.backend}")
+        except Exception as e:
+            logging.error(f"Error al procesar el prompt: {str(e)}")
+            return f"Error al consultar el modelo {self.backend}: {str(e)}"
 
     def _query_openai(self, prompt: str, options: Optional[Dict[str, Any]] = None) -> str:
         """
@@ -72,9 +84,15 @@ class AICore:
                 temperature=options.get("temperature", 0.7),
                 max_tokens=options.get("max_tokens", 300)
             )
-            return response["choices"][0]["message"]["content"].strip()
-        except Exception as e:
-            return f"Error al consultar OpenAI: {str(e)}"
+            message = response["choices"][0]["message"]["content"].strip()
+            logging.info(f"Respuesta de OpenAI: {message}")
+            return message
+        except openai.error.OpenAIError as e:
+            logging.error(f"Error de OpenAI: {str(e)}")
+            return f"Error en OpenAI: {str(e)}"
+        except (KeyError, IndexError) as e:
+            logging.error(f"Respuesta de OpenAI en formato inesperado: {str(e)}")
+            return "Error: La respuesta de OpenAI no tiene el formato esperado."
 
     def _query_llama(self, prompt: str, options: Optional[Dict[str, Any]] = None) -> str:
         """
@@ -85,7 +103,6 @@ class AICore:
         :return: Respuesta generada por el modelo.
         """
         try:
-            import requests  # Solo se usa para LLaMA/locales
             payload = {
                 "prompt": prompt,
                 "temperature": options.get("temperature", 0.7),
@@ -93,9 +110,15 @@ class AICore:
             }
             response = requests.post(LLAMA_API_ENDPOINT, json=payload)
             response.raise_for_status()
-            return response.json().get("generated_text", "").strip()
-        except Exception as e:
-            return f"Error al consultar el modelo LLaMA: {str(e)}"
+            generated_text = response.json().get("generated_text", "").strip()
+            logging.info(f"Respuesta de LLaMA: {generated_text}")
+            return generated_text
+        except requests.exceptions.RequestException as e:
+            logging.error(f"Error al consultar el modelo LLaMA: {str(e)}")
+            return f"Error en LLaMA: {str(e)}"
+        except KeyError as e:
+            logging.error(f"Respuesta de LLaMA en formato inesperado: {str(e)}")
+            return "Error: La respuesta de LLaMA no tiene el formato esperado."
 
     def get_available_backends(self) -> Dict[str, Any]:
         """
@@ -103,7 +126,9 @@ class AICore:
 
         :return: Diccionario con los backends disponibles y su estado.
         """
-        return {
+        backends_status = {
             "openai": bool(OPENAI_API_KEY),
             "llama": bool(LLAMA_API_ENDPOINT)
         }
+        logging.info(f"Backends disponibles: {backends_status}")
+        return backends_status
