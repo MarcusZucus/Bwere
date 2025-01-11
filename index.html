@@ -94,6 +94,25 @@
     window.dispatchEvent(new Event('resize'));
   </script>
 
+  <!-- Script para posicionar correctamente el input-area sobre el teclado -->
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+
+    function adjustInputPosition() {
+      const viewportHeight = window.innerHeight;
+      const keyboardHeight = viewportHeight - document.documentElement.clientHeight;
+
+      if (keyboardHeight > 0) {
+        chatContainer.style.transform = `translateY(-${keyboardHeight}px)`;
+      } else {
+        chatContainer.style.transform = 'translateY(0)';
+      }
+    }
+
+    window.addEventListener('resize', adjustInputPosition);
+    adjustInputPosition();
+  </script>
+
   <!-- Registro del Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
@@ -105,10 +124,6 @@
           console.log('Service Worker registration failed:', error);
         });
     }
-  </script>
-</body>
-</html>
-
   </script>
 </body>
 </html>
