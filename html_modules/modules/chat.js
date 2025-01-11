@@ -15,8 +15,13 @@ function renderMessage(role, content) {
   messageDiv.className = `message ${role}`;
   const messageContent = document.createElement('div');
   messageContent.className = 'message-content';
-  messageContent.textContent = content;
 
+  // Agregar clase no-bubble para mensajes de error del bot
+  if (role === 'bot' && content.includes('Lo siento')) {
+    messageContent.classList.add('no-bubble');
+  }
+
+  messageContent.textContent = content;
   messageDiv.appendChild(messageContent);
   messagesContainer.appendChild(messageDiv);
   messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll automático
@@ -33,6 +38,12 @@ function typeMessage(role, content, speed = 50) {
   messageDiv.className = `message ${role}`;
   const messageContent = document.createElement('div');
   messageContent.className = 'message-content';
+
+  // Agregar clase no-bubble para mensajes de error del bot
+  if (role === 'bot' && content.includes('Lo siento')) {
+    messageContent.classList.add('no-bubble');
+  }
+
   messageDiv.appendChild(messageContent);
   messagesContainer.appendChild(messageDiv);
 
