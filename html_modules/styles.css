@@ -1,3 +1,13 @@
+/* Paleta de colores */
+:root {
+    --white-pure: #FFFFFF;
+    --gray-silver: #C0C0C0;
+    --blue-cobalt: #0047AB;
+    --blue-electric: #7DF9FF;
+    --black-carbon: #0F0F0F;
+    --green-neon: #39FF14;
+}
+
 /* Estilo Global */
 * {
     box-sizing: border-box;
@@ -11,7 +21,7 @@
 }
 
 *:focus-visible {
-    outline: 2px solid #2196F3; /* Azul profesional para accesibilidad */
+    outline: 2px solid var(--blue-electric); /* Azul eléctrico para accesibilidad */
     outline-offset: 2px;
 }
 
@@ -24,8 +34,8 @@ html, body {
 body {
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    background-color: #F5F5F5;
-    color: #333333;
+    background-color: var(--white-pure);
+    color: var(--black-carbon);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,7 +51,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #FFFFFF;
+    background-color: var(--white-pure);
     overflow: hidden;
     position: relative;
     border-radius: 8px; /* Redondeado sutil para un diseño limpio */
@@ -51,8 +61,8 @@ body {
 /* Encabezado */
 #chat-header {
     padding: 12px 20px;
-    background-color: #2196F3; /* Azul profesional */
-    color: white;
+    background-color: var(--blue-cobalt); /* Azul cobalto para encabezado */
+    color: var(--white-pure);
     font-size: 18px;
     font-weight: 600;
     display: flex;
@@ -83,7 +93,7 @@ body {
 #menu-button .line {
     width: 20px;
     height: 2px;
-    background-color: white;
+    background-color: var(--white-pure);
     border-radius: 5px;
     position: absolute;
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -121,7 +131,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    background-color: #FFFFFF;
+    background-color: var(--white-pure);
 }
 /* Mensajes */
 .message {
@@ -150,13 +160,13 @@ body {
 }
 
 .message.user .message-content {
-    background-color: #2196F3; /* Azul profesional para el usuario */
-    color: white;
+    background-color: var(--blue-cobalt); /* Azul cobalto para el usuario */
+    color: var(--white-pure);
 }
 
 .message.bot .message-content {
-    background-color: #E0E0E0; /* Gris claro para el bot */
-    color: #333333;
+    background-color: var(--gray-silver); /* Gris plateado para el bot */
+    color: var(--black-carbon);
     opacity: 0;
     animation: fade-in 0.5s ease forwards;
 }
@@ -177,14 +187,14 @@ body {
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    background-color: #FFFFFF;
+    background-color: var(--white-pure);
     gap: 10px;
     position: fixed; /* Siempre fija abajo */
     bottom: 0;
     left: 0;
     width: 100%;
     z-index: 2000;
-    border-top: 1px solid #E0E0E0;
+    border-top: 1px solid var(--gray-silver);
 }
 
 /* Campo de Entrada */
@@ -194,9 +204,9 @@ body {
     padding: 10px 15px;
     font-size: 16px;
     border-radius: 20px;
-    background-color: #F5F5F5;
-    border: 1px solid #E0E0E0;
-    color: #333333;
+    background-color: var(--gray-silver);
+    border: 1px solid var(--blue-cobalt);
+    color: var(--black-carbon);
     outline: none;
 }
 
@@ -204,7 +214,7 @@ body {
 #send-button {
     height: 40px;
     width: 40px;
-    background-color: #2196F3;
+    background-color: var(--blue-cobalt);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -216,18 +226,18 @@ body {
 
 #send-button i {
     font-size: 16px;
-    color: white;
+    color: var(--white-pure);
 }
 
 #send-button:hover {
-    background-color: #1976D2;
+    background-color: var(--blue-electric);
 }
 
 /* Botón de Adjuntar */
 #attach-button {
     height: 40px;
     width: 40px;
-    background-color: #E0E0E0;
+    background-color: var(--gray-silver);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -239,11 +249,11 @@ body {
 
 #attach-button i {
     font-size: 16px;
-    color: #333333;
+    color: var(--black-carbon);
 }
 
 #attach-button:hover {
-    background-color: #BDBDBD;
+    background-color: var(--blue-cobalt);
 }
 /* Menú Lateral */
 #sidebar {
@@ -252,8 +262,8 @@ body {
     left: -250px;
     width: 250px;
     height: 100%;
-    background-color: #F5F5F5;
-    color: #333333;
+    background-color: var(--gray-silver);
+    color: var(--black-carbon);
     overflow-y: auto;
     padding: 20px;
     transition: left 0.3s ease;
@@ -269,20 +279,22 @@ body {
     font-size: 18px;
     margin-bottom: 20px;
     font-weight: 600;
+    color: var(--blue-cobalt);
 }
 
 .conversation {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 8px; /* Bordes sutiles para profesionalismo */
-    background-color: #FFFFFF;
+    background-color: var(--white-pure);
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra ligera para destacar */
 }
 
 .conversation:hover {
-    background-color: #E0E0E0; /* Cambio visual al pasar el cursor */
+    background-color: var(--blue-electric); /* Cambio visual al pasar el cursor */
+    color: var(--black-carbon);
 }
 
 /* Superposición para oscurecer el fondo */
