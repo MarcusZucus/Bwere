@@ -5,62 +5,11 @@ const messagesContainer = document.getElementById('messages');
 
 const apiUrl = "http://127.0.0.1:5000/chat"; // URL del endpoint de la API
 
-// Evento para enviar mensajes al hacer clic en el botón de enviar
-sendButton.addEventListener('click', () => {
-  const message = inputField.value.trim();
-  if (message) {
-    renderMessage('user', message);
-
-    // Llamar a la API para obtener la respuesta del bot
-    sendMessageToApi({ message })
-      .then((response) => {
-        typeMessage('bot', response); // Mostrar respuesta de la API
-      })
-      .catch((error) => {
-        console.error("Error al comunicarse con la API:", error);
-        typeMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
-      });
-
-    inputField.value = '';
-  }
-});
-
-// Evento para manejar el botón de adjuntar archivos
-attachButton.addEventListener('click', () => {
-  const fileInput = document.createElement('input');
-  fileInput.type = 'file';
-  fileInput.accept = '*'; // Puedes limitar los tipos de archivos, por ejemplo: 'image/*'
-  fileInput.style.display = 'none';
-
-  // Evento para manejar la selección de archivos
-  fileInput.addEventListener('change', () => {
-    const file = fileInput.files[0];
-    if (file) {
-      renderMessage('user', `Archivo adjuntado: ${file.name}`);
-
-      // Llamar a la API para enviar el archivo
-      sendFileToApi(file)
-        .then((response) => {
-          typeMessage('bot', response); // Mostrar respuesta de la API
-        })
-        .catch((error) => {
-          console.error("Error al enviar el archivo a la API:", error);
-          typeMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
-        });
-    }
-  });
-
-  fileInput.click();
-});
-
-// Evento para enviar mensajes al presionar Enter
-inputField.addEventListener('keypress', (event) => {
-  if (event.key === 'Enter') {
-    sendButton.click();
-  }
-});
-
-// Renderizar mensajes instantáneamente en el chat
+/**
+ * Agrega un mensaje al contenedor de mensajes con soporte para accesibilidad y diseño responsivo.
+ * @param {string} role - Rol del mensaje ('user' o 'bot').
+ * @param {string} content - Contenido del mensaje a renderizar.
+ */
 function renderMessage(role, content) {
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${role}`;
@@ -73,8 +22,13 @@ function renderMessage(role, content) {
   messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll automático
 }
 
-// Simular animación de escritura para mensajes del bot
-function typeMessage(role, content) {
+/**
+ * Simula una animación de escritura para mensajes del bot.
+ * @param {string} role - Rol del mensaje ('user' o 'bot').
+ * @param {string} content - Contenido del mensaje a escribir.
+ * @param {number} speed - Velocidad de escritura en milisegundos por carácter (opcional).
+ */
+function typeMessage(role, content, speed = 50) {
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${role}`;
   const messageContent = document.createElement('div');
@@ -96,10 +50,14 @@ function typeMessage(role, content) {
     } else {
       clearInterval(typingInterval);
     }
-  }, 50);
+  }, speed);
 }
 
-// Función para enviar mensajes a la API
+/**
+ * Llama a la API para obtener una respuesta basada en un mensaje enviado por el usuario.
+ * @param {Object} payload - Datos a enviar a la API.
+ * @returns {Promise<string>} Respuesta procesada por la API.
+ */
 async function sendMessageToApi(payload) {
   try {
     const response = await fetch(apiUrl, {
@@ -110,15 +68,23 @@ async function sendMessageToApi(payload) {
       body: JSON.stringify(payload),
     });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
-    return data.response; // Retorna la respuesta del bot desde la API
+    return data.response;
   } catch (error) {
     console.error("Error al comunicarse con la API:", error);
-    throw error; // Lanza el error para que sea manejado en la llamada
+    throw error;
   }
 }
 
-// Función para enviar archivos a la API
+/**
+ * Llama a la API para enviar un archivo seleccionado por el usuario.
+ * @param {File} file - Archivo a enviar a la API.
+ * @returns {Promise<string>} Respuesta procesada por la API.
+ */
 async function sendFileToApi(file) {
   try {
     const formData = new FormData();
@@ -129,10 +95,71 @@ async function sendFileToApi(file) {
       body: formData,
     });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
-    return data.response; // Retorna la respuesta del bot desde la API
+    return data.response;
   } catch (error) {
     console.error("Error al enviar el archivo a la API:", error);
-    throw error; // Lanza el error para que sea manejado en la llamada
+    throw error;
   }
 }
+
+// Eventos para manejo de interacciones
+sendButton.addEventListener('click', () => {
+  const message = inputField.value.trim();
+  if (message) {
+    renderMessage('user', message);
+
+    sendMessageToApi({ message })
+      .then((response) => {
+        typeMessage('bot', response);
+      })
+      .catch((error) => {
+        typeMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
+      });
+
+    inputField.value = '';
+  }
+});
+
+attachButton.addEventListener('click', () => {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = '*';
+  fileInput.style.display = 'none';
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (file) {
+      renderMessage('user', `Archivo adjuntado: ${file.name}`);
+
+      sendFileToApi(file)
+        .then((response) => {
+          typeMessage('bot', response);
+        })
+        .catch((error) => {
+          typeMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
+        });
+    }
+  });
+
+  fileInput.click();
+});
+
+inputField.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    sendButton.click();
+  }
+});
+
+/**
+ * Agrega accesibilidad y seguridad mejorada para eventos globales.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+  inputField.setAttribute('aria-label', 'Escribe tu mensaje');
+  sendButton.setAttribute('aria-label', 'Enviar mensaje');
+  attachButton.setAttribute('aria-label', 'Adjuntar archivo');
+});
