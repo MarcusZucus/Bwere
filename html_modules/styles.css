@@ -9,6 +9,7 @@
     --gray-light: #F5F5F5;
     --orange-bright: #FF7F50;
     --text-dark: #333333;
+    --gray-plus: #EEEEEE;
 }
 
 /* Estilo Global */
@@ -249,7 +250,7 @@ body {
 #attach-button {
     height: 40px;
     width: 40px;
-    background-color: var(--gray-light); /* Gris muy claro igual al de los mensajes del bot */
+    background-color: var(--gray-plus); /* Gris muy claro igual al de los mensajes del bot */
     border: none;
     border-radius: 50%;
     cursor: pointer;
