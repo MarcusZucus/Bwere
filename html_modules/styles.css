@@ -154,7 +154,7 @@ body {
 }
 
 .message-content {
-    max-width: 90%;
+    max-width: 85%;
     font-size: 16px;
     font-weight: 450;
     line-height: 1.5;
@@ -166,6 +166,7 @@ body {
 
 /* Estilo para mensajes sin burbuja */
 .message-content.no-bubble {
+    max-width: 90%;
     padding-left: 0; /* Sin padding izquierdo */
     padding-right: 0; /* Sin padding derecho */
     border-radius: 0; /* Opcional: eliminar redondeo si no es necesario */
