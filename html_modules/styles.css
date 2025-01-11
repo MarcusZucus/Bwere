@@ -135,7 +135,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    background-color: var(--white-pure);
+    background-color: var(--gray-light);
 }
 /* Mensajes */
 .message {
