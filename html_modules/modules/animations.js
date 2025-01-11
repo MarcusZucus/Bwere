@@ -8,9 +8,12 @@ export function fadeIn(element, duration = 500, callback = null) {
   if (!element) return;
 
   element.style.opacity = 0;
-  element.style.transition = `opacity ${duration}ms ease-in-out`;
+  element.style.transform = 'scale(0.9)'; // Escala inicial para añadir un efecto de ampliación
+  element.style.transition = `opacity ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
+
   requestAnimationFrame(() => {
     element.style.opacity = 1;
+    element.style.transform = 'scale(1)'; // Escala final
     setTimeout(() => {
       if (typeof callback === 'function') callback();
     }, duration);
@@ -33,7 +36,16 @@ export function typeMessageEffect(messageContent, content, speed = 24, callback 
       const span = document.createElement('span');
       span.textContent = content[index];
       span.style.opacity = 0;
-      span.style.animation = 'fade-in 0.1s ease forwards';
+      span.style.animation = 'fade-in 0.3s ease forwards';
+      if (content[index] === ',' || content[index] === '.') {
+        // Pausa adicional en signos de puntuación
+        clearInterval(typingInterval);
+        setTimeout(() => {
+          index++;
+          typeMessageEffect(messageContent, content.substring(index), speed, callback);
+        }, speed * 10);
+        return;
+      }
       messageContent.appendChild(span);
       index++;
     } else {
@@ -61,8 +73,10 @@ export function toggleMenuAnimation(menuButton, sidebar) {
   // Agregar transición suave con transformaciones CSS para un mejor rendimiento
   if (isOpen) {
     sidebar.style.transform = 'translateX(0)';
+    sidebar.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
   } else {
     sidebar.style.transform = 'translateX(-100%)';
+    sidebar.style.boxShadow = 'none';
   }
 }
 
@@ -81,3 +95,32 @@ export function setupOutsideClickHandler(menuButton, sidebar) {
     }
   });
 }
+
+// CSS sugerido para complementar estas mejoras
+const styles = `
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidebar {
+  transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+`;
+
+// Agrega el CSS al documento
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
