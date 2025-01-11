@@ -6,6 +6,9 @@
     --blue-electric: #7DF9FF;
     --black-carbon: #0F0F0F;
     --green-neon: #39FF14;
+    --gray-light: #F5F5F5;
+    --orange-bright: #FF7F50;
+    --text-dark: #333333;
 }
 
 /* Estilo Global */
@@ -21,7 +24,7 @@
 }
 
 *:focus-visible {
-    outline: 2px solid var(--blue-electric); /* Azul eléctrico para accesibilidad */
+    outline: 2px solid var(--orange-bright); /* Naranja para accesibilidad */
     outline-offset: 2px;
 }
 
@@ -35,7 +38,7 @@ body {
     font-family: 'Inter', sans-serif;
     font-weight: 500;
     background-color: var(--white-pure);
-    color: var(--black-carbon);
+    color: var(--text-dark);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,8 +64,8 @@ body {
 /* Encabezado */
 #chat-header {
     padding: 12px 20px;
-    background-color: var(--blue-cobalt); /* Azul cobalto para encabezado */
-    color: var(--white-pure);
+    background-color: var(--white-pure); /* Fondo blanco para encabezado */
+    color: var(--text-dark); /* Texto oscuro */
     font-size: 18px;
     font-weight: 600;
     display: flex;
@@ -93,7 +96,7 @@ body {
 #menu-button .line {
     width: 20px;
     height: 2px;
-    background-color: var(--white-pure);
+    background-color: var(--text-dark); /* Color del botón */
     border-radius: 5px;
     position: absolute;
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -160,12 +163,12 @@ body {
 }
 
 .message.user .message-content {
-    background-color: var(--blue-cobalt); /* Azul cobalto para el usuario */
+    background-color: var(--orange-bright); /* Naranja brillante para el usuario */
     color: var(--white-pure);
 }
 
 .message.bot .message-content {
-    background-color: var(--gray-silver); /* Gris plateado para el bot */
+    background-color: var(--gray-light); /* Gris muy claro para el bot */
     color: var(--black-carbon);
     opacity: 0;
     animation: fade-in 0.5s ease forwards;
@@ -187,7 +190,7 @@ body {
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    background-color: var(--white-pure);
+    background-color: var(--white-pure); /* Fondo blanco */
     gap: 10px;
     position: fixed; /* Siempre fija abajo */
     bottom: 0;
@@ -204,8 +207,8 @@ body {
     padding: 10px 15px;
     font-size: 16px;
     border-radius: 20px;
-    background-color: var(--gray-silver);
-    border: 1px solid var(--blue-cobalt);
+    background-color: var(--white-pure);
+    border: 1px solid var(--gray-silver); /* Borde sutil */
     color: var(--black-carbon);
     outline: none;
 }
@@ -214,7 +217,7 @@ body {
 #send-button {
     height: 40px;
     width: 40px;
-    background-color: var(--blue-cobalt);
+    background-color: var(--orange-bright); /* Naranja brillante */
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -230,7 +233,7 @@ body {
 }
 
 #send-button:hover {
-    background-color: var(--blue-electric);
+    background-color: #e96b3a; /* Tonalidad más oscura de naranja */
 }
 
 /* Botón de Adjuntar */
@@ -253,7 +256,7 @@ body {
 }
 
 #attach-button:hover {
-    background-color: var(--blue-cobalt);
+    background-color: var(--orange-bright);
 }
 /* Menú Lateral */
 #sidebar {
@@ -279,7 +282,7 @@ body {
     font-size: 18px;
     margin-bottom: 20px;
     font-weight: 600;
-    color: var(--blue-cobalt);
+    color: var(--orange-bright);
 }
 
 .conversation {
@@ -293,7 +296,7 @@ body {
 }
 
 .conversation:hover {
-    background-color: var(--blue-electric); /* Cambio visual al pasar el cursor */
+    background-color: var(--gray-light); /* Cambio visual al pasar el cursor */
     color: var(--black-carbon);
 }
 
