@@ -213,8 +213,6 @@ body {
     border: 1px solid var(--gray-silver); /* Borde sutil */
     color: var(--black-carbon);
     outline: none;
-    margin: 16px; /* Añadido */
-    width: calc(100% - 32px); /* Añadido */
 }
 
 /* Botón de Enviar */
