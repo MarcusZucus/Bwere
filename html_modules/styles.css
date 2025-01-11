@@ -163,6 +163,13 @@ body {
     border-radius: 20px; /* Redondeo más sutil para un diseño profesional */
 }
 
+/* Estilo para mensajes sin burbuja */
+.message-content.no-bubble {
+    padding-left: 0; /* Sin padding izquierdo */
+    padding-right: 0; /* Sin padding derecho */
+    border-radius: 0; /* Opcional: eliminar redondeo si no es necesario */
+}
+
 .message.user .message-content {
     background-color: var(--orange-bright); /* Naranja brillante para el usuario */
     color: var(--white-pure);
