@@ -58,7 +58,7 @@ body {
     overflow: hidden;
     position: relative;
     border-radius: 8px; /* Redondeado sutil para un diseño limpio */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra profesional */
+    box-shadow: none; /* Sin sombras */
 }
 
 /* Encabezado */
@@ -197,7 +197,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 2000;
-    border-top: 1px solid var(--gray-silver);
+    border-top: 0px solid var(--gray-silver);
 }
 
 /* Campo de Entrada */
@@ -240,14 +240,14 @@ body {
 #attach-button {
     height: 40px;
     width: 40px;
-    background-color: var(--gray-silver);
+    background-color: var(--gray-light); /* Gris muy claro igual al de los mensajes del bot */
     border: none;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease;
+    transition: none; /* Elimina cualquier transición de color */
 }
 
 #attach-button i {
