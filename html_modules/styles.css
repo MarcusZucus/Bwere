@@ -153,7 +153,7 @@ body {
 }
 
 .message-content {
-    max-width: 85%;
+    max-width: 90%;
     font-size: 16px;
     font-weight: 450;
     line-height: 1.5;
@@ -205,7 +205,7 @@ body {
 /* Campo de Entrada */
 #message-input {
     flex: 1;
-    height: 50px; /* Ajustado */
+    height: 40px; /* Ajustado */
     padding: 10px 15px;
     font-size: 16px;
     border-radius: 20px;
