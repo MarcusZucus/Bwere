@@ -4,6 +4,50 @@ const inputField = document.getElementById('message-input');
 const messagesContainer = document.getElementById('messages');
 
 const apiUrl = "http://127.0.0.1:5000/chat"; // URL del endpoint de la API
+const fadingLineUrl = "/Fading_Line_ECG.html"; // Ruta al archivo HTML de la animación
+
+/**
+ * Carga el contenido HTML desde una URL y lo inserta en el DOM.
+ * @param {string} url - URL del archivo HTML.
+ * @returns {Promise<string>} - Contenido del archivo HTML.
+ */
+async function loadHtmlFromUrl(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Error al cargar el archivo HTML: ${response.status}`);
+    }
+    return await response.text();
+  } catch (error) {
+    console.error("Error al cargar el HTML:", error);
+    return "<div>Error al cargar el indicador de carga</div>"; // Mensaje de fallback
+  }
+}
+
+/**
+ * Muestra el indicador de carga en el contenedor de mensajes.
+ */
+async function showLoadingIndicator() {
+  const loadingIndicator = document.createElement("div");
+  loadingIndicator.className = "message bot"; // Clase de mensaje del bot
+  loadingIndicator.id = "loading-indicator"; // ID para identificarlo
+
+  const htmlContent = await loadHtmlFromUrl(fadingLineUrl); // Cargar el HTML de la animación
+  loadingIndicator.innerHTML = htmlContent;
+
+  messagesContainer.appendChild(loadingIndicator);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight; // Asegura el scroll hacia abajo
+}
+
+/**
+ * Oculta el indicador de carga eliminándolo del DOM.
+ */
+function hideLoadingIndicator() {
+  const loadingIndicator = document.getElementById("loading-indicator");
+  if (loadingIndicator) {
+    loadingIndicator.remove();
+  }
+}
 
 /**
  * Agrega un mensaje al contenedor de mensajes con soporte para accesibilidad y diseño responsivo.
@@ -119,16 +163,21 @@ async function sendFileToApi(file) {
 }
 
 // Eventos para manejo de interacciones
-sendButton.addEventListener('click', () => {
+sendButton.addEventListener('click', async () => {
   const message = inputField.value.trim();
   if (message) {
     renderMessage('user', message);
 
+    // Mostrar el indicador de carga
+    await showLoadingIndicator();
+
     sendMessageToApi({ message })
       .then((response) => {
+        hideLoadingIndicator();
         typeMessage('bot', response);
       })
-      .catch((error) => {
+      .catch(() => {
+        hideLoadingIndicator();
         typeMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
       });
 
@@ -147,11 +196,16 @@ attachButton.addEventListener('click', () => {
     if (file) {
       renderMessage('user', `Archivo adjuntado: ${file.name}`);
 
+      // Mostrar el indicador de carga
+      showLoadingIndicator();
+
       sendFileToApi(file)
         .then((response) => {
+          hideLoadingIndicator();
           typeMessage('bot', response);
         })
-        .catch((error) => {
+        .catch(() => {
+          hideLoadingIndicator();
           typeMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
         });
     }
