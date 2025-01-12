@@ -74,6 +74,20 @@
   <!-- Superposición para oscurecer el fondo -->
   <div id="overlay"></div>
 
+  <!-- Plantilla para la animación ECG -->
+  <template id="ecg-template">
+    <div class="animation-container">
+      <div class="heart"></div>
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <path class="line" d="
+          M30,100 L100,100 Q120,70 140,100 Q160,130 180,100 
+          Q200,70 220,100 Q240,130 260,100 Q280,70 300,100 
+          L370,100
+        " />
+      </svg>
+    </div>
+  </template>
+
   <!-- JavaScript para funcionalidades dinámicas -->
   <script>
     // Función para habilitar la pantalla completa
