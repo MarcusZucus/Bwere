@@ -9,8 +9,9 @@ const apiUrl = "http://127.0.0.1:5000/chat"; // URL del endpoint de la API
  * Agrega un mensaje al contenedor de mensajes con soporte para accesibilidad y diseño responsivo.
  * @param {string} role - Rol del mensaje ('user' o 'bot').
  * @param {string} content - Contenido del mensaje a renderizar.
+ * @param {boolean} animate - Define si el mensaje debe mostrarse con animación de texto.
  */
-function renderMessage(role, content) {
+function renderMessage(role, content, animate = false) {
   const messageDiv = document.createElement('div');
   messageDiv.className = `message ${role}`;
   const messageContent = document.createElement('div');
@@ -21,34 +22,71 @@ function renderMessage(role, content) {
     messageContent.classList.add('no-bubble');
   }
 
-  messageContent.textContent = content;
+  if (animate) {
+    typeText(messageContent, content);
+  } else {
+    messageContent.textContent = content;
+  }
+
   messageDiv.appendChild(messageContent);
   messagesContainer.appendChild(messageDiv);
   messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll automático
 }
 
 /**
+ * Muestra el contenido del texto carácter por carácter.
+ * @param {HTMLElement} element - Elemento donde se mostrará el texto.
+ * @param {string} text - Texto a mostrar.
+ * @param {number} speed - Velocidad de escritura (en milisegundos por carácter).
+ */
+function typeText(element, text, speed = 50) {
+  let index = 0;
+  const interval = setInterval(() => {
+    if (index < text.length) {
+      element.textContent += text[index];
+      index++;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight; // Mantener el scroll al final
+    } else {
+      clearInterval(interval);
+    }
+  }, speed);
+}
+
+/**
  * Muestra la animación de carga desde el archivo Fading_Line_ECG (2).html.
+ * La animación se renderiza como un `message-content` para respetar las mismas dimensiones.
  */
 function showLoadingAnimation() {
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'message bot'; // Asegura que tenga la misma estructura de un mensaje del bot
+
+  const loadingAnimation = document.createElement('div');
+  loadingAnimation.className = 'message-content'; // Mantiene las mismas dimensiones y estilos del contenedor de mensajes
+  loadingAnimation.style.minHeight = '40px'; // Asegura que coincida con el CSS definido
+  loadingAnimation.style.display = 'flex';
+  loadingAnimation.style.justifyContent = 'center';
+  loadingAnimation.style.alignItems = 'center';
+
   const iframe = document.createElement('iframe');
   iframe.src = '/Fading_Line_ECG (2).html'; // Ruta relativa desde la raíz del proyecto
-  iframe.className = 'loading-animation';
   iframe.style.border = 'none';
   iframe.style.width = '100%';
-  iframe.style.height = '250px'; // Ajusta la altura para evitar cortes
+  iframe.style.height = '100%'; // Se ajusta dinámicamente al contenedor
   iframe.style.overflow = 'hidden';
 
-  messagesContainer.appendChild(iframe);
+  loadingAnimation.appendChild(iframe);
+  messageDiv.appendChild(loadingAnimation);
+  messagesContainer.appendChild(messageDiv);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight; // Asegura el scroll al último mensaje
 }
 
 /**
  * Elimina la animación de carga (iframe).
  */
 function removeLoadingAnimation() {
-  const iframe = document.querySelector('.loading-animation');
-  if (iframe) {
-    messagesContainer.removeChild(iframe);
+  const loadingAnimation = document.querySelector('.message.bot .message-content iframe');
+  if (loadingAnimation) {
+    loadingAnimation.parentElement.parentElement.remove();
   }
 }
 
@@ -91,11 +129,11 @@ sendButton.addEventListener('click', () => {
       sendMessageToApi({ message })
         .then((response) => {
           removeLoadingAnimation(); // Quita la animación de carga
-          renderMessage('bot', response); // Renderiza la respuesta del bot
+          renderMessage('bot', response, true); // Renderiza la respuesta del bot con animación
         })
         .catch(() => {
           removeLoadingAnimation(); // Quita la animación de carga
-          renderMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
+          renderMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.", true);
         });
     }, 3000);
 
@@ -120,11 +158,11 @@ attachButton.addEventListener('click', () => {
         sendFileToApi(file)
           .then((response) => {
             removeLoadingAnimation(); // Quita la animación de carga
-            renderMessage('bot', response);
+            renderMessage('bot', response, true); // Renderiza la respuesta del bot con animación
           })
           .catch(() => {
             removeLoadingAnimation(); // Quita la animación de carga
-            renderMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
+            renderMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.", true);
           });
       }, 3000);
     }
