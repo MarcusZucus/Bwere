@@ -12,7 +12,7 @@ const apiUrl = "http://127.0.0.1:5000/chat"; // URL del endpoint de la API
  */
 function renderMessage(role, content) {
   const messageDiv = document.createElement('div');
-  messageDiv.className = message ${role};
+  messageDiv.className = `message ${role}`;
   const messageContent = document.createElement('div');
   messageContent.className = 'message-content';
 
@@ -35,7 +35,7 @@ function renderMessage(role, content) {
  */
 function typeMessage(role, content, speed = 50) {
   const messageDiv = document.createElement('div');
-  messageDiv.className = message ${role};
+  messageDiv.className = `message ${role}`;
   const messageContent = document.createElement('div');
   messageContent.className = 'message-content';
 
@@ -80,7 +80,7 @@ async function sendMessageToApi(payload) {
     });
 
     if (!response.ok) {
-      throw new Error(HTTP error! status: ${response.status});
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
@@ -101,13 +101,13 @@ async function sendFileToApi(file) {
     const formData = new FormData();
     formData.append('file', file);
 
-    const response = await fetch(${apiUrl}/upload, {
+    const response = await fetch(`${apiUrl}/upload`, {
       method: "POST",
       body: formData,
     });
 
     if (!response.ok) {
-      throw new Error(HTTP error! status: ${response.status});
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
@@ -145,7 +145,7 @@ attachButton.addEventListener('click', () => {
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
     if (file) {
-      renderMessage('user', Archivo adjuntado: ${file.name});
+      renderMessage('user', `Archivo adjuntado: ${file.name}`);
 
       sendFileToApi(file)
         .then((response) => {
