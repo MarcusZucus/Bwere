@@ -28,77 +28,32 @@ function renderMessage(role, content) {
 }
 
 /**
- * Muestra una animación de carga (ECG) durante 3 segundos.
+ * Muestra la animación de carga desde el archivo Fading_Line_ECG (2).html.
  */
 function showLoadingAnimation() {
-  const animationContainer = document.createElement('div');
-  animationContainer.className = 'animation-container';
-  animationContainer.innerHTML = `
-    <div class="heart"></div>
-    <style>
-      .animation-container {
-        position: relative;
-        width: 400px;
-        height: 200px;
-        margin: 10px auto;
-      }
-      .heart {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background-color: #EEEEEE;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
-        animation: pulse 1.5s infinite, colorShift 1.5s infinite;
-      }
-      .heart:before, .heart:after {
-        content: '';
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        background-color: #EEEEEE;
-        border-radius: 50%;
-        top: -15px;
-        left: 0;
-      }
-      .heart:after {
-        left: 15px;
-        top: 0;
-      }
-      @keyframes pulse {
-        0%, 100% {
-          transform: translate(-50%, -50%) scale(1);
-        }
-        50% {
-          transform: translate(-50%, -50%) scale(1.2);
-        }
-      }
-      @keyframes colorShift {
-        0%, 100% {
-          background-color: #EEEEEE;
-        }
-        50% {
-          background-color: #F76E6E;
-        }
-      }
-    </style>
-  `;
-  messagesContainer.appendChild(animationContainer);
+  const iframe = document.createElement('iframe');
+  iframe.src = '/Fading_Line_ECG (2).html'; // Ruta relativa desde la raíz del proyecto
+  iframe.className = 'loading-animation';
+  iframe.style.border = 'none';
+  iframe.style.width = '100%';
+  iframe.style.height = '200px';
+  iframe.style.overflow = 'hidden';
 
-  // Eliminar la animación automáticamente después de 3 segundos
+  messagesContainer.appendChild(iframe);
+
+  // Elimina la animación automáticamente después de 3 segundos
   setTimeout(() => {
     removeLoadingAnimation();
   }, 3000);
 }
 
 /**
- * Elimina la animación de carga (ECG).
+ * Elimina la animación de carga (iframe).
  */
 function removeLoadingAnimation() {
-  const animation = document.querySelector('.animation-container');
-  if (animation) {
-    messagesContainer.removeChild(animation);
+  const iframe = document.querySelector('.loading-animation');
+  if (iframe) {
+    messagesContainer.removeChild(iframe);
   }
 }
 
