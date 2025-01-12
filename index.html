@@ -27,109 +27,6 @@
   <script defer type="module" src="/html_modules/modules/animations.js"></script>
   <script defer src="/prevent-scroll.js"></script>
   <script defer type="module" src="/service-worker-registration.js"></script>
-
-  <style>
-    /* Estilos para el indicador de carga */
-    #loading-indicator {
-      display: none; /* Oculto por defecto */
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1000;
-    }
-
-    .animation-container {
-      position: relative;
-      width: 400px;
-      height: 200px;
-    }
-
-    .heart {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background-color: #EEEEEE;
-      left: 0;
-      top: 85px;
-      transform: rotate(45deg);
-      border-radius: 20% 20% 40% 40%;
-      animation: pulse 1.5s infinite, colorShift 1.5s infinite;
-    }
-
-    .heart:before,
-    .heart:after {
-      content: "";
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background-color: inherit;
-      border-radius: 50%;
-    }
-
-    .heart:before {
-      top: -15px;
-      left: 0;
-    }
-
-    .heart:after {
-      left: -15px;
-      top: 0;
-    }
-
-    svg .line {
-      stroke: #EEEEEE;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 400;
-      stroke-dashoffset: 400;
-      animation: draw 1.5s linear infinite, fadeOut 1.5s linear infinite;
-    }
-
-    @keyframes pulse {
-      0%, 25% {
-        transform: scale(1) rotate(45deg);
-      }
-      50% {
-        transform: scale(1.2) rotate(45deg);
-      }
-      75%, 100% {
-        transform: scale(1) rotate(45deg);
-      }
-    }
-
-    @keyframes colorShift {
-      0% {
-        background-color: #EEEEEE;
-      }
-      50% {
-        background-color: #444444;
-      }
-      100% {
-        background-color: #EEEEEE;
-      }
-    }
-
-    @keyframes draw {
-      0% {
-        stroke-dashoffset: 400;
-      }
-      100% {
-        stroke-dashoffset: -400;
-      }
-    }
-
-    @keyframes fadeOut {
-      0%, 70% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-      }
-    }
-  </style>
 </head>
 <body>
   <div id="chat-container">
@@ -171,20 +68,6 @@
     <div class="conversation" data-id="3">Conversación 3</div>
   </div>
 
-  <!-- Indicador de Carga -->
-  <div id="loading-indicator">
-    <div class="animation-container">
-      <div class="heart"></div>
-      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-        <path class="line" d="
-          M30,100 L100,100 Q120,70 140,100 Q160,130 180,100 
-          Q200,70 220,100 Q240,130 260,100 Q280,70 300,100 
-          L370,100
-        " />
-      </svg>
-    </div>
-  </div>
-
   <!-- JavaScript para ajustar la posición del input-area -->
   <script>
     // Detecta cambios en el tamaño de la ventana
@@ -211,15 +94,6 @@
 
     // Ajuste inicial al cargar la página
     window.dispatchEvent(new Event('resize'));
-
-    // Mostrar/Ocultar indicador de carga
-    function showLoadingIndicator() {
-      document.getElementById('loading-indicator').style.display = 'flex';
-    }
-
-    function hideLoadingIndicator() {
-      document.getElementById('loading-indicator').style.display = 'none';
-    }
   </script>
 
   <!-- Registro del Service Worker -->
@@ -235,4 +109,4 @@
     }
   </script>
 </body>
-</html>
+</html> 
