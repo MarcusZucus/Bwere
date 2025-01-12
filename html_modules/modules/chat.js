@@ -16,10 +16,9 @@ function renderMessage(role, content, animate = false) {
   messageDiv.className = `message ${role}`;
   const messageContent = document.createElement('div');
   messageContent.className = 'message-content';
-  messageContent.style.minHeight = '70px'; // Ajusta la altura mínima para evitar cortes en el contenido
 
   if (animate) {
-    typeText(messageContent, content);
+    typeMessage(messageContent, content);
   } else {
     messageContent.textContent = content;
   }
@@ -30,12 +29,12 @@ function renderMessage(role, content, animate = false) {
 }
 
 /**
- * Muestra el contenido del texto carácter por carácter.
+ * Simula una animación de escritura para mensajes del bot.
  * @param {HTMLElement} element - Elemento donde se mostrará el texto.
  * @param {string} text - Texto a mostrar.
- * @param {number} speed - Velocidad de escritura (en milisegundos por carácter).
+ * @param {number} speed - Velocidad de escritura en milisegundos por carácter (opcional).
  */
-function typeText(element, text, speed = 50) {
+function typeMessage(element, text, speed = 50) {
   let index = 0;
   const interval = setInterval(() => {
     if (index < text.length) {
@@ -49,40 +48,37 @@ function typeText(element, text, speed = 50) {
 }
 
 /**
- * Muestra la animación de carga desde el archivo Fading_Line_ECG (2).html.
- * La animación se renderiza como un `message-content` para respetar las mismas dimensiones.
+ * Muestra una animación de carga como un GIF.
  */
 function showLoadingAnimation() {
-  const messageDiv = document.createElement('div');
-  messageDiv.className = 'message bot'; // Asegura que tenga la misma estructura de un mensaje del bot
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'message bot'; // Estructura similar a un mensaje del bot
 
-  const loadingAnimation = document.createElement('div');
-  loadingAnimation.className = 'message-content'; // Mantiene las mismas dimensiones y estilos del contenedor de mensajes
-  loadingAnimation.style.minHeight = '70px'; // Altura mínima para que el corazón no se corte
-  loadingAnimation.style.display = 'flex';
-  loadingAnimation.style.justifyContent = 'center';
-  loadingAnimation.style.alignItems = 'center';
+  const loadingContent = document.createElement('div');
+  loadingContent.className = 'message-content';
+  loadingContent.style.display = 'flex';
+  loadingContent.style.justifyContent = 'center';
+  loadingContent.style.alignItems = 'center';
 
-  const iframe = document.createElement('iframe');
-  iframe.src = '/Fading_Line_ECG (2).html'; // Ruta relativa desde la raíz del proyecto
-  iframe.style.border = 'none';
-  iframe.style.width = '100%';
-  iframe.style.height = '100%'; // Se ajusta dinámicamente al contenedor
-  iframe.style.overflow = 'hidden';
+  const loadingImage = document.createElement('img');
+  loadingImage.src = '/path/to/loading.gif'; // Ruta al GIF de carga
+  loadingImage.alt = 'Cargando...';
+  loadingImage.style.width = '50px'; // Ajusta el tamaño del GIF si es necesario
+  loadingImage.style.height = '50px';
 
-  loadingAnimation.appendChild(iframe);
-  messageDiv.appendChild(loadingAnimation);
-  messagesContainer.appendChild(messageDiv);
-  messagesContainer.scrollTop = messagesContainer.scrollHeight; // Asegura el scroll al último mensaje
+  loadingContent.appendChild(loadingImage);
+  loadingDiv.appendChild(loadingContent);
+  messagesContainer.appendChild(loadingDiv);
+  messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll automático
 }
 
 /**
- * Elimina la animación de carga (iframe).
+ * Elimina la animación de carga.
  */
 function removeLoadingAnimation() {
-  const loadingAnimation = document.querySelector('.message.bot .message-content iframe');
-  if (loadingAnimation) {
-    loadingAnimation.parentElement.parentElement.remove();
+  const loadingDiv = document.querySelector('.message.bot .message-content img');
+  if (loadingDiv) {
+    loadingDiv.parentElement.parentElement.remove();
   }
 }
 
