@@ -124,11 +124,16 @@ sendButton.addEventListener('click', () => {
   if (message) {
     renderMessage('user', message);
 
+    // Mostrar el indicador de carga
+    showLoadingIndicator();
+
     sendMessageToApi({ message })
       .then((response) => {
+        hideLoadingIndicator();
         typeMessage('bot', response);
       })
       .catch((error) => {
+        hideLoadingIndicator();
         typeMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
       });
 
@@ -147,11 +152,16 @@ attachButton.addEventListener('click', () => {
     if (file) {
       renderMessage('user', `Archivo adjuntado: ${file.name}`);
 
+      // Mostrar el indicador de carga
+      showLoadingIndicator();
+
       sendFileToApi(file)
         .then((response) => {
+          hideLoadingIndicator();
           typeMessage('bot', response);
         })
         .catch((error) => {
+          hideLoadingIndicator();
           typeMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
         });
     }
@@ -173,4 +183,19 @@ document.addEventListener('DOMContentLoaded', () => {
   inputField.setAttribute('aria-label', 'Escribe tu mensaje');
   sendButton.setAttribute('aria-label', 'Enviar mensaje');
   attachButton.setAttribute('aria-label', 'Adjuntar archivo');
+
+  // Funciones para mostrar y ocultar el indicador de carga
+  window.showLoadingIndicator = function() {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    if (loadingIndicator) {
+      loadingIndicator.style.display = 'flex';
+    }
+  };
+
+  window.hideLoadingIndicator = function() {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    if (loadingIndicator) {
+      loadingIndicator.style.display = 'none';
+    }
+  };
 });
