@@ -16,11 +16,7 @@ function renderMessage(role, content, animate = false) {
   messageDiv.className = `message ${role}`;
   const messageContent = document.createElement('div');
   messageContent.className = 'message-content';
-
-  // Agregar clase no-bubble para mensajes de error del bot
-  if (role === 'bot' && content.includes('Lo siento')) {
-    messageContent.classList.add('no-bubble');
-  }
+  messageContent.style.minHeight = '70px'; // Ajusta la altura mínima para evitar cortes en el contenido
 
   if (animate) {
     typeText(messageContent, content);
@@ -62,7 +58,7 @@ function showLoadingAnimation() {
 
   const loadingAnimation = document.createElement('div');
   loadingAnimation.className = 'message-content'; // Mantiene las mismas dimensiones y estilos del contenedor de mensajes
-  loadingAnimation.style.minHeight = '40px'; // Asegura que coincida con el CSS definido
+  loadingAnimation.style.minHeight = '70px'; // Altura mínima para que el corazón no se corte
   loadingAnimation.style.display = 'flex';
   loadingAnimation.style.justifyContent = 'center';
   loadingAnimation.style.alignItems = 'center';
