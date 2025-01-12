@@ -65,7 +65,7 @@ function typeMessage(role, content, speed = 50) {
 }
 
 /**
- * Muestra la animación de Fading_Line_ECG (2).html antes del mensaje del bot.
+ * Muestra la animación de Fading_Line_ECG_2.html antes del mensaje del bot.
  * Ocupa el mismo espacio que message-content-no-bubble.
  * @param {string} message - Contenido del mensaje del bot.
  */
@@ -82,9 +82,14 @@ function displayECGAnimationAndMessage(message) {
   animationContainer.style.transition = 'opacity 1s ease-in-out';
   animationContainer.style.opacity = '1'; // Visible inicialmente
 
-  // Cargar el contenido de Fading_Line_ECG (2).html
-  fetch('Fading_Line_ECG (2).html')
-    .then(response => response.text())
+  // Cargar el contenido de Fading_Line_ECG_2.html
+  fetch('Fading_Line_ECG_2.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error al cargar la animación: ${response.statusText}`);
+      }
+      return response.text();
+    })
     .then(html => {
       animationContainer.innerHTML = html;
       messagesContainer.appendChild(animationContainer);
