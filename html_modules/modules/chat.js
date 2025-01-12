@@ -28,7 +28,7 @@ function renderMessage(role, content) {
 }
 
 /**
- * Muestra una animación de carga (ECG) mientras se procesa el mensaje.
+ * Muestra una animación de carga (ECG) durante 3 segundos.
  */
 function showLoadingAnimation() {
   const animationContainer = document.createElement('div');
@@ -85,6 +85,11 @@ function showLoadingAnimation() {
     </style>
   `;
   messagesContainer.appendChild(animationContainer);
+
+  // Eliminar la animación automáticamente después de 3 segundos
+  setTimeout(() => {
+    removeLoadingAnimation();
+  }, 3000);
 }
 
 /**
@@ -133,11 +138,9 @@ sendButton.addEventListener('click', () => {
 
     sendMessageToApi({ message })
       .then((response) => {
-        removeLoadingAnimation(); // Quita la animación de carga
         renderMessage('bot', response); // Renderiza la respuesta del bot
       })
       .catch(() => {
-        removeLoadingAnimation(); // Quita la animación en caso de error
         renderMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
       });
 
