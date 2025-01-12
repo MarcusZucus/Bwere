@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fading ECG</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: transparent; /* Transparent background */
+            overflow: hidden;
+        }
+
+        .animation-container {
+            position: relative;
+            width: 400px;
+            height: 200px;
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #EEEEEE;
+            left: 0;
+            top: 85px; /* Centered relative to ECG */
+            transform: rotate(45deg);
+            animation: pulse 1.5s infinite, colorShift 1.5s infinite; /* Sync color with pulse */
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: inherit;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -15px;
+            left: 0;
+        }
+
+        .heart:after {
+            left: -15px;
+            top: 0;
+        }
+
+        @keyframes pulse {
+            0%, 25% {
+                transform: scale(1) rotate(45deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(45deg); /* Maximum expansion */
+            }
+            75%, 100% {
+                transform: scale(1) rotate(45deg);
+            }
+        }
+
+        @keyframes colorShift {
+            0% {
+                background-color: #EEEEEE;
+            }
+            50% {
+                background-color: #444444; /* Dark gray, but not fully dark */
+            }
+            100% {
+                background-color: #EEEEEE;
+            }
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .line {
+            stroke: #EEEEEE;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round; /* Rounded corners */
+            stroke-dasharray: 400; /* Length of the visible part */
+            stroke-dashoffset: 400; /* Initially hidden */
+            animation: draw 1.5s linear infinite, fadeOut 1.5s linear infinite; /* Sync fade with movement */
+        }
+
+        @keyframes draw {
+            0% {
+                stroke-dashoffset: 400; /* Start hidden */
+            }
+            100% {
+                stroke-dashoffset: -400; /* Move fully for continuity */
+            }
+        }
+
+        @keyframes fadeOut {
+            0%, 70% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0; /* Fade out the end */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animation-container">
+        <!-- Corazón pulsante con transición de color limitada -->
+        <div class="heart"></div>
+
+        <!-- Línea ECG con desvanecimiento hacia el final -->
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+            <path class="line" d="
+                M30,100 L100,100 Q120,70 140,100 Q160,130 180,100 
+                Q200,70 220,100 Q240,130 260,100 Q280,70 300,100 
+                L370,100
+            " />
+        </svg>
+    </div>
+</body>
+</html>
