@@ -65,45 +65,32 @@ function typeMessage(role, content, speed = 50) {
 }
 
 /**
- * Muestra la animación de Fading_Line_ECG_2.html antes del mensaje del bot.
- * Ocupa el mismo espacio que message-content-no-bubble.
+ * Muestra la animación ECG antes del mensaje del bot usando un template precargado.
  * @param {string} message - Contenido del mensaje del bot.
  */
 function displayECGAnimationAndMessage(message) {
-  // Crear un contenedor para la animación
-  const animationContainer = document.createElement('div');
-  animationContainer.id = 'ecg-animation-container';
-  animationContainer.className = 'message-content'; // Alinea con el estilo de message-content
-  animationContainer.style.display = 'flex';
-  animationContainer.style.alignItems = 'center';
-  animationContainer.style.justifyContent = 'center';
-  animationContainer.style.height = 'auto';
-  animationContainer.style.overflow = 'hidden';
+  const template = document.getElementById('ecg-template');
+  if (!template) {
+    console.error('Plantilla ECG no encontrada.');
+    typeMessage('bot', message);
+    return;
+  }
+
+  // Clonar contenido del template
+  const animationContainer = template.content.cloneNode(true).firstElementChild;
   animationContainer.style.transition = 'opacity 1s ease-in-out';
   animationContainer.style.opacity = '1'; // Visible inicialmente
 
-  // Cargar el contenido de Fading_Line_ECG_2.html
-  fetch('Fading_Line_ECG_2.html')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error al cargar la animación: ${response.statusText}`);
-      }
-      return response.text();
-    })
-    .then(html => {
-      animationContainer.innerHTML = html;
-      messagesContainer.appendChild(animationContainer);
+  messagesContainer.appendChild(animationContainer);
 
-      // Desvanecer la animación después de 3 segundos
-      setTimeout(() => {
-        animationContainer.style.opacity = '0';
-        setTimeout(() => {
-          animationContainer.remove(); // Eliminar la animación
-          typeMessage('bot', message); // Mostrar el mensaje del bot
-        }, 1000); // Tiempo para el efecto fade-out
-      }, 3000);
-    })
-    .catch(error => console.error('Error al cargar la animación:', error));
+  // Desvanecer la animación después de 3 segundos
+  setTimeout(() => {
+    animationContainer.style.opacity = '0';
+    setTimeout(() => {
+      animationContainer.remove(); // Eliminar la animación
+      typeMessage('bot', message); // Mostrar el mensaje del bot
+    }, 1000); // Tiempo para el efecto fade-out
+  }, 3000);
 }
 
 /**
