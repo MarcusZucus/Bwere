@@ -28,40 +28,73 @@ function renderMessage(role, content) {
 }
 
 /**
- * Simula una animación de escritura para mensajes del bot.
- * @param {string} role - Rol del mensaje ('user' o 'bot').
- * @param {string} content - Contenido del mensaje a escribir.
- * @param {number} speed - Velocidad de escritura en milisegundos por carácter (opcional).
+ * Muestra una animación de carga (ECG) mientras se procesa el mensaje.
  */
-function typeMessage(role, content, speed = 50) {
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `message ${role}`;
-  const messageContent = document.createElement('div');
-  messageContent.className = 'message-content';
+function showLoadingAnimation() {
+  const animationContainer = document.createElement('div');
+  animationContainer.className = 'animation-container';
+  animationContainer.innerHTML = `
+    <div class="heart"></div>
+    <style>
+      .animation-container {
+        position: relative;
+        width: 400px;
+        height: 200px;
+        margin: 10px auto;
+      }
+      .heart {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: #EEEEEE;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        animation: pulse 1.5s infinite, colorShift 1.5s infinite;
+      }
+      .heart:before, .heart:after {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: #EEEEEE;
+        border-radius: 50%;
+        top: -15px;
+        left: 0;
+      }
+      .heart:after {
+        left: 15px;
+        top: 0;
+      }
+      @keyframes pulse {
+        0%, 100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+      }
+      @keyframes colorShift {
+        0%, 100% {
+          background-color: #EEEEEE;
+        }
+        50% {
+          background-color: #F76E6E;
+        }
+      }
+    </style>
+  `;
+  messagesContainer.appendChild(animationContainer);
+}
 
-  // Agregar clase no-bubble para mensajes de error del bot
-  if (role === 'bot' && content.includes('Lo siento')) {
-    messageContent.classList.add('no-bubble');
+/**
+ * Elimina la animación de carga (ECG).
+ */
+function removeLoadingAnimation() {
+  const animation = document.querySelector('.animation-container');
+  if (animation) {
+    messagesContainer.removeChild(animation);
   }
-
-  messageDiv.appendChild(messageContent);
-  messagesContainer.appendChild(messageDiv);
-
-  let index = 0;
-  const typingInterval = setInterval(() => {
-    if (index < content.length) {
-      const span = document.createElement('span');
-      span.textContent = content[index];
-      span.style.opacity = 0;
-      span.style.animation = 'fade-in 0.5s ease forwards';
-      messageContent.appendChild(span);
-
-      index++;
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    } else {
-      clearInterval(typingInterval);
-    }
-  }, speed);
 }
 
 /**
@@ -91,48 +124,24 @@ async function sendMessageToApi(payload) {
   }
 }
 
-/**
- * Llama a la API para enviar un archivo seleccionado por el usuario.
- * @param {File} file - Archivo a enviar a la API.
- * @returns {Promise<string>} Respuesta procesada por la API.
- */
-async function sendFileToApi(file) {
-  try {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await fetch(`${apiUrl}/upload`, {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.response;
-  } catch (error) {
-    console.error("Error al enviar el archivo a la API:", error);
-    throw error;
-  }
-}
-
 // Eventos para manejo de interacciones
 sendButton.addEventListener('click', () => {
   const message = inputField.value.trim();
   if (message) {
-    renderMessage('user', message);
+    renderMessage('user', message); // Renderiza el mensaje del usuario
+    showLoadingAnimation(); // Muestra la animación de carga
 
     sendMessageToApi({ message })
       .then((response) => {
-        typeMessage('bot', response);
+        removeLoadingAnimation(); // Quita la animación de carga
+        renderMessage('bot', response); // Renderiza la respuesta del bot
       })
-      .catch((error) => {
-        typeMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
+      .catch(() => {
+        removeLoadingAnimation(); // Quita la animación en caso de error
+        renderMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
       });
 
-    inputField.value = '';
+    inputField.value = ''; // Limpia el campo de entrada
   }
 });
 
@@ -149,10 +158,10 @@ attachButton.addEventListener('click', () => {
 
       sendFileToApi(file)
         .then((response) => {
-          typeMessage('bot', response);
+          renderMessage('bot', response);
         })
-        .catch((error) => {
-          typeMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
+        .catch(() => {
+          renderMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
         });
     }
   });
