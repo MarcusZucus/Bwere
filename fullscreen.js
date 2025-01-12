@@ -5,20 +5,30 @@ document.addEventListener("DOMContentLoaded", () => {
   try {
     const isFullscreenAvailable =
       document.documentElement.requestFullscreen ||
-      document.documentElement.webkitRequestFullscreen;
+      document.documentElement.webkitRequestFullscreen ||
+      document.documentElement.msRequestFullscreen;
 
     if (isFullscreenAvailable) {
       activateFullScreen();
     } else {
-      console.warn("La API de pantalla completa no está disponible en este navegador.");
+      alert("El modo de pantalla completa no está disponible en este navegador.");
     }
 
     // Aplica estilos para ocupar el 100% de la pantalla
     applyFullScreenStyles();
     preventScroll();
     requestImmersiveMode();
+
+    // Detectar cuando el usuario sale del modo pantalla completa
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
+        console.log("El usuario salió del modo pantalla completa. Intentando reactivar...");
+        activateFullScreen();
+      }
+    });
   } catch (error) {
     console.error("Error inicializando pantalla completa:", error);
+    alert("Ocurrió un error al activar el modo inmersivo.");
   }
 });
 
@@ -37,6 +47,8 @@ function activateFullScreen() {
     });
   } else if (document.documentElement.webkitRequestFullscreen) {
     document.documentElement.webkitRequestFullscreen(); // Para navegadores basados en WebKit
+  } else if (document.documentElement.msRequestFullscreen) {
+    document.documentElement.msRequestFullscreen(); // Para navegadores antiguos de Edge
   }
 }
 
@@ -69,7 +81,8 @@ function requestImmersiveMode() {
  * Evita que el usuario pueda desplazarse accidentalmente.
  */
 function preventScroll() {
-  document.addEventListener(
+  const appContainer = document.getElementById("app") || document.documentElement;
+  appContainer.addEventListener(
     "touchmove",
     (event) => {
       event.preventDefault();
@@ -104,6 +117,12 @@ function applyFullScreenStyles() {
       flex-direction: column;
       justify-content: flex-start;
     }
+
+    @media (max-width: 480px) {
+      #app {
+        font-size: 90%; /* Escala el contenido para dispositivos más pequeños */
+      }
+    }
   `;
   document.head.appendChild(style);
 }
@@ -135,11 +154,14 @@ function exitFullScreen() {
       });
     } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen(); // Para navegadores basados en WebKit
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen(); // Para navegadores antiguos de Edge
     }
   } else {
     console.log("No hay elementos en pantalla completa para desactivar.");
   }
 }
+
 
 // Opcional: Asignar salida de pantalla completa a un botón
 // document.getElementById("exitButton").addEventListener("click", exitFullScreen);
