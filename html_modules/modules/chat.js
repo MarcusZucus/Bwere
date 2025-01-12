@@ -36,15 +36,10 @@ function showLoadingAnimation() {
   iframe.className = 'loading-animation';
   iframe.style.border = 'none';
   iframe.style.width = '100%';
-  iframe.style.height = '200px';
+  iframe.style.height = '250px'; // Ajusta la altura para evitar cortes
   iframe.style.overflow = 'hidden';
 
   messagesContainer.appendChild(iframe);
-
-  // Elimina la animación automáticamente después de 3 segundos
-  setTimeout(() => {
-    removeLoadingAnimation();
-  }, 3000);
 }
 
 /**
@@ -91,13 +86,18 @@ sendButton.addEventListener('click', () => {
     renderMessage('user', message); // Renderiza el mensaje del usuario
     showLoadingAnimation(); // Muestra la animación de carga
 
-    sendMessageToApi({ message })
-      .then((response) => {
-        renderMessage('bot', response); // Renderiza la respuesta del bot
-      })
-      .catch(() => {
-        renderMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
-      });
+    // Espera 3 segundos antes de eliminar la animación y mostrar el mensaje
+    setTimeout(() => {
+      sendMessageToApi({ message })
+        .then((response) => {
+          removeLoadingAnimation(); // Quita la animación de carga
+          renderMessage('bot', response); // Renderiza la respuesta del bot
+        })
+        .catch(() => {
+          removeLoadingAnimation(); // Quita la animación de carga
+          renderMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
+        });
+    }, 3000);
 
     inputField.value = ''; // Limpia el campo de entrada
   }
@@ -113,14 +113,20 @@ attachButton.addEventListener('click', () => {
     const file = fileInput.files[0];
     if (file) {
       renderMessage('user', `Archivo adjuntado: ${file.name}`);
+      showLoadingAnimation(); // Muestra la animación de carga
 
-      sendFileToApi(file)
-        .then((response) => {
-          renderMessage('bot', response);
-        })
-        .catch(() => {
-          renderMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
-        });
+      // Espera 3 segundos antes de eliminar la animación y mostrar el mensaje
+      setTimeout(() => {
+        sendFileToApi(file)
+          .then((response) => {
+            removeLoadingAnimation(); // Quita la animación de carga
+            renderMessage('bot', response);
+          })
+          .catch(() => {
+            removeLoadingAnimation(); // Quita la animación de carga
+            renderMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
+          });
+      }, 3000);
     }
   });
 
