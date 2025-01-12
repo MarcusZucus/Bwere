@@ -372,4 +372,105 @@ body {
         height: auto;
         font-size: 14px;
     }
+
+    #loading-indicator {
+    display: none; /* Ocultar por defecto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.animation-container {
+    position: relative;
+    width: 400px;
+    height: 200px;
+}
+
+.heart {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #EEEEEE;
+    left: 0;
+    top: 85px;
+    transform: rotate(45deg);
+    border-radius: 20% 20% 40% 40%;
+    animation: pulse 1.5s infinite, colorShift 1.5s infinite;
+}
+
+.heart:before,
+.heart:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.heart:before {
+    top: -15px;
+    left: 0;
+}
+
+.heart:after {
+    left: -15px;
+    top: 0;
+}
+
+svg .line {
+    stroke: #EEEEEE;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw 1.5s linear infinite, fadeOut 1.5s linear infinite;
+}
+
+@keyframes pulse {
+    0%, 25% {
+        transform: scale(1) rotate(45deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(45deg);
+    }
+    75%, 100% {
+        transform: scale(1) rotate(45deg);
+    }
+}
+
+@keyframes colorShift {
+    0% {
+        background-color: #EEEEEE;
+    }
+    50% {
+        background-color: #444444;
+    }
+    100% {
+        background-color: #EEEEEE;
+    }
+}
+
+@keyframes draw {
+    0% {
+        stroke-dashoffset: 400;
+    }
+    100% {
+        stroke-dashoffset: -400;
+    }
+}
+
+@keyframes fadeOut {
+    0%, 70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 }
