@@ -2,6 +2,7 @@ import os
 from scripts.download_data import download_data
 from scripts.normalize_data import normalize_data
 from scripts.sync_firestore import sync_firestore
+from scripts.process_opensim import process_opensim_data
 from scripts.logging_utils import setup_logger
 
 # Configurar logging
@@ -11,13 +12,22 @@ def main():
     """
     Pipeline principal para:
     1. Descargar datos desde APIs configuradas y Kaggle.
-    2. Normalizar los datos descargados.
-    3. Sincronizar los datos procesados con Firestore.
+    2. Procesar datos de OpenSim.
+    3. Normalizar los datos descargados.
+    4. Sincronizar los datos procesados con Firestore.
     """
     try:
         # Descargar datos desde las APIs configuradas
         logger.info("Iniciando descarga de datos desde las APIs...")
         download_data()
+        
+        # Procesar datos de OpenSim
+        logger.info("Iniciando procesamiento de datos de OpenSim...")
+        process_opensim_data(
+            input_dir="./raw_data/opensim",
+            output_dir="./structured_data/opensim",
+            supported_formats=[".sto", ".mot", ".osim"]
+        )
         
         # Normalizar datos descargados
         logger.info("Iniciando normalización de datos descargados...")
@@ -47,7 +57,19 @@ if __name__ == "__main__":
         logger.error(f"Faltan las siguientes variables de entorno: {', '.join(missing_vars)}")
         raise EnvironmentError("Configura las variables de entorno faltantes antes de ejecutar el pipeline.")
     
-    logger.info("Todas las variables de entorno necesarias están configuradas.")
+    # Validar directorios necesarios
+    directories = [
+        "./raw_data/opensim",
+        "./structured_data/opensim",
+        "./raw_data/kaggle",
+        "./structured_data/kaggle"
+    ]
+    for directory in directories:
+        if not os.path.exists(directory):
+            logger.info(f"Creando directorio: {directory}")
+            os.makedirs(directory, exist_ok=True)
+    
+    logger.info("Todas las variables de entorno y directorios necesarios están configurados.")
     
     # Ejecutar el pipeline principal
     main()
