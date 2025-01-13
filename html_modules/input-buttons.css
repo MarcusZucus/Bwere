@@ -1,0 +1,114 @@
+/* Barra de Entrada */
+#input-area {
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: var(--gray-light); /* Fondo blanco */
+    gap: 10px;
+    position: fixed; /* Siempre fija abajo */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100; /* Ajustado para que el menú quede encima */
+    border-top: 0px solid var(--gray-silver);
+    box-shadow: none; /* Elimina cualquier sombra */
+}
+
+/* Campo de Entrada */
+#message-input {
+    flex: 1;
+    height: 40px; /* Ajustado */
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 20px;
+    background-color: var(--white-pure);
+    border: 1px solid var(--gray-silver); /* Borde sutil */
+    color: var(--black-carbon);
+    outline: none;
+}
+
+/* Botón de Enviar */
+#send-button {
+    height: 40px;
+    width: 40px;
+    background-color: var(--orange-bright); /* Naranja brillante */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+#send-button i {
+    font-size: 16px;
+    color: var(--white-pure);
+}
+
+#send-button:hover {
+    background-color: #e96b3a; /* Tonalidad más oscura de naranja */
+}
+
+/* Botón de Adjuntar */
+#attach-button {
+    height: 40px;
+    width: 40px;
+    background-color: var(--gray-plus); /* Gris muy claro igual al de los mensajes del bot */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: none; /* Elimina cualquier transición de color */
+}
+
+#attach-button i {
+    font-size: 16px;
+    color: var(--black-carbon);
+}
+
+#attach-button:hover {
+    background-color: var(--gray-light); /* Elimina el cambio de color al pulsar */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 320px) {
+    #input-area {
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    #message-input {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    #send-button,
+    #attach-button {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Ajustes para pantallas medianas */
+@media (min-width: 321px) and (max-width: 768px) {
+    #message-input {
+        font-size: 15px;
+    }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 769px) {
+    #message-input {
+        font-size: 16px;
+    }
+}
+
+/* Ajustes para pantallas con alta densidad de píxeles */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    #send-button {
+        background-color: var(--green-neon);
+    }
+}
