@@ -19,5 +19,67 @@
             "ingr": "apple"
         },
         "response_format": "json"
+    },
+    "Spoonacular": {
+        "url": "https://api.spoonacular.com/recipes/complexSearch",
+        "method": "GET",
+        "headers": {},
+        "params": {
+            "apiKey": "${SPOONACULAR_API_KEY}",
+            "query": "chicken",
+            "number": 50
+        },
+        "response_format": "json"
+    },
+    "CalorieNinjas": {
+        "url": "https://api.calorieninjas.com/v1/nutrition",
+        "method": "GET",
+        "headers": {
+            "X-Api-Key": "${CALORIE_NINJAS_API_KEY}"
+        },
+        "params": {
+            "query": "banana"
+        },
+        "response_format": "json"
+    },
+    "Kaggle": {
+        "keywords": [
+            "health",
+            "fitness",
+            "nutrition",
+            "sports",
+            "activity",
+            "exercise",
+            "biomechanics",
+            "lifestyle",
+            "wellness"
+        ],
+        "raw_output_dir": "raw_data/kaggle",
+        "structured_output_dir": "structured_data/kaggle"
+    },
+    "OpenFoodFacts": {
+        "url": "https://world.openfoodfacts.org/api/v0/product/{barcode}.json",
+        "method": "GET",
+        "headers": {
+            "User-Agent": "${OPENFOODFACTS_USER_AGENT}"
+        },
+        "params": {},
+        "response_format": "json"
+    },
+    "PubChem": {
+        "url": "${PUBCHEM_API_BASE_URL}/compound/name/{compound}/property/MolecularWeight,IsomericSMILES,InChIKey/JSON",
+        "method": "GET",
+        "headers": {},
+        "params": {},
+        "response_format": "json"
+    },
+    "GitHub": {
+        "url": "https://api.github.com/repos/{owner}/{repo}",
+        "method": "GET",
+        "headers": {
+            "Authorization": "token ${GITHUB_API_KEY}"
+        },
+        "params": {},
+        "response_format": "json"
     }
 }
