@@ -81,5 +81,11 @@
         },
         "params": {},
         "response_format": "json"
+    },
+    "OpenSim": {
+        "data_source": "https://simtk.org/projects/opensim",
+        "input_dir": "raw_data/opensim",
+        "output_dir": "structured_data/opensim",
+        "supported_formats": [".sto", ".mot", ".osim"]
     }
 }
