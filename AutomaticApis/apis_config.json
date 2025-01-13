@@ -87,5 +87,17 @@
         "input_dir": "raw_data/opensim",
         "output_dir": "structured_data/opensim",
         "supported_formats": [".sto", ".mot", ".osim"]
+    },
+    "ACSM": {
+        "data_source": "https://www.acsm.org/",
+        "scraping": true,
+        "output_dir": "structured_data/acsm",
+        "supported_formats": [".html", ".pdf"]
+    },
+    "NINDS": {
+        "data_source": "https://www.ninds.nih.gov/",
+        "scraping": true,
+        "output_dir": "structured_data/ninds",
+        "supported_formats": [".html", ".pdf"]
     }
 }
