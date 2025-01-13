@@ -3,6 +3,8 @@ from scripts.download_data import download_data
 from scripts.normalize_data import normalize_data
 from scripts.sync_firestore import sync_firestore
 from scripts.process_opensim import process_opensim_data
+from scripts.process_acsm import process_acsm_data
+from scripts.process_ninds import process_ninds_data
 from scripts.logging_utils import setup_logger
 
 # Configurar logging
@@ -12,13 +14,13 @@ def main():
     """
     Pipeline principal para:
     1. Descargar datos desde APIs configuradas y Kaggle.
-    2. Procesar datos de OpenSim.
+    2. Procesar datos específicos (OpenSim, ACSM, NINDS).
     3. Normalizar los datos descargados.
     4. Sincronizar los datos procesados con Firestore.
     """
     try:
-        # Descargar datos desde las APIs configuradas
-        logger.info("Iniciando descarga de datos desde las APIs...")
+        # Descargar datos desde las APIs configuradas y Kaggle
+        logger.info("Iniciando descarga de datos desde las APIs y Kaggle...")
         download_data()
         
         # Procesar datos de OpenSim
@@ -27,6 +29,20 @@ def main():
             input_dir="./raw_data/opensim",
             output_dir="./structured_data/opensim",
             supported_formats=[".sto", ".mot", ".osim"]
+        )
+        
+        # Procesar datos de ACSM
+        logger.info("Iniciando procesamiento de datos de ACSM...")
+        process_acsm_data(
+            data_source="https://www.acsm.org/",
+            output_dir="./structured_data/acsm"
+        )
+        
+        # Procesar datos de NINDS
+        logger.info("Iniciando procesamiento de datos de NINDS...")
+        process_ninds_data(
+            data_source="https://www.ninds.nih.gov/",
+            output_dir="./structured_data/ninds"
         )
         
         # Normalizar datos descargados
@@ -59,11 +75,11 @@ if __name__ == "__main__":
     
     # Validar directorios necesarios
     directories = [
-        "./raw_data/opensim",
-        "./structured_data/opensim",
-        "./raw_data/kaggle",
-        "./structured_data/kaggle"
+        "./raw_data/opensim", "./structured_data/opensim",
+        "./structured_data/acsm", "./structured_data/ninds",
+        "./raw_data/kaggle", "./structured_data/kaggle"
     ]
+    
     for directory in directories:
         if not os.path.exists(directory):
             logger.info(f"Creando directorio: {directory}")
