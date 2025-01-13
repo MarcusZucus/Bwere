@@ -1,0 +1,75 @@
+/* Contenedor Principal */
+#chat-container {
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--gray-light);
+    overflow: hidden;
+    position: relative;
+    border-radius: 12px; /* Redondeado sutil para un diseño limpio */
+    box-shadow: none; /* Sin sombras */
+}
+
+/* Encabezado */
+#chat-header {
+    padding: 12px 20px;
+    background-color: var(--gray-light); /* Fondo blanco para encabezado */
+    color: var(--text-dark); /* Texto oscuro */
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: none;
+}
+
+/* Botón para abrir/cerrar el menú lateral */
+#menu-button {
+    width: 24px;
+    height: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform 0.3s ease;
+    z-index: 1101; /* Asegura que esté encima del overlay */
+}
+
+#menu-button .line {
+    width: 20px;
+    height: 2px;
+    background-color: var(--text-dark); /* Color del botón */
+    border-radius: 5px;
+    position: absolute;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#menu-button .line-1 {
+    top: 6px;
+}
+
+#menu-button .line-2 {
+    bottom: 6px;
+}
+
+#menu-button.open .line-1 {
+    transform: rotate(45deg);
+    top: 50%;
+    transform-origin: center;
+}
+
+#menu-button.open .line-2 {
+    transform: rotate(-45deg);
+    top: 50%;
+    transform-origin: center;
+}
