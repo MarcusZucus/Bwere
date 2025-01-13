@@ -1,6 +1,6 @@
-@import url("modules/variables-global.css");
-@import url("modules/container-header.css");
-@import url("modules/input-buttons.css");
-@import url("modules/media-queries.css");
-@import url("modules/menu-messages.css");
-@import url("modules/messages.css");
+@import url("/html_modules/modules/variables-global.css");
+@import url("/html_modules/modules/container-header.css");
+@import url("/html_modules/modules/input-buttons.css");
+@import url("/html_modules/modules/media-queries.css");
+@import url("/html_modules/modules/menu-messages.css");
+@import url("/html_modules/modules/messages.css");
