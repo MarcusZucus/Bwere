@@ -1,0 +1,49 @@
+/* Paleta de colores */
+:root {
+    --white-pure: #FFFFFF;
+    --gray-silver: #C0C0C0;
+    --blue-cobalt: #0047AB;
+    --blue-electric: #7DF9FF;
+    --black-carbon: #0F0F0F;
+    --green-neon: #39FF14;
+    --gray-light: #F5F5F5;
+    --orange-bright: #FF7F50;
+    --text-dark: #333333;
+    --gray-plus: #EEEEEE;
+}
+
+/* Estilo Global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    /* Evita el feedback visual de los navegadores */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--orange-bright); /* Naranja para accesibilidad */
+    outline-offset: 2px;
+}
+
+/* Optimización para móviles */
+html, body {
+    overscroll-behavior: none; /* Evita arrastres accidentales */
+    touch-action: manipulation; /* Optimiza para toques */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    background-color: var(--gray-light);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    overflow: hidden; /* Previene el scroll del cuerpo */
+}
