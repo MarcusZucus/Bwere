@@ -1,0 +1,31 @@
+2025-01-13 12:50:30,958 - INFO - Iniciando simulación del pipeline...
+2025-01-13 12:50:30,958 - ERROR - Faltan las siguientes variables de entorno: USDA_API_KEY, EDAMAM_API_ID, EDAMAM_API_KEY, SPOONACULAR_API_KEY, CALORIE_NINJAS_API_KEY, OPENFOODFACTS_USER_AGENT, PUBCHEM_API_BASE_URL, GITHUB_API_KEY, KAGGLE_USERNAME, KAGGLE_KEY
+2025-01-13 12:50:30,958 - ERROR - Error durante la simulación: Configura las variables de entorno faltantes antes de ejecutar la simulación.
+2025-01-13 12:54:22,609 - INFO - Iniciando simulación del pipeline...
+2025-01-13 12:54:22,616 - INFO - Todas las variables de entorno necesarias están configuradas.
+2025-01-13 12:54:22,616 - WARNING - El directorio no existe: ./raw_data/opensim
+2025-01-13 12:54:22,616 - WARNING - El directorio no existe: ./structured_data/opensim
+2025-01-13 12:54:22,616 - WARNING - El directorio no existe: ./structured_data/acsm
+2025-01-13 12:54:22,616 - WARNING - El directorio no existe: ./structured_data/ninds
+2025-01-13 12:54:22,616 - WARNING - El directorio no existe: ./raw_data/kaggle
+2025-01-13 12:54:22,616 - WARNING - El directorio no existe: ./structured_data/kaggle
+2025-01-13 12:54:22,616 - INFO - Simulando conexión con APIs configuradas...
+2025-01-13 12:54:24,343 - INFO - Conexión exitosa con la API USDA.
+2025-01-13 12:54:24,901 - WARNING - Conexión fallida con la API Edamam. Código de estado: 401
+2025-01-13 12:54:26,468 - INFO - Conexión exitosa con la API Spoonacular.
+2025-01-13 12:54:27,322 - INFO - Conexión exitosa con la API CalorieNinjas.
+2025-01-13 12:54:27,328 - INFO - ¡Simulación completada con éxito!
+2025-01-13 12:57:29,267 - INFO - Iniciando simulación del pipeline...
+2025-01-13 12:57:29,267 - INFO - Todas las variables de entorno necesarias están configuradas.
+2025-01-13 12:57:29,267 - INFO - El directorio existe: ./raw_data/opensim
+2025-01-13 12:57:29,267 - INFO - El directorio existe: ./structured_data/opensim
+2025-01-13 12:57:29,267 - INFO - El directorio existe: ./structured_data/acsm
+2025-01-13 12:57:29,270 - INFO - El directorio existe: ./structured_data/ninds
+2025-01-13 12:57:29,270 - INFO - El directorio existe: ./raw_data/kaggle
+2025-01-13 12:57:29,270 - INFO - El directorio existe: ./structured_data/kaggle
+2025-01-13 12:57:29,270 - INFO - Simulando conexión con APIs configuradas...
+2025-01-13 12:57:30,790 - INFO - Conexión exitosa con la API USDA.
+2025-01-13 12:57:31,161 - WARNING - Conexión fallida con la API Edamam. Código de estado: 401
+2025-01-13 12:57:32,593 - INFO - Conexión exitosa con la API Spoonacular.
+2025-01-13 12:57:33,417 - INFO - Conexión exitosa con la API CalorieNinjas.
+2025-01-13 12:57:33,419 - INFO - ¡Simulación completada con éxito!
