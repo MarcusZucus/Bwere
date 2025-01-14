@@ -5,6 +5,8 @@ from scripts.sync_firestore import sync_firestore
 from scripts.process_opensim import process_opensim_data
 from scripts.process_acsm import process_acsm_data
 from scripts.process_ninds import process_ninds_data
+from scripts.process_musclewiki import process_musclewiki_data
+from scripts.process_exrx import process_exrx_data
 from scripts.logging_utils import setup_logger
 
 # Configurar logging
@@ -14,7 +16,7 @@ def main():
     """
     Pipeline principal para:
     1. Descargar datos desde APIs configuradas y Kaggle.
-    2. Procesar datos específicos (OpenSim, ACSM, NINDS).
+    2. Procesar datos específicos (OpenSim, ACSM, NINDS, MuscleWiki, ExRx).
     3. Normalizar los datos descargados.
     4. Sincronizar los datos procesados con Firestore.
     """
@@ -43,6 +45,20 @@ def main():
         process_ninds_data(
             data_source="https://www.ninds.nih.gov/",
             output_dir="./structured_data/ninds"
+        )
+        
+        # Procesar datos de MuscleWiki
+        logger.info("Iniciando procesamiento de datos de MuscleWiki...")
+        process_musclewiki_data(
+            data_source="https://musclewiki.com/",
+            output_dir="./structured_data/musclewiki"
+        )
+
+        # Procesar datos de ExRx
+        logger.info("Iniciando procesamiento de datos de ExRx...")
+        process_exrx_data(
+            data_source="https://exrx.net/",
+            output_dir="./structured_data/exrx"
         )
         
         # Normalizar datos descargados
@@ -77,6 +93,7 @@ if __name__ == "__main__":
     directories = [
         "./raw_data/opensim", "./structured_data/opensim",
         "./structured_data/acsm", "./structured_data/ninds",
+        "./structured_data/musclewiki", "./structured_data/exrx",
         "./raw_data/kaggle", "./structured_data/kaggle"
     ]
     
