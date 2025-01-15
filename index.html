@@ -169,6 +169,24 @@
         });
     }
   </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuButton = document.getElementById("menu-button");
+    const sidebar = document.getElementById("sidebar");
+
+    // Alternar el menú al hacer clic en el botón
+    menuButton.addEventListener("click", () => {
+      const isOpen = sidebar.classList.contains("menu-visible");
+      sidebar.classList.toggle("menu-visible");
+      menuButton.classList.toggle("menu-open");
+    });
+
+    // Cierra el menú al hacer clic fuera de él
+    document.addEventListener("click", (event) => {
+      if (
+        !sidebar.contains(event.target) &&
+        !menuButton.contains(event.target) &&
+        sidebar.classList.con
 </body>
 </html>
 
