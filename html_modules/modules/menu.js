@@ -1,8 +1,10 @@
+// Obtener referencias a los elementos del DOM
 const menuButton = document.getElementById('menu-button');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.createElement('div');
+const menuItems = document.querySelectorAll('.menu-item');  // Asegúrate de que cada item tenga la clase 'menu-item'
 
-// Configuración del overlay
+// Configuración del overlay (pantalla oscura que aparece cuando el menú está abierto)
 overlay.id = 'menu-overlay';
 document.body.appendChild(overlay);
 
@@ -20,6 +22,9 @@ function toggleMenu() {
 
   // Bloquear desplazamiento del fondo cuando el menú está abierto
   document.body.style.overflow = isOpen ? 'hidden' : '';
+
+  // Alternar la clase 'open' para los elementos del menú
+  menuItems.forEach(item => item.classList.toggle('open', isOpen));
 }
 
 /**
@@ -44,6 +49,7 @@ document.addEventListener('click', handleOutsideClick);
  * Configuración inicial de accesibilidad y atributos del menú.
  */
 document.addEventListener('DOMContentLoaded', () => {
+  // Asegurar la configuración de los atributos ARIA en el botón del menú
   menuButton.setAttribute('aria-controls', 'sidebar');
   menuButton.setAttribute('aria-expanded', 'false');
   sidebar.setAttribute('aria-hidden', 'true');
@@ -83,6 +89,39 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.style.opacity = '0';
     }
   });
+
+  observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
+});
+
+/**
+ * Función para aplicar animaciones al abrir/cerrar el menú.
+ * Este puede ser útil para la transición suave de los elementos dentro del menú.
+ */
+function animateMenuItems() {
+  menuItems.forEach((item, index) => {
+    item.style.transition = `transform 0.3s ease ${index * 0.1}s`;
+    item.style.transform = 'translateX(0)';
+  });
+}
+
+// Llamar a la función de animación solo cuando el menú se abra
+sidebar.addEventListener('transitionend', () => {
+  if (sidebar.classList.contains('open')) {
+    animateMenuItems();
+  }
+});
+
+/**
+ * Función para activar/desactivar un menú secundario (por ejemplo, para sub-opciones dentro de las categorías).
+ * Esto puede ser utilizado si decides expandir las opciones dentro del menú (por ejemplo, opciones dentro de "Mi Plan de Bienestar").
+ */
+function toggleSubMenu(subMenuId) {
+  const subMenu = document.getElementById(subMenuId);
+  if (subMenu) {
+    subMenu.classList.toggle('open');
+  }
+}
+
 
   observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
 });
