@@ -121,3 +121,23 @@ function toggleSubMenu(subMenuId) {
     subMenu.setAttribute('aria-hidden', !subMenu.classList.contains('open'));
   }
 }
+
+/**
+ * Maneja el clic en los elementos del menú para garantizar que no se bloquee la navegación predeterminada.
+ */
+menuItems.forEach(item => {
+  item.addEventListener('click', event => {
+    const href = item.getAttribute('href');
+    if (href) {
+      console.log('Clic en enlace:', href);
+      if (href.startsWith('/')) {
+        // Permitir la redirección predeterminada
+        window.location.href = href;
+      } else {
+        console.warn('Elemento sin enlace válido:', item);
+      }
+    } else {
+      console.error('Este elemento no tiene un enlace asociado:', item);
+    }
+  });
+});
