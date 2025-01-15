@@ -4,16 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#F5F5F5">
+  <meta name="description" content="Bwere: Potencia tu bienestar con una PWA optimizada y moderna.">
+  <meta name="author" content="Equipo Bwere">
+  <meta name="keywords" content="Bwere, PWA, bienestar, chat, sensores, ECG">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://apis.bwere.com; img-src 'self' data:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
   <title>Bwere</title>
 
   <!-- Manifest para PWA -->
   <link rel="manifest" href="/manifest.json">
 
-  <!-- Meta para el color del tema -->
-  <meta name="theme-color" content="#F5F5F5">
-
   <!-- Enlace a Font Awesome para los íconos -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/5hb7x1lI5I5O5kaNp5+vqZV5J5Z5J5A5J5A5Q" crossorigin="anonymous">
 
   <!-- Fuente Quicksand -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
@@ -32,51 +33,54 @@
   <!-- Botón para pruebas de pantalla completa (puedes ocultarlo en producción) -->
   <button id="fullscreen-button" onclick="enableFullScreenMode()" style="display: none;">Activar Pantalla Completa</button>
 
-  <div id="chat-container">
+  <div id="chat-container" aria-labelledby="chat-header" role="region">
     <!-- Encabezado -->
-    <div id="chat-header">
-      <span style="font-family: 'Quicksand', sans-serif; font-weight: 600;">Bwere</span>
+    <header id="chat-header" aria-label="Encabezado del chat">
+      <h1 style="font-family: 'Quicksand', sans-serif; font-weight: 600;">Bwere</h1>
       <!-- Botón del menú -->
-      <button id="menu-button">
+      <button id="menu-button" aria-label="Abrir menú" aria-controls="sidebar" aria-expanded="false">
         <span class="line line-1"></span>
         <span class="line line-2"></span>
       </button>
-    </div>
+    </header>
 
     <!-- Área de Mensajes -->
-    <div id="messages">
+    <main id="messages" aria-live="polite" role="log">
       <!-- Contenedor inicial de mensajes vacío -->
-    </div>
+    </main>
 
     <!-- Barra de Entrada -->
-    <div id="input-area">
+    <div id="input-area" role="form">
       <!-- Botón de adjuntar archivos con el ícono -->
-      <button id="attach-button">
-        <i class="fas fa-paperclip"></i> <!-- Ícono de adjuntar archivo -->
+      <button id="attach-button" aria-label="Adjuntar archivo">
+        <i class="fas fa-paperclip" aria-hidden="true"></i>
       </button>
       <!-- Campo de entrada -->
-      <input id="message-input" type="text" placeholder="Escribe un mensaje..." />
+      <label for="message-input" class="visually-hidden">Escribe tu mensaje</label>
+      <input id="message-input" type="text" placeholder="Escribe un mensaje..." aria-label="Escribe un mensaje" />
       <!-- Botón de enviar mensaje con el ícono -->
-      <button id="send-button">
-        <i class="fas fa-paper-plane"></i> <!-- Ícono de enviar mensaje -->
+      <button id="send-button" aria-label="Enviar mensaje">
+        <i class="fas fa-paper-plane" aria-hidden="true"></i>
       </button>
     </div>
   </div>
 
   <!-- Menú Lateral -->
-  <div id="sidebar">
+  <nav id="sidebar" role="navigation" aria-label="Menú lateral">
     <h2>Conversaciones</h2>
-    <div class="conversation" data-id="1">Conversación 1</div>
-    <div class="conversation" data-id="2">Conversación 2</div>
-    <div class="conversation" data-id="3">Conversación 3</div>
-  </div>
+    <ul>
+      <li><button class="conversation" data-id="1">Conversación 1</button></li>
+      <li><button class="conversation" data-id="2">Conversación 2</button></li>
+      <li><button class="conversation" data-id="3">Conversación 3</button></li>
+    </ul>
+  </nav>
 
   <!-- Superposición para oscurecer el fondo -->
-  <div id="overlay"></div>
+  <div id="overlay" role="presentation"></div>
 
   <!-- Plantilla para la animación ECG -->
   <template id="ecg-template">
-    <div class="animation-container">
+    <div class="animation-container" role="img" aria-label="Animación de ECG">
       <div class="heart"></div>
       <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
         <path class="line" d="
