@@ -3,6 +3,18 @@
     {
       "src": "/service-worker.js",
       "dest": "/service-worker.js"
+    },
+    {
+      "src": "/html_modules/mis_compras/mis_compras.html",
+      "dest": "/html_modules/mis_compras/mis_compras.html"
+    },
+    {
+      "src": "/html_modules/home/home.html",
+      "dest": "/html_modules/home/home.html"
+    },
+    {
+      "src": "/html_modules/modules/menu.js",
+      "dest": "/html_modules/modules/menu.js"
     }
   ]
 }
