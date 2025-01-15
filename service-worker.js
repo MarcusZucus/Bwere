@@ -1,7 +1,7 @@
-import { precacheAndRoute } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
-import { CacheFirst, NetworkFirst } from 'workbox-strategies';
-import { setCacheNameDetails } from 'workbox-core';
+import { precacheAndRoute } from 'https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-precaching.mjs';
+import { registerRoute } from 'https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-routing.mjs';
+import { CacheFirst, NetworkFirst } from 'https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-strategies.mjs';
+import { setCacheNameDetails } from 'https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-core.mjs';
 
 // Configurar el nombre del caché personalizado
 setCacheNameDetails({
