@@ -110,10 +110,27 @@
 /* Ajustes para pantallas con alta densidad de píxeles */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     #menu-button .line {
-        background-color: var(--blue-cobalt); /* Cambiar color para dispositivos HD */
+        background-color: var(--blue-cobalt);
     }
 
     #send-button {
         background-color: var(--green-neon);
+    }
+}
+
+/* Estilos adaptativos para pantallas ultragrandes */
+@media (min-width: 1200px) {
+    #chat-container {
+        max-width: 1200px;
+        height: calc(100vh - 40px);
+        margin: 20px auto;
+    }
+
+    #messages {
+        font-size: 18px;
+    }
+
+    #chat-header {
+        font-size: 20px;
     }
 }
