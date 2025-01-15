@@ -16,9 +16,6 @@
   <!-- Manifest para PWA -->
   <link rel="manifest" href="/manifest.json">
 
-  <!-- Carga de Font Awesome desde CDN -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
   <!-- Fuente Quicksand -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 
@@ -40,7 +37,6 @@
   <script defer type="module" src="/service-worker-registration.js"></script>
 
   <!-- Optimización para cargas rápidas -->
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
   <link rel="preload" href="/html_modules/styles.css" as="style">
   <link rel="preload" href="/html_modules/container-header.css" as="style">
   <link rel="preload" href="/html_modules/input-buttons.css" as="style">
@@ -89,14 +85,14 @@
   <nav id="sidebar" role="navigation" aria-label="Menú lateral">
     <h2>Conversaciones</h2>
     <ul>
-      <li><button><i class="fas fa-comments"></i>Historial de Conversaciones</button></li>
+      <li><button>Historial de Conversaciones</button></li>
     </ul>
 
     <h2>Otras Opciones</h2>
     <ul>
-      <li><button><i class="fas fa-shopping-cart"></i>Mis Compras</button></li>
-      <li><button><i class="fas fa-chart-bar"></i>Progreso y Estadísticas</button></li>
-      <li><button><i class="fas fa-cogs"></i>Configuración</button></li>
+      <li><button>Mis Compras</button></li>
+      <li><button>Progreso y Estadísticas</button></li>
+      <li><button>Configuración</button></li>
     </ul>
   </nav>
 
