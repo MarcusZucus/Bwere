@@ -93,7 +93,7 @@
     font-size: 16px;
     border-radius: 20px;
     background-color: var(--white-pure);
-    border: 1px solid var(--gray-silver); /* Borde sutil */
+    border: 0px solid var(--gray-silver); /* Borde sutil */
     color: var(--black-carbon);
     outline: none;
 }
