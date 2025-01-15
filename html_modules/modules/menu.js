@@ -2,7 +2,7 @@
 const menuButton = document.getElementById('menu-button');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.createElement('div');
-const menuItems = document.querySelectorAll('.menu-item'); // Asegúrate de que cada item tenga la clase 'menu-item'
+const menuItems = document.querySelectorAll('.menu-item');  // Asegúrate de que cada item tenga la clase 'menu-item'
 
 // Configuración del overlay (pantalla oscura que aparece cuando el menú está abierto)
 overlay.id = 'menu-overlay';
@@ -24,7 +24,7 @@ function toggleMenu() {
   document.body.style.overflow = isOpen ? 'hidden' : '';
 
   // Alternar la clase 'open' para los elementos del menú
-  menuItems.forEach((item) => item.classList.toggle('open', isOpen));
+  menuItems.forEach(item => item.classList.toggle('open', isOpen));
 }
 
 /**
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function animateMenuItems() {
   menuItems.forEach((item, index) => {
-    item.style.transition = transform 0.3s ease ${index * 0.1}s;
+    item.style.transition = `transform 0.3s ease ${index * 0.1}s`;
     item.style.transform = 'translateX(0)';
   });
 }
@@ -120,4 +120,5 @@ function toggleSubMenu(subMenuId) {
   if (subMenu) {
     subMenu.classList.toggle('open');
   }
-} 
+}
+
