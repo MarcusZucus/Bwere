@@ -2,43 +2,50 @@
 #input-area {
     display: flex;
     align-items: center;
-    padding: 20px 20px;
-    background-color: var(--gray-light); /* Fondo blanco */
+    padding: 20px;
+    background-color: var(--gray-light);
     gap: 10px;
-    position: fixed; /* Siempre fija abajo */
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 1100; /* Ajustado para que el menú quede encima */
-    border-top: 0px solid var(--gray-silver);
-    box-shadow: none; /* Elimina cualquier sombra */
+    z-index: 1100;
+    border-top: 1px solid var(--gray-silver);
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil para separación visual */
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 /* Campo de Entrada */
 #message-input {
     flex: 1;
-    height: 40px; /* Ajustado */
+    height: 40px;
     padding: 10px 15px;
     font-size: 16px;
-    border-radius: 20px;
+    border-radius: var(--border-radius);
     background-color: var(--white-pure);
-    border: 1px solid var(--gray-silver); /* Borde sutil */
+    border: 1px solid var(--gray-silver);
     color: var(--black-carbon);
     outline: none;
+    transition: border-color var(--transition-speed), background-color var(--transition-speed);
+}
+
+#message-input:focus {
+    border-color: var(--blue-cobalt);
+    background-color: var(--gray-plus);
 }
 
 /* Botón de Enviar */
 #send-button {
     height: 40px;
     width: 40px;
-    background-color: var(--orange-bright); /* Naranja brillante */
+    background-color: var(--orange-bright);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
 #send-button i {
@@ -47,21 +54,26 @@
 }
 
 #send-button:hover {
-    background-color: #e96b3a; /* Tonalidad más oscura de naranja */
+    background-color: #e96b3a;
+    transform: scale(1.1); /* Efecto de zoom al pasar el ratón */
+}
+
+#send-button:active {
+    transform: scale(0.95); /* Retroalimentación visual al hacer clic */
 }
 
 /* Botón de Adjuntar */
 #attach-button {
     height: 40px;
     width: 40px;
-    background-color: var(--gray-plus); /* Gris muy claro igual al de los mensajes del bot */
+    background-color: var(--gray-plus);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: none; /* Elimina cualquier transición de color */
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
 }
 
 #attach-button i {
@@ -70,7 +82,12 @@
 }
 
 #attach-button:hover {
-    background-color: var(--gray-light); /* Elimina el cambio de color al pulsar */
+    background-color: var(--gray-light);
+    transform: scale(1.1); /* Efecto de zoom al pasar el ratón */
+}
+
+#attach-button:active {
+    transform: scale(0.95); /* Retroalimentación visual al hacer clic */
 }
 
 /* Ajustes para pantallas pequeñas */
