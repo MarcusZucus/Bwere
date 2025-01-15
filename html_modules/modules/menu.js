@@ -1,6 +1,8 @@
 const menuButton = document.getElementById('menu-button');
 const sidebar = document.getElementById('sidebar');
-const overlay = document.createElement('div'); // Fondo oscuro para resaltar el menú
+const overlay = document.createElement('div');
+
+// Configuración del overlay
 overlay.id = 'menu-overlay';
 document.body.appendChild(overlay);
 
@@ -47,15 +49,18 @@ document.addEventListener('DOMContentLoaded', () => {
   sidebar.setAttribute('aria-hidden', 'true');
 
   // Estilos iniciales del overlay
-  overlay.style.position = 'fixed';
-  overlay.style.top = '0';
-  overlay.style.left = '0';
-  overlay.style.width = '100%';
-  overlay.style.height = '100%';
-  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-  overlay.style.zIndex = '999';
-  overlay.style.display = 'none';
-  overlay.style.transition = 'opacity 0.3s ease';
+  Object.assign(overlay.style, {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: '999',
+    display: 'none',
+    opacity: '0',
+    transition: 'opacity 0.3s ease',
+  });
 
   // Clase visible para el overlay
   overlay.classList.add('hidden');
@@ -81,3 +86,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
 });
+
