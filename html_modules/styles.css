@@ -27,8 +27,8 @@
   overflow: hidden;
 }
 
-#chat-header, #input-area {
-  padding: 20px; /* Asegura que ambos tengan el mismo padding */
+#chat-header {
+  padding: 5px 20px; /* Asegura que ambos tengan el mismo padding */
   margin: 0; /* Elimina cualquier margen predeterminado */
   box-sizing: border-box;
 }
