@@ -2,14 +2,14 @@
 const menuButton = document.getElementById('menu-button');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.createElement('div');
-const menuItems = document.querySelectorAll('.menu-item');  // Asegúrate de que cada item tenga la clase 'menu-item'
+const menuItems = document.querySelectorAll('.menu-item'); // Cada elemento debe tener la clase 'menu-item'
 
-// Configuración del overlay (pantalla oscura que aparece cuando el menú está abierto)
+// Configuración del overlay
 overlay.id = 'menu-overlay';
 document.body.appendChild(overlay);
 
 /**
- * Alterna la visibilidad del menú lateral con accesibilidad y transiciones avanzadas.
+ * Alterna la visibilidad del menú lateral.
  */
 function toggleMenu() {
   const isOpen = sidebar.classList.toggle('open');
@@ -23,13 +23,14 @@ function toggleMenu() {
   // Bloquear desplazamiento del fondo cuando el menú está abierto
   document.body.style.overflow = isOpen ? 'hidden' : '';
 
-  // Alternar la clase 'open' para los elementos del menú
-  menuItems.forEach(item => item.classList.toggle('open', isOpen));
+  // Animar elementos del menú cuando se abra
+  if (isOpen) {
+    animateMenuItems();
+  }
 }
 
 /**
- * Cierra el menú lateral si se hace clic fuera de él.
- * @param {Event} event - Evento de clic.
+ * Cierra el menú si se hace clic fuera de él.
  */
 function handleOutsideClick(event) {
   if (!sidebar.contains(event.target) && event.target !== menuButton && sidebar.classList.contains('open')) {
@@ -40,21 +41,20 @@ function handleOutsideClick(event) {
 // Evento principal para abrir/cerrar el menú
 menuButton.addEventListener('click', toggleMenu);
 
-// Evento para cerrar el menú al hacer clic fuera de él
+// Evento para cerrar el menú al hacer clic fuera
 overlay.addEventListener('click', toggleMenu);
-
 document.addEventListener('click', handleOutsideClick);
 
 /**
- * Configuración inicial de accesibilidad y atributos del menú.
+ * Configuración inicial y estilos del overlay.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Asegurar la configuración de los atributos ARIA en el botón del menú
+  // Configurar atributos ARIA iniciales
   menuButton.setAttribute('aria-controls', 'sidebar');
   menuButton.setAttribute('aria-expanded', 'false');
   sidebar.setAttribute('aria-hidden', 'true');
 
-  // Estilos iniciales del overlay
+  // Estilo inicial del overlay
   Object.assign(overlay.style, {
     position: 'fixed',
     top: '0',
@@ -68,17 +68,15 @@ document.addEventListener('DOMContentLoaded', () => {
     transition: 'opacity 0.3s ease',
   });
 
-  // Clase visible para el overlay
   overlay.classList.add('hidden');
 
-  // Añadir estilo dinámico al mostrar el overlay
   overlay.addEventListener('transitionend', () => {
     if (!overlay.classList.contains('visible')) {
       overlay.style.display = 'none';
     }
   });
 
-  // Mostrar overlay cuando es visible
+  // Observar cambios en la clase 'visible' del overlay
   const observer = new MutationObserver(() => {
     if (overlay.classList.contains('visible')) {
       overlay.style.display = 'block';
@@ -94,31 +92,32 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Función para aplicar animaciones al abrir/cerrar el menú.
- * Este puede ser útil para la transición suave de los elementos dentro del menú.
+ * Aplica animaciones suaves a los elementos del menú.
  */
 function animateMenuItems() {
   menuItems.forEach((item, index) => {
-    item.style.transition = `transform 0.3s ease ${index * 0.1}s`;
+    item.style.transition = `transform 0.3s ease ${index * 0.1}s, opacity 0.3s ease ${index * 0.1}s`;
     item.style.transform = 'translateX(0)';
+    item.style.opacity = '1';
   });
 }
 
-// Llamar a la función de animación solo cuando el menú se abra
-sidebar.addEventListener('transitionend', () => {
-  if (sidebar.classList.contains('open')) {
-    animateMenuItems();
-  }
+/**
+ * Inicializa los estilos de los elementos del menú para las animaciones.
+ */
+menuItems.forEach(item => {
+  item.style.transform = 'translateX(-20px)';
+  item.style.opacity = '0';
 });
 
 /**
- * Función para activar/desactivar un menú secundario (por ejemplo, para sub-opciones dentro de las categorías).
- * Esto puede ser utilizado si decides expandir las opciones dentro del menú (por ejemplo, opciones dentro de "Mi Plan de Bienestar").
+ * Expande o colapsa un submenú dentro del menú lateral.
+ * @param {string} subMenuId - El ID del submenú a alternar.
  */
 function toggleSubMenu(subMenuId) {
   const subMenu = document.getElementById(subMenuId);
   if (subMenu) {
     subMenu.classList.toggle('open');
+    subMenu.setAttribute('aria-hidden', !subMenu.classList.contains('open'));
   }
 }
-
