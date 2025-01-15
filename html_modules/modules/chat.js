@@ -1,5 +1,5 @@
 const sendButton = document.getElementById('send-button');
-const attachButton = document.getElementById('attach-button'); // Botón de adjuntar archivos
+const attachButton = document.getElementById('attach-button');
 const inputField = document.getElementById('message-input');
 const messagesContainer = document.getElementById('messages');
 
@@ -16,7 +16,7 @@ function renderMessage(role, content) {
   const messageContent = document.createElement('div');
   messageContent.className = 'message-content';
 
-  // Agregar clase no-bubble para mensajes de error del bot
+  // Clase especial para errores del bot
   if (role === 'bot' && content.includes('Lo siento')) {
     messageContent.classList.add('no-bubble');
   }
@@ -24,7 +24,7 @@ function renderMessage(role, content) {
   messageContent.textContent = content;
   messageDiv.appendChild(messageContent);
   messagesContainer.appendChild(messageDiv);
-  messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll automático
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 /**
@@ -39,7 +39,6 @@ function typeMessage(role, content, speed = 50) {
   const messageContent = document.createElement('div');
   messageContent.className = 'message-content';
 
-  // Agregar clase no-bubble para mensajes de error del bot
   if (role === 'bot' && content.includes('Lo siento')) {
     messageContent.classList.add('no-bubble');
   }
@@ -76,20 +75,18 @@ function displayECGAnimationAndMessage(message) {
     return;
   }
 
-  // Clonar contenido del template
   const animationContainer = template.content.cloneNode(true).firstElementChild;
   animationContainer.style.transition = 'opacity 1s ease-in-out';
-  animationContainer.style.opacity = '1'; // Visible inicialmente
+  animationContainer.style.opacity = '1';
 
   messagesContainer.appendChild(animationContainer);
 
-  // Desvanecer la animación después de 3 segundos
   setTimeout(() => {
     animationContainer.style.opacity = '0';
     setTimeout(() => {
-      animationContainer.remove(); // Eliminar la animación
-      typeMessage('bot', message); // Mostrar el mensaje del bot
-    }, 1000); // Tiempo para el efecto fade-out
+      animationContainer.remove();
+      typeMessage('bot', message);
+    }, 1000);
   }, 3000);
 }
 
@@ -147,7 +144,6 @@ async function sendFileToApi(file) {
   }
 }
 
-// Eventos para manejo de interacciones
 sendButton.addEventListener('click', () => {
   const message = inputField.value.trim();
   if (message) {
@@ -157,7 +153,7 @@ sendButton.addEventListener('click', () => {
       .then((response) => {
         displayECGAnimationAndMessage(response);
       })
-      .catch((error) => {
+      .catch(() => {
         typeMessage('bot', "Lo siento, ocurrió un error al procesar tu mensaje.");
       });
 
@@ -180,7 +176,7 @@ attachButton.addEventListener('click', () => {
         .then((response) => {
           displayECGAnimationAndMessage(response);
         })
-        .catch((error) => {
+        .catch(() => {
           typeMessage('bot', "Lo siento, ocurrió un error al procesar tu archivo.");
         });
     }
@@ -195,9 +191,6 @@ inputField.addEventListener('keypress', (event) => {
   }
 });
 
-/**
- * Agrega accesibilidad y seguridad mejorada para eventos globales.
- */
 document.addEventListener('DOMContentLoaded', () => {
   inputField.setAttribute('aria-label', 'Escribe tu mensaje');
   sendButton.setAttribute('aria-label', 'Enviar mensaje');
