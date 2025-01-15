@@ -8,3 +8,9 @@
   clip: rect(0, 0, 0, 0);
   overflow: hidden;
 }
+
+#chat-header {
+    padding: 20px 20px; /* Asegúrate de que sea igual al input-area */
+    margin: 0;
+    box-sizing: border-box;
+}
