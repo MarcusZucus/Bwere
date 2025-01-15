@@ -89,17 +89,14 @@
   <nav id="sidebar" role="navigation" aria-label="Menú lateral">
     <h2>Conversaciones</h2>
     <ul>
-      <li><button class="conversation" data-id="1">Conversación 1</button></li>
-      <li><button class="conversation" data-id="2">Conversación 2</button></li>
-      <li><button class="conversation" data-id="3">Conversación 3</button></li>
+      <li><button><i class="fas fa-comments"></i>Historial de Conversaciones</button></li>
     </ul>
 
     <h2>Otras Opciones</h2>
     <ul>
-      <li><a href="/html_modules/mis_compras/mis_compras.html">Mis Compras</a></li>
-      <li><button>Mi Plan de Bienestar</button></li>
-      <li><button>Progreso y Estadísticas</button></li>
-      <li><button>Configuración</button></li>
+      <li><button><i class="fas fa-shopping-cart"></i>Mis Compras</button></li>
+      <li><button><i class="fas fa-chart-bar"></i>Progreso y Estadísticas</button></li>
+      <li><button><i class="fas fa-cogs"></i>Configuración</button></li>
     </ul>
   </nav>
 
@@ -170,24 +167,5 @@
         });
     }
   </script>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const menuButton = document.getElementById("menu-button");
-    const sidebar = document.getElementById("sidebar");
-
-    // Alternar el menú al hacer clic en el botón
-    menuButton.addEventListener("click", () => {
-      const isOpen = sidebar.classList.contains("menu-visible");
-      sidebar.classList.toggle("menu-visible");
-      menuButton.classList.toggle("menu-open");
-    });
-
-    // Cierra el menú al hacer clic fuera de él
-    document.addEventListener("click", (event) => {
-      if (
-        !sidebar.contains(event.target) &&
-        !menuButton.contains(event.target) &&
-        sidebar.classList.con
 </body>
 </html>
-
