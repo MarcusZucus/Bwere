@@ -1,69 +1,4 @@
-/* Estilos para el menú */
-body {
-  font-family: 'Quicksand', sans-serif;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-/* Menú oculto por defecto */
-#sidebar {
-  position: fixed;
-  top: 0;
-  right: -100%; /* Oculto fuera de la pantalla */
-  width: 300px;
-  height: 100%;
-  background-color: #ffffff;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  transition: right 0.3s ease-in-out;
-  z-index: 1000;
-  padding: 20px;
-}
-
-/* Menú visible */
-#sidebar.menu-visible {
-  right: 0; /* Muestra el menú */
-}
-
-/* Botón del menú */
-#menu-button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #ffffff;
-  border: 2px solid #f0f0f0;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1100;
-}
-
-/* Líneas del botón */
-#menu-button .line {
-  display: block;
-  width: 30px;
-  height: 4px;
-  background-color: #333;
-  margin: 5px 0;
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Animación al abrir el menú */
-#menu-button.menu-open .line-1 {
-  transform: translateY(9px) rotate(45deg);
-}
-
-#menu-button.menu-open .line-2 {
-  transform: translateY(-9px) rotate(-45deg);
-}
-
-/* Enlaces del menú */
+/* Estilos del menú desplegable */
 #sidebar ul {
   list-style: none;
   padding: 0;
@@ -71,25 +6,52 @@ body {
 }
 
 #sidebar ul li {
-  margin: 15px 0;
-}
-
-#sidebar ul li a,
-#sidebar ul li button {
-  text-decoration: none;
-  color: #333;
-  font-size: 18px;
-  font-weight: 500;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: block;
+  display: flex;
+  align-items: center; /* Alinea el texto con los iconos */
+  margin: 10px 0;
   padding: 10px 15px;
   border-radius: 8px;
   transition: background-color 0.2s ease;
 }
 
-#sidebar ul li a:hover,
-#sidebar ul li button:hover {
-  background-color: #f0f0f0;
+#sidebar ul li:hover {
+  background-color: #f9f9f9; /* Cambia el fondo al pasar el cursor */
+}
+
+/* Estilos de los enlaces y botones dentro del menú */
+#sidebar ul li a,
+#sidebar ul li button {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex: 1; /* Toma todo el espacio disponible */
+  display: flex;
+  align-items: center; /* Alinea el texto con los iconos */
+  gap: 10px; /* Espaciado entre icono y texto */
+}
+
+/* Iconos */
+#sidebar ul li a i,
+#sidebar ul li button i {
+  font-size: 20px;
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+#sidebar ul li a:hover i,
+#sidebar ul li button:hover i {
+  color: #333;
+}
+
+/* Separador entre secciones */
+#sidebar h2 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #999;
+  margin: 20px 15px 10px;
+  text-transform: uppercase;
 }
