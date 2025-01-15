@@ -10,6 +10,8 @@
     --orange-bright: #FF7F50;
     --text-dark: #333333;
     --gray-plus: #EEEEEE;
+    --border-radius: 8px;
+    --transition-speed: 0.3s ease-in-out;
 }
 
 /* Estilo Global */
@@ -22,11 +24,13 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
     user-select: none;
+    scroll-behavior: smooth; /* Suaviza los desplazamientos */
 }
 
 *:focus-visible {
     outline: 2px solid var(--orange-bright); /* Naranja para accesibilidad */
     outline-offset: 2px;
+    transition: outline var(--transition-speed); /* Transición suave */
 }
 
 /* Optimización para móviles */
@@ -46,4 +50,11 @@ body {
     height: 100vh;
     padding: 0;
     overflow: hidden; /* Previene el scroll del cuerpo */
+    transition: background-color var(--transition-speed), color var(--transition-speed); /* Suaviza cambios de tema */
+}
+
+/* Temas adicionales para modos claro/oscuro */
+body.dark {
+    background-color: var(--black-carbon);
+    color: var(--gray-plus);
 }
