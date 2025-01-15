@@ -121,8 +121,3 @@ function toggleSubMenu(subMenuId) {
     subMenu.classList.toggle('open');
   }
 }
-
-
-  observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
-});
-
