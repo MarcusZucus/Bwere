@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#F5F5F5">
   <meta name="description" content="Bwere: Potencia tu bienestar con una PWA optimizada y moderna.">
   <meta name="author" content="Equipo Bwere">
   <meta name="keywords" content="Bwere, PWA, bienestar, chat, sensores, ECG">
 
-  <!-- Política de Seguridad de Contenido (CSP) actualizada -->
+  <!-- Política de Seguridad de Contenido (CSP) mejorada -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://apis.bwere.com; img-src 'self' data:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
-
 
   <title>Bwere</title>
 
@@ -32,6 +31,10 @@
   <script defer type="module" src="/html_modules/modules/animations.js"></script>
   <script defer src="/prevent-scroll.js"></script>
   <script defer type="module" src="/service-worker-registration.js"></script>
+  
+  <!-- Optimización para cargas rápidas -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
+  <link rel="preload" href="/html_modules/styles.css" as="style">
 </head>
 <body>
   <!-- Botón para pruebas de pantalla completa (puedes ocultarlo en producción) -->
@@ -76,6 +79,14 @@
       <li><button class="conversation" data-id="1">Conversación 1</button></li>
       <li><button class="conversation" data-id="2">Conversación 2</button></li>
       <li><button class="conversation" data-id="3">Conversación 3</button></li>
+    </ul>
+
+    <h2>Otras Opciones</h2>
+    <ul>
+      <li><button>Mi Plan de Bienestar</button></li>
+      <li><button>Progreso y Estadísticas</button></li>
+      <li><button>Mis Compras</button></li>
+      <li><button>Configuración</button></li>
     </ul>
   </nav>
 
@@ -148,4 +159,3 @@
   </script>
 </body>
 </html>
-
