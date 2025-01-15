@@ -10,7 +10,7 @@
 }
 
 #chat-header {
-    padding: 20px 20px; /* Asegúrate de que sea igual al input-area */
+    padding: 5px 20px; /* Asegúrate de que sea igual al input-area */
     margin: 0;
     box-sizing: border-box;
 }
