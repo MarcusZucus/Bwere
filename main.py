@@ -3,7 +3,7 @@ Archivo principal para arrancar Bwere.
 """
 
 from modules.firebase_connection import init_firebase
-from modules.openai_api import ask_werbly
+from modules.openai_api import ask_Bwere
 from modules.conversation_manager import save_message
 from modules.user_data import get_user_data, update_user_data
 from modules.analysis_engine import analyze_user_data
@@ -24,14 +24,14 @@ def start_conversation():
                 break
 
             # Obtener respuesta de Bwere usando GPT
-            response = ask_werbly(user_id, user_input)  # Proporcionamos ambos argumentos
+            response = ask_Bwere(user_id, user_input)  # Proporcionamos ambos argumentos
 
             # Mostrar la respuesta al usuario
             print(f"Bwere: {response}\n")
 
             # Guardar la conversación en Firebase (opcional, si quieres activarlo)
             # save_message(user_id, "user", user_input)
-            # save_message(user_id, "werbly", response)
+            # save_message(user_id, "Bwere", response)
 
         except Exception as e:
             print("Error durante la conversación:", e)

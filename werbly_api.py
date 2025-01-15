@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from modules.openai_api import ask_werbly
+from modules.openai_api import ask_Bwere
 from modules.firebase_connection import init_firebase
 from flask_cors import CORS
 import logging
@@ -7,7 +7,7 @@ import re
 
 # Configurar logging
 logging.basicConfig(
-    filename='werbly_api.log',
+    filename='Bwere_api.log',
     level=logging.DEBUG,  # Cambiado a DEBUG para registrar más detalles
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
@@ -52,7 +52,7 @@ def chat():
             return jsonify({"error": "El ID de usuario no es válido."}), 400
 
         # Obtener respuesta de Bwere con historial
-        response = ask_werbly(user_id, user_message)
+        response = ask_Bwere(user_id, user_message)
 
         logging.info(f"Respuesta generada para user_id={user_id}: {response}")
         return jsonify({"response": response})

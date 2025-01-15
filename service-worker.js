@@ -28,7 +28,7 @@ const urlsToCache = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('werbly-runtime-cache-v1').then((cache) => {
+    caches.open('Bwere-runtime-cache-v1').then((cache) => {
       return cache.addAll(urlsToCache);
     })
   );
@@ -38,27 +38,27 @@ self.addEventListener('install', (event) => {
 registerRoute(
   ({ request }) => request.destination === 'document',
   new NetworkFirst({
-    cacheName: 'werbly-html-cache',
+    cacheName: 'Bwere-html-cache',
   })
 );
 
 registerRoute(
   ({ request }) => request.destination === 'script' || request.destination === 'style',
   new CacheFirst({
-    cacheName: 'werbly-static-resources',
+    cacheName: 'Bwere-static-resources',
   })
 );
 
 registerRoute(
   ({ request }) => request.destination === 'image',
   new CacheFirst({
-    cacheName: 'werbly-image-cache',
+    cacheName: 'Bwere-image-cache',
   })
 );
 
 // Limpieza de cachés antiguos
 self.addEventListener('activate', (event) => {
-  const cacheWhitelist = ['werbly-html-cache', 'werbly-static-resources', 'werbly-image-cache', 'werbly-runtime-cache-v1'];
+  const cacheWhitelist = ['Bwere-html-cache', 'Bwere-static-resources', 'Bwere-image-cache', 'Bwere-runtime-cache-v1'];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
