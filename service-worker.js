@@ -5,7 +5,7 @@ import { setCacheNameDetails } from 'workbox-core';
 
 // Configurar el nombre del caché personalizado
 setCacheNameDetails({
-  prefix: 'werbly',
+  prefix: 'Bwere',
   suffix: 'v1',
   precache: 'precache',
   runtime: 'runtime',
