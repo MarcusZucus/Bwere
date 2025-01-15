@@ -8,15 +8,16 @@
     background-color: var(--gray-light);
     overflow: hidden;
     position: relative;
-    border-radius: 12px; /* Redondeado sutil para un diseño limpio */
-    box-shadow: none; /* Sin sombras */
+    border-radius: var(--border-radius); /* Uso de variable global */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para destacar */
+    transition: box-shadow var(--transition-speed);
 }
 
 /* Encabezado */
 #chat-header {
     padding: 12px 20px;
-    background-color: var(--gray-light); /* Fondo blanco para encabezado */
-    color: var(--text-dark); /* Texto oscuro */
+    background-color: var(--gray-light);
+    color: var(--text-dark);
     font-size: 18px;
     font-weight: 600;
     display: flex;
@@ -27,7 +28,8 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para separación visual */
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
 /* Botón para abrir/cerrar el menú lateral */
@@ -41,17 +43,17 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    transition: transform 0.3s ease;
-    z-index: 1101; /* Asegura que esté encima del overlay */
+    transition: transform var(--transition-speed);
+    z-index: 1101;
 }
 
 #menu-button .line {
     width: 20px;
     height: 2px;
-    background-color: var(--text-dark); /* Color del botón */
+    background-color: var(--text-dark);
     border-radius: 5px;
     position: absolute;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform var(--transition-speed), opacity var(--transition-speed);
 }
 
 #menu-button .line-1 {
@@ -72,4 +74,9 @@
     transform: rotate(-45deg);
     top: 50%;
     transform-origin: center;
+}
+
+/* Efecto de hover para mayor interacción */
+#menu-button:hover .line {
+    background-color: var(--blue-cobalt); /* Color de hover */
 }
