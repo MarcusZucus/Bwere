@@ -172,13 +172,13 @@
 }
 
 .conversation {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px; /* Bordes sutiles para profesionalismo */
+    padding: none;
+    margin-bottom: none;
+    border-radius: none; /* Bordes sutiles para profesionalismo */
     background-color: var(--white-pure);
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra ligera para destacar */
+    box-shadow: none
 }
 
 .conversation:hover {
