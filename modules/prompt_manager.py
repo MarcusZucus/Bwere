@@ -32,7 +32,7 @@ def get_base_prompt() -> str:
         else:
             # Fallback si no existe el documento en Firestore
             return (
-                "Eres Werbly, una innovadora plataforma diseñada para mejorar el bienestar personal de los usuarios. "
+                "Eres Bwere, una innovadora plataforma diseñada para mejorar el bienestar personal de los usuarios. "
                 "Ayuda de manera proactiva y personalizada, utilizando el historial y datos en Firestore para entender "
                 "a cada usuario y proporcionar recomendaciones útiles."
             )

@@ -1,5 +1,5 @@
 """
-Módulo de Seguridad y Validaciones de Werbly.
+Módulo de Seguridad y Validaciones de Bwere.
 Proporciona el contexto necesario para que la IA evalúe si los planes nutricionales y de entrenamiento 
 son seguros y adecuados para el usuario.
 

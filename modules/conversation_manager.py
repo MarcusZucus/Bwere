@@ -1,9 +1,9 @@
 """
-Módulo de Gestión de Conversaciones de Werbly.
+Módulo de Gestión de Conversaciones de Bwere.
 Registra cada turno de conversación, recupera historiales y organiza los datos para mantener el contexto.
 
 **Propósito**:
-Este módulo actúa como el núcleo para gestionar los diálogos entre el usuario y Werbly. Su función principal es registrar cada mensaje, mantener un historial cronológico y permitir que otros módulos (como `ai_core`) utilicen este historial para proporcionar respuestas contextualizadas.
+Este módulo actúa como el núcleo para gestionar los diálogos entre el usuario y Bwere. Su función principal es registrar cada mensaje, mantener un historial cronológico y permitir que otros módulos (como `ai_core`) utilicen este historial para proporcionar respuestas contextualizadas.
 
 **Conexión con otros módulos**:
 - **Entrada de datos:** Recibe turnos de conversación generados por el usuario y respuestas de la IA.
@@ -58,7 +58,7 @@ def get_conversation_history(user_id: str, limit: int = 50) -> list:
 
     if not history:
         # Mensaje inicial predeterminado si no hay historial
-        history.append({"role": "system", "content": "Hola, soy Werbly. ¿En qué puedo ayudarte hoy?"})
+        history.append({"role": "system", "content": "Hola, soy Bwere. ¿En qué puedo ayudarte hoy?"})
 
     return history
 

@@ -1,9 +1,9 @@
 """
-Módulo de Conexión a Firebase de Werbly.
+Módulo de Conexión a Firebase de Bwere.
 Gestiona la inicialización del Admin SDK de Firebase y proporciona un cliente de Firestore.
 
 **Propósito**:
-Este módulo es responsable de conectar Werbly con Firebase, gestionando la autenticación mediante un archivo de claves seguras. Proporciona acceso centralizado a Firestore, permitiendo a otros módulos realizar operaciones de lectura, escritura y eliminación en la base de datos.
+Este módulo es responsable de conectar Bwere con Firebase, gestionando la autenticación mediante un archivo de claves seguras. Proporciona acceso centralizado a Firestore, permitiendo a otros módulos realizar operaciones de lectura, escritura y eliminación en la base de datos.
 
 **Conexión con otros módulos**:
 - **Entrada de datos:** Utiliza un archivo de credenciales JSON, cuya ubicación está definida por una variable de entorno (`FIREBASE_CRED_PATH`).

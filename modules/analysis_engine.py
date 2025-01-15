@@ -1,5 +1,5 @@
 """
-Módulo de Análisis y Decisiones de Werbly.
+Módulo de Análisis y Decisiones de Bwere.
 Procesa datos biométricos y del usuario para generar insights y recomendaciones personalizadas.
 Actúa como una capa intermedia que organiza los datos y los envía al núcleo de IA para análisis avanzado.
 

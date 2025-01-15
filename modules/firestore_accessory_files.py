@@ -1,9 +1,9 @@
 """
 Módulo para interactuar con la colección AccessoryFiles en Firestore.
-Proporciona funciones para consultar datos relevantes para Werbly, como listas de respuestas, configuraciones y otros datos accesorios.
+Proporciona funciones para consultar datos relevantes para Bwere, como listas de respuestas, configuraciones y otros datos accesorios.
 
 **Propósito**:
-Este módulo actúa como una interfaz para acceder a datos auxiliares almacenados en Firestore, necesarios para el funcionamiento de diferentes funcionalidades de Werbly. Específicamente, facilita la recuperación de documentos, subcolecciones y datos estructurados de la colección `AccessoryFiles`.
+Este módulo actúa como una interfaz para acceder a datos auxiliares almacenados en Firestore, necesarios para el funcionamiento de diferentes funcionalidades de Bwere. Específicamente, facilita la recuperación de documentos, subcolecciones y datos estructurados de la colección `AccessoryFiles`.
 
 **Conexión con otros módulos**:
 - **Entrada de datos:** Utiliza `firebase_connection` para conectarse a Firestore y consultar la colección `AccessoryFiles`.

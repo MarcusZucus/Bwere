@@ -24,7 +24,7 @@ initialize_app(cred)
 db = firestore.client()
 
 # URL de la API de GitHub
-GITHUB_REPO_URL = "https://api.github.com/repos/MarcusZucus/WerblyAI/contents/"
+GITHUB_REPO_URL = "https://api.github.com/repos/MarcusZucus/BwereAI/contents/"
 HEADERS = {
     "Authorization": f"Bearer {GITHUB_API_KEY}",
     "Accept": "application/vnd.github.v3+json"

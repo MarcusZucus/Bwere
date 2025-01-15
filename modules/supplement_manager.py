@@ -1,5 +1,5 @@
 """
-Módulo de Suplementación de Werbly.
+Módulo de Suplementación de Bwere.
 Identifica deficiencias y proporciona recomendaciones personalizadas de suplementos en función de los datos del usuario.
 
 **Propósito**:

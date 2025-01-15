@@ -1,5 +1,5 @@
 """
-Módulo de Planificación Nutricional de Werbly.
+Módulo de Planificación Nutricional de Bwere.
 Proporciona el contexto necesario para que la IA genere planes de alimentación personalizados y dinámicos.
 
 **Propósito**:

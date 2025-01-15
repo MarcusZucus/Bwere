@@ -30,7 +30,7 @@ def is_valid_user_id(user_id):
 
 @app.route('/')
 def index():
-    return "¡Bienvenido a la API de Werbly!"
+    return "¡Bienvenido a la API de Bwere!"
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -51,7 +51,7 @@ def chat():
             logging.warning(f"Intento de uso con ID de usuario inválido: {user_id}")
             return jsonify({"error": "El ID de usuario no es válido."}), 400
 
-        # Obtener respuesta de Werbly con historial
+        # Obtener respuesta de Bwere con historial
         response = ask_werbly(user_id, user_message)
 
         logging.info(f"Respuesta generada para user_id={user_id}: {response}")

@@ -34,4 +34,4 @@ for keyword in keywords:
         except Exception as e:
             print(f"Error al descargar {dataset_title}: {e}")
 
-print("Descarga completa de todos los datasets relacionados con Werbly.")
+print("Descarga completa de todos los datasets relacionados con Bwere.")

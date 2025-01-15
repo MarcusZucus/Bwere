@@ -1,5 +1,5 @@
 """
-Módulo de Motivación y Seguimiento de Werbly.
+Módulo de Motivación y Seguimiento de Bwere.
 Proporciona el contexto necesario a la IA para que genere mensajes motivacionales adaptados al estado actual del usuario.
 
 **Propósito**:

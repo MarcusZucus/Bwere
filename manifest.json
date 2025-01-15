@@ -1,12 +1,12 @@
 {
-  "name": "Werbly",
+  "name": "Bwere",
   "short_name": "Bwere",
   "start_url": "/index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F5F5F5",
   "theme_color": "#F5F5F5",
-  "description": "Werbly es una aplicación de chat avanzada y optimizada.",
+  "description": "Bwere es una aplicación de chat avanzada y optimizada.",
   "scope": "/",
   "icons": [
     {
