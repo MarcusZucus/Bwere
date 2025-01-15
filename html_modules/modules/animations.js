@@ -5,19 +5,28 @@
  * @param {Function} [callback] - Función opcional a ejecutar tras completar la animación.
  */
 export function fadeIn(element, duration = 500, callback = null) {
-  if (!element) return;
+  if (!(element instanceof HTMLElement)) {
+    console.error('fadeIn: El argumento element debe ser un nodo HTML válido.');
+    return;
+  }
+
+  if (typeof duration !== 'number' || duration <= 0) {
+    console.error('fadeIn: El argumento duration debe ser un número positivo.');
+    return;
+  }
 
   element.style.opacity = 0;
-  element.style.transform = 'scale(0.9)'; // Escala inicial para añadir un efecto de ampliación
+  element.style.transform = 'scale(0.9)';
   element.style.transition = `opacity ${duration}ms ease-in-out, transform ${duration}ms ease-in-out`;
 
   requestAnimationFrame(() => {
     element.style.opacity = 1;
-    element.style.transform = 'scale(1)'; // Escala final
-    setTimeout(() => {
-      if (typeof callback === 'function') callback();
-    }, duration);
+    element.style.transform = 'scale(1)';
   });
+
+  if (callback && typeof callback === 'function') {
+    setTimeout(callback, duration);
+  }
 }
 
 /**
@@ -28,7 +37,10 @@ export function fadeIn(element, duration = 500, callback = null) {
  * @param {Function} [callback] - Función opcional a ejecutar tras completar la escritura.
  */
 export function typeMessageEffect(messageContent, content, speed = 24, callback = null) {
-  if (!messageContent || typeof content !== 'string') return;
+  if (!(messageContent instanceof HTMLElement) || typeof content !== 'string') {
+    console.error('typeMessageEffect: Argumentos inválidos.');
+    return;
+  }
 
   let index = 0;
   const typingInterval = setInterval(() => {
@@ -37,20 +49,11 @@ export function typeMessageEffect(messageContent, content, speed = 24, callback 
       span.textContent = content[index];
       span.style.opacity = 0;
       span.style.animation = 'fade-in 0.3s ease forwards';
-      if (content[index] === ',' || content[index] === '.') {
-        // Pausa adicional en signos de puntuación
-        clearInterval(typingInterval);
-        setTimeout(() => {
-          index++;
-          typeMessageEffect(messageContent, content.substring(index), speed, callback);
-        }, speed * 10);
-        return;
-      }
       messageContent.appendChild(span);
       index++;
     } else {
       clearInterval(typingInterval);
-      if (typeof callback === 'function') callback();
+      if (callback && typeof callback === 'function') callback();
     }
   }, speed);
 }
@@ -61,7 +64,10 @@ export function typeMessageEffect(messageContent, content, speed = 24, callback 
  * @param {HTMLElement} sidebar - Menú lateral a mostrar/ocultar.
  */
 export function toggleMenuAnimation(menuButton, sidebar) {
-  if (!menuButton || !sidebar) return;
+  if (!(menuButton instanceof HTMLElement) || !(sidebar instanceof HTMLElement)) {
+    console.error('toggleMenuAnimation: Argumentos inválidos.');
+    return;
+  }
 
   const isOpen = sidebar.classList.toggle('open');
   menuButton.classList.toggle('open');
@@ -70,7 +76,8 @@ export function toggleMenuAnimation(menuButton, sidebar) {
   menuButton.setAttribute('aria-expanded', isOpen);
   sidebar.setAttribute('aria-hidden', !isOpen);
 
-  // Agregar transición suave con transformaciones CSS para un mejor rendimiento
+  sidebar.style.transition = 'transform 300ms ease-in-out, box-shadow 300ms ease-in-out';
+
   if (isOpen) {
     sidebar.style.transform = 'translateX(0)';
     sidebar.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
@@ -86,14 +93,22 @@ export function toggleMenuAnimation(menuButton, sidebar) {
  * @param {HTMLElement} sidebar - Menú lateral a gestionar.
  */
 export function setupOutsideClickHandler(menuButton, sidebar) {
-  if (!menuButton || !sidebar) return;
+  if (!(menuButton instanceof HTMLElement) || !(sidebar instanceof HTMLElement)) {
+    console.error('setupOutsideClickHandler: Argumentos inválidos.');
+    return;
+  }
 
-  document.addEventListener('click', (event) => {
+  const handler = (event) => {
     const target = event.target;
     if (!sidebar.contains(target) && target !== menuButton && sidebar.classList.contains('open')) {
       toggleMenuAnimation(menuButton, sidebar);
     }
-  });
+  };
+
+  document.addEventListener('click', handler);
+
+  // Retorna una función para eliminar el evento cuando ya no sea necesario
+  return () => document.removeEventListener('click', handler);
 }
 
 // CSS sugerido para complementar estas mejoras
@@ -120,7 +135,7 @@ const styles = `
 `;
 
 // Agrega el CSS al documento
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
+const styleSheet = document.createElement('style');
+styleSheet.type = 'text/css';
 styleSheet.innerText = styles;
 document.head.appendChild(styleSheet);
