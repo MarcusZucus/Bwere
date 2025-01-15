@@ -16,7 +16,9 @@ self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       console.log("Archivos precacheados correctamente");
-      return cache.addAll(urlsToCache);
+      return cache.addAll(urlsToCache).catch(error => {
+        console.error("Error al agregar archivos a la caché: ", error);
+      });
     })
   );
   self.skipWaiting(); // Activa el SW inmediatamente
@@ -44,7 +46,9 @@ self.addEventListener("fetch", event => {
           const responseToCache = networkResponse.clone();
 
           caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseToCache);
+            cache.put(event.request, responseToCache).catch(error => {
+              console.error("Error al guardar la respuesta en caché: ", error);
+            });
           });
 
           return networkResponse;
@@ -108,3 +112,4 @@ self.addEventListener("notificationclick", event => {
     })
   );
 });
+
