@@ -30,8 +30,7 @@
   cursor: pointer;
   flex: 1; /* Toma todo el espacio disponible */
   display: flex;
-  align-items: center; /* Alinea el texto con los iconos */
-  gap: 10px; /* Espaciado entre icono y texto */
+  align-items: left; /* Alinea el texto con los iconos */
 }
 
 /* Iconos */
