@@ -1,12 +1,11 @@
-// service-worker-registration.js
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/service-worker.js', { type: 'module' }) // Registrado como módulo
+        navigator.serviceWorker.register('/service-worker.js', { type: 'module' }) // Importante: { type: 'module' }
             .then(function(registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
+                console.log('Service Worker registrado con éxito:', registration.scope);
             })
             .catch(function(error) {
-                console.log('Service Worker registration failed:', error);
+                console.error('Error al registrar el Service Worker:', error);
             });
     });
 }
