@@ -91,6 +91,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
+
+  // Configuración inicial del sidebar (abre desde la derecha y ocupa más espacio)
+  Object.assign(sidebar.style, {
+    position: 'fixed',
+    top: '0',
+    right: '-80%', // Oculto inicialmente
+    width: '80%', // Ocupa el 80% de la pantalla
+    height: '100%',
+    backgroundColor: '#fff',
+    boxShadow: '-4px 0 10px rgba(0, 0, 0, 0.2)',
+    zIndex: '1000',
+    transition: 'right 0.3s ease',
+  });
+
+  // Estilo para el menú cuando está abierto
+  sidebar.classList.add('closed');
 });
 
 /**
@@ -121,3 +137,20 @@ function toggleSubMenu(subMenuId) {
     subMenu.classList.toggle('open');
   }
 }
+
+// Estilo para las clases dinámicas
+const style = document.createElement('style');
+style.innerHTML = `
+  #sidebar.open {
+    right: 0;
+  }
+
+  #menu-overlay.visible {
+    display: block;
+  }
+
+  .menu-item {
+    transform: translateX(-100%);
+  }
+`;
+document.head.appendChild(style);
