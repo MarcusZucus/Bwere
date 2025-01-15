@@ -8,6 +8,7 @@
     background-color: var(--gray-light);
     overflow: hidden;
     position: relative;
+    padding: 20px
     border-radius: var(--border-radius); /* Uso de variable global */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para destacar */
     transition: box-shadow var(--transition-speed);
