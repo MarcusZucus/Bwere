@@ -1,6 +1,17 @@
+/* Variables globales */
 @import url("/html_modules/variables-global.css");
+
+/* Estilos del contenedor del encabezado */
 @import url("/html_modules/container-header.css");
+
+/* Estilos para inputs y botones */
 @import url("/html_modules/input-buttons.css");
+
+/* Media queries para diseño responsivo */
 @import url("/html_modules/media-queries.css");
+
+/* Estilos específicos para el menú y mensajes */
 @import url("/html_modules/menu-messages.css");
+
+/* Estilos generales de los mensajes */
 @import url("/html_modules/messages.css");
