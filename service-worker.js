@@ -1,7 +1,7 @@
 const CACHE_NAME = "bware-cache-v3";
 const urlsToCache = [
   "/index.html",
-  "/html_modules/mis compras/mis_compras.html", // Página "Mis Compras"
+  "/html_modules/mis_compras/mis_compras.html", // Página "Mis Compras"
   "/html_modules/styles.css",
   "/html_modules/modules/animations.js",
   "/html_modules/modules/chat.js",
