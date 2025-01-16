@@ -69,5 +69,19 @@
     <footer class="bg-gray-800 text-white text-center p-4 mt-4">
         <p>&copy; 2025 Bware. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- Script para manejar redirecciones o acciones -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log('La página Mis Compras se ha cargado correctamente.');
+
+            // Opcional: manejar alguna acción específica si se llega desde otro botón o enlace
+            if (window.location.hash === '#compras') {
+                console.log('El usuario ha llegado desde el botón de compras.');
+                // Puedes realizar acciones adicionales aquí si es necesario
+            }
+        });
+    </script>
 </body>
 </html>
+
