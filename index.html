@@ -99,7 +99,7 @@
 
     <h2>Otras Opciones</h2>
     <ul>
-      <li><a href="/html_modules/mis_compras/mis_compras.html">Mis Compras</a></li>
+      <li><a href="/html_modules/mis_compras/mis_compras.html" id="mis-compras-button">Mis Compras</a></li>
       <li><a href="/html_modules/home/home.html">Inicio</a></li>
       <li><button>Mi Plan de Bienestar</button></li>
       <li><button>Progreso y Estadísticas</button></li>
@@ -173,27 +173,39 @@
           console.log('Service Worker registration failed:', error);
         });
     }
-  </script>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const menuButton = document.getElementById("menu-button");
-    const sidebar = document.getElementById("sidebar");
 
-    // Alternar el menú al hacer clic en el botón
-    menuButton.addEventListener("click", () => {
-      const isOpen = sidebar.classList.contains("menu-visible");
-      sidebar.classList.toggle("menu-visible");
-      menuButton.classList.toggle("menu-open");
-    });
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuButton = document.getElementById("menu-button");
+      const sidebar = document.getElementById("sidebar");
+      const misComprasButton = document.getElementById("mis-compras-button");
 
-    // Cierra el menú al hacer clic fuera de él
-    document.addEventListener("click", (event) => {
-      if (!sidebar.contains(event.target) && !menuButton.contains(event.target) && sidebar.classList.contains("menu-visible")) {
-        sidebar.classList.remove("menu-visible");
-        menuButton.classList.remove("menu-open");
-      }
+      // Alternar el menú al hacer clic en el botón
+      menuButton.addEventListener("click", () => {
+        const isOpen = sidebar.classList.contains("menu-visible");
+        sidebar.classList.toggle("menu-visible");
+        menuButton.classList.toggle("menu-open");
+      });
+
+      // Cierra el menú al hacer clic fuera de él
+      document.addEventListener("click", (event) => {
+        if (!sidebar.contains(event.target) && !menuButton.contains(event.target) && sidebar.classList.contains("menu-visible")) {
+          sidebar.classList.remove("menu-visible");
+          menuButton.classList.remove("menu-open");
+        }
+      });
+
+      // Forzar navegación a "Mis Compras"
+      misComprasButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        try {
+          window.location.href = "/html_modules/mis_compras/mis_compras.html";
+        } catch (error) {
+          console.error("Error al intentar acceder a Mis Compras:", error);
+          alert("Hubo un problema al intentar acceder a Mis Compras. Por favor, inténtalo de nuevo.");
+        }
+      });
     });
-  });
   </script>
 </body>
 </html>
+
