@@ -77,6 +77,11 @@
       "dest": "https://fonts.gstatic.com/$1"
     },
     {
+      "src": "/.*",
+      "dest": "/offline.html",
+      "status": 404
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }
