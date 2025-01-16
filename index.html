@@ -41,16 +41,6 @@
   <script defer type="module" src="/service-worker-registration.js"></script>
   <script defer type="module" src="/html_modules/home/exchangeToken.js"></script>
   <script defer type="module" src="/html_modules/modules/gpt.js"></script>
-
-  <!-- Optimización para cargas rápidas -->
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
-  <link rel="preload" href="/html_modules/styles.css" as="style">
-  <link rel="preload" href="/html_modules/container-header.css" as="style">
-  <link rel="preload" href="/html_modules/input-buttons.css" as="style">
-  <link rel="preload" href="/html_modules/media-queries.css" as="style">
-  <link rel="preload" href="/html_modules/menu-messages.css" as="style">
-  <link rel="preload" href="/html_modules/messages.css" as="style">
-  <link rel="preload" href="/html_modules/variables-global.css" as="style">
 </head>
 <body>
   <!-- Botón para pruebas de pantalla completa (puedes ocultarlo en producción) -->
@@ -107,109 +97,52 @@
     </ul>
   </nav>
 
-  <!-- Superposición para oscurecer el fondo -->
   <div id="overlay" role="presentation"></div>
 
-  <!-- Plantilla para la animación ECG -->
-  <template id="ecg-template">
-    <div class="animation-container" role="img" aria-label="Animación de ECG">
-      <div class="heart"></div>
-      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
-        <path class="line" d="
-          M30,100 L100,100 Q120,70 140,100 Q160,130 180,100 
-          Q200,70 220,100 Q240,130 260,100 Q280,70 300,100 
-          L370,100
-        " />
-      </svg>
-    </div>
-  </template>
-
-  <!-- JavaScript para funcionalidades dinámicas -->
+  <!-- JavaScript -->
   <script>
-    // Función para habilitar la pantalla completa
-    function enableFullScreenMode() {
-      const element = document.documentElement;
-      if (element.requestFullscreen) {
-        element.requestFullscreen();
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen(); // Para navegadores basados en WebKit
-      } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen(); // Para navegadores antiguos de Edge
-      }
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuButton = document.getElementById("menu-button");
+      const sidebar = document.getElementById("sidebar");
 
-    // Detecta cambios en el tamaño de la ventana
-    window.addEventListener('resize', () => {
-      const inputArea = document.getElementById('input-area');
-      const messagesArea = document.getElementById('messages');
-      const viewportHeight = window.innerHeight;
+      // Alternar menú lateral
+      menuButton.addEventListener("click", () => {
+        const isOpen = sidebar.classList.contains("menu-visible");
+        sidebar.classList.toggle("menu-visible");
+        menuButton.classList.toggle("menu-open");
+      });
 
-      // Si la altura de la ventana disminuye (teclado visible)
-      if (viewportHeight < 600) {
-        inputArea.style.position = 'fixed'; // Siempre visible
-        inputArea.style.bottom = '0';      // Por encima del teclado
-        inputArea.style.zIndex = '1000';   // Mayor z-index para asegurar que esté al frente
-
-        // Ajustar la altura del área de mensajes
-        messagesArea.style.paddingBottom = '120px'; // Espacio adicional para evitar solapamientos
-      } else {
-        // Restaurar posición y altura cuando el teclado no esté visible
-        inputArea.style.position = 'fixed';
-        inputArea.style.bottom = '0';
-        messagesArea.style.paddingBottom = '60px'; // Altura normal del input-area
-      }
-    });
-
-    // Ajuste inicial al cargar la página
-    window.dispatchEvent(new Event('resize'));
-
-    // Registro del Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(function(registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Service Worker registration failed:', error);
-        });
-    }
-  </script>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const menuButton = document.getElementById("menu-button");
-    const sidebar = document.getElementById("sidebar");
-
-    // Alternar el menú al hacer clic en el botón
-    menuButton.addEventListener("click", () => {
-      const isOpen = sidebar.classList.contains("menu-visible");
-      sidebar.classList.toggle("menu-visible");
-      menuButton.classList.toggle("menu-open");
-    });
-
-    // Cierra el menú al hacer clic fuera de él
-    document.addEventListener("click", (event) => {
-      if (!sidebar.contains(event.target) && !menuButton.contains(event.target) && sidebar.classList.contains("menu-visible")) {
-        sidebar.classList.remove("menu-visible");
-        menuButton.classList.remove("menu-open");
-      }
-    });
-    // Llama al archivo mis_compras.html
-    fetch('/html_modules/mis_compras/mis_compras.html')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error al cargar mis_compras.html');
+      // Cerrar menú al hacer clic fuera de él
+      document.addEventListener("click", (event) => {
+        if (!sidebar.contains(event.target) && !menuButton.contains(event.target) && sidebar.classList.contains("menu-visible")) {
+          sidebar.classList.remove("menu-visible");
+          menuButton.classList.remove("menu-open");
         }
-        return response.text();
-      })
-      .then(html => {
-        console.log('mis_compras.html cargado:', html);
-        // Opcional: Insertar contenido dinámicamente
-        const container = document.createElement('div');
-        container.innerHTML = html;
-        document.body.appendChild(container);
-      })
-      .catch(error => console.error('Error al cargar mis_compras.html:', error));
-  });
+      });
+
+      // Capturar clic en "Mis Compras"
+      const misComprasLink = document.querySelector('[href="/html_modules/mis_compras/mis_compras.html"]');
+      misComprasLink.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        // Cargar contenido de "Mis Compras"
+        fetch("/html_modules/mis_compras/mis_compras.html")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error al cargar mis_compras.html");
+            }
+            return response.text();
+          })
+          .then((html) => {
+            const mainContent = document.getElementById("messages");
+            mainContent.innerHTML = html;
+          })
+          .catch((error) => {
+            console.error("Error al cargar mis_compras.html:", error);
+          });
+      });
+    });
   </script>
 </body>
 </html>
+
