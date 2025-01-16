@@ -2,6 +2,7 @@ const CACHE_NAME = "bware-cache-v3";
 const urlsToCache = [
   "/index.html",
   "/html_modules/mis_compras/mis_compras.html", // Página "Mis Compras"
+  "/html_modules/home/home.html", // Otras páginas necesarias
   "/html_modules/styles.css",
   "/html_modules/modules/animations.js",
   "/html_modules/modules/chat.js",
@@ -9,7 +10,7 @@ const urlsToCache = [
   "/icon-192x192.png",
   "/icon-512x512.png",
   "/manifest.json",
-  "/offline.html" // Página de respaldo para modo offline
+  "/offline.html"  // Página de respaldo para modo offline
 ];
 
 // Instalación del Service Worker y almacenamiento en caché
