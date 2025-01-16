@@ -9,6 +9,10 @@
       "dest": "/manifest.json"
     },
     {
+      "src": "/html_modules/styles.css",
+      "dest": "/html_modules/styles.css"
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }
