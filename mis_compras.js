@@ -1,3 +1,5 @@
+console.log('El script mis_compras.js se ha cargado correctamente.');
+
 // Script exclusivo para cargar "Mis Compras"
 document.addEventListener("DOMContentLoaded", () => {
   const misComprasLink = document.querySelector('[href="/html_modules/mis_compras/mis_compras.html"]');
