@@ -193,6 +193,22 @@
         menuButton.classList.remove("menu-open");
       }
     });
+    // Llama al archivo mis_compras.html
+    fetch('/html_modules/mis_compras/mis_compras.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error al cargar mis_compras.html');
+        }
+        return response.text();
+      })
+      .then(html => {
+        console.log('mis_compras.html cargado:', html);
+        // Opcional: Insertar contenido dinámicamente
+        const container = document.createElement('div');
+        container.innerHTML = html;
+        document.body.appendChild(container);
+      })
+      .catch(error => console.error('Error al cargar mis_compras.html:', error));
   });
   </script>
 </body>
