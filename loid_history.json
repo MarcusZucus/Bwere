@@ -1,0 +1,16 @@
+{
+  "historial": [
+    [
+      "hola, quien eres?",
+      "Error: Modelo no disponible."
+    ],
+    [
+      "hola",
+      "Error: Modelo no disponible."
+    ],
+    [
+      "hi",
+      "Error: Modelo no disponible."
+    ]
+  ]
+}

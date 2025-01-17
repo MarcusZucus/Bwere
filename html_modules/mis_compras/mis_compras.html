@@ -1,87 +1,286 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#F5F5F5">
-    <meta name="description" content="Página de Mis Compras en Bware">
-    <title>Mis Compras - Bware</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Plan de dieta avanzado, con seguimiento calórico y recomendaciones para mantener una vida saludable.">
+  <meta name="theme-color" content="#FFFFFF" />
+  <meta property="og:title" content="Bwere - Plan de Dieta (State of the Art)">
+  <meta property="og:description" content="Planifica tus comidas y controla tus calorías con facilidad.">
+  <meta property="og:image" content="/assets/diet-plan-preview.png">
+  <meta property="og:url" content="https://bwere.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Bwere - Plan de Dieta (State of the Art)</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  <!-- Tipografías (ejemplo Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Iconos (Font Awesome) -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS (CDN) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+  />
+
+  <!-- Estilos adicionales -->
+  <style>
+    /* Configuración base */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    /* Scrollbar elegante (opcional) */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #a3a3a3;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
+
+    /* Modo oscuro */
+    [data-theme="dark"] {
+      color-scheme: dark;
+      background-color: #1f2937; /* Gray-800 Tailwind */
+      color: #ffffff;
+    }
+    [data-theme="dark"] .card {
+      background-color: #374151; /* Gray-700 */
+    }
+    [data-theme="dark"] .text-theme {
+      color: #a5b4fc; /* Indigo-200 */
+    }
+    [data-theme="dark"] .bg-white {
+      background-color: #374151 !important;
+    }
+
+    /* Mejora para móviles */
+    .container {
+      padding: 0 16px;
+    }
+
+    /* Tipografía adaptable */
+    h1, h2, h3, p, li {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <!-- Encabezado -->
-    <header class="bg-blue-600 text-white p-4 shadow-md">
-        <h1 class="text-xl font-bold">Mis Compras</h1>
-        <p class="text-sm">Administra y revisa tus compras automáticas realizadas por Bware.</p>
+<body class="min-h-screen flex flex-col justify-start items-center bg-white">
+  <!-- Contenedor principal -->
+  <div class="container w-full max-w-2xl py-6">
+
+    <!-- Encabezado / Header -->
+    <header class="w-full flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-indigo-600 dark:text-indigo-300">
+        Plan de Dieta
+      </h1>
+      <!-- Botón de toggle dark/light mode -->
+      <button
+        id="themeToggleBtn"
+        class="inline-flex items-center justify-center px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 rounded dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 transition"
+        aria-label="Cambiar modo claro/oscuro"
+      >
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+      </button>
     </header>
 
-    <!-- Resumen -->
-    <section class="p-4">
-        <div class="bg-white p-4 shadow rounded-md">
-            <h2 class="text-lg font-semibold">Resumen</h2>
-            <p>Total gastado este mes: <span class="font-bold">$123.45</span></p>
-            <p>Próxima compra programada: <span class="font-bold">20 de enero, 2025</span></p>
+    <!-- Resumen Calórico -->
+    <section
+      aria-labelledby="calorie-summary-heading"
+      class="card border border-gray-200 dark:border-gray-600 rounded-2xl p-4 mb-6 transition-colors"
+    >
+      <h2 id="calorie-summary-heading" class="text-xl font-semibold mb-4">
+        Resumen Calórico
+      </h2>
+      <div class="flex justify-between items-center mb-2">
+        <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-300">
+          1,248
         </div>
+        <div class="text-gray-400 dark:text-gray-300 text-sm">
+          / 2,000 kcal
+        </div>
+        <div class="text-indigo-600 dark:text-indigo-300 text-sm">
+          62% completado
+        </div>
+      </div>
+
+      <!-- Barra de progreso -->
+      <div
+        class="w-full h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden mb-4"
+        role="progressbar"
+        aria-valuenow="62"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-label="Progreso de calorías consumidas"
+      >
+        <div
+          class="h-full bg-indigo-600 dark:bg-indigo-400"
+          style="width: 62%; transition: width 0.3s ease-in-out;"
+        ></div>
+      </div>
+
+      <!-- Macros -->
+      <div class="flex justify-between text-sm mt-4">
+        <div class="text-center">
+          <p class="text-gray-500 dark:text-gray-200">Carbohidratos</p>
+          <p class="font-medium">148 g</p>
+        </div>
+        <div class="text-center">
+          <p class="text-gray-500 dark:text-gray-200">Proteínas</p>
+          <p class="font-medium">92 g</p>
+        </div>
+        <div class="text-center">
+          <p class="text-gray-500 dark:text-gray-200">Grasas</p>
+          <p class="font-medium">56 g</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Compras en Proceso -->
-    <section class="p-4">
-        <h2 class="text-lg font-semibold mb-2">Compras en Proceso</h2>
-        <div class="bg-white p-4 shadow rounded-md">
-            <p><strong>Pedido #12345</strong></p>
-            <ul class="list-disc ml-5 mb-2">
-                <li>1x Manzanas</li>
-                <li>2x Leche</li>
-                <li>1x Pan Integral</li>
-            </ul>
-            <p><strong>Estado:</strong> En camino</p>
-            <button class="bg-red-500 text-white px-4 py-2 rounded mt-2">Cancelar Pedido</button>
-        </div>
-    </section>
+    <!-- Lista de Comidas (Desayuno) -->
+    <article
+      class="card meal-item border-t border-gray-200 dark:border-gray-700 py-4"
+      aria-labelledby="breakfast-heading"
+    >
+      <h3
+        id="breakfast-heading"
+        class="text-lg font-semibold mb-1 dark:text-indigo-200"
+      >
+        Desayuno
+      </h3>
+      <p class="text-gray-500 dark:text-gray-300 mb-2">
+        Avena con frutas
+      </p>
+      <ul class="text-sm text-gray-500 dark:text-gray-200 list-disc list-inside mb-2">
+        <li>50g de avena</li>
+        <li>100ml de leche de almendras</li>
+        <li>30g de fresas</li>
+        <li>10g de almendras</li>
+      </ul>
+      <div class="text-right mt-2 text-gray-700 dark:text-gray-100">
+        <span class="font-medium mr-1">320</span>
+        <span class="text-sm text-gray-400 dark:text-gray-300">kcal</span>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-2">
+        <span
+          class="px-2 py-1 bg-green-50 text-green-600 text-xs rounded-full dark:bg-green-700 dark:text-green-200 transition"
+        >
+          <i class="fa-solid fa-leaf mr-1"></i> Vegano
+        </span>
+        <span
+          class="px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded-full dark:bg-blue-700 dark:text-blue-200 transition"
+        >
+          <i class="fa-solid fa-dumbbell mr-1"></i> Proteínas
+        </span>
+      </div>
+    </article>
 
-    <!-- Historial de Compras -->
-    <section class="p-4">
-        <h2 class="text-lg font-semibold mb-2">Historial de Compras</h2>
-        <div class="bg-white p-4 shadow rounded-md mb-4">
-            <p><strong>Pedido #12344</strong></p>
-            <ul class="list-disc ml-5 mb-2">
-                <li>1x Plátanos</li>
-                <li>1x Yogur</li>
-                <li>1x Queso</li>
-            </ul>
-            <p><strong>Fecha:</strong> 15 de enero, 2025</p>
-            <p><strong>Total:</strong> $45.67</p>
-            <button class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Repetir Compra</button>
-        </div>
-    </section>
+    <!-- Snack de la Mañana -->
+    <article
+      class="card meal-item border-t border-gray-200 dark:border-gray-700 py-4"
+      aria-labelledby="morning-snack-heading"
+    >
+      <h3
+        id="morning-snack-heading"
+        class="text-lg font-semibold mb-1 dark:text-indigo-200"
+      >
+        Snack de la Mañana
+      </h3>
+      <p class="text-gray-500 dark:text-gray-300 mb-2">
+        Yogur griego con miel
+      </p>
+      <ul class="text-sm text-gray-500 dark:text-gray-200 list-disc list-inside mb-2">
+        <li>150g de yogur griego</li>
+        <li>10g de miel</li>
+      </ul>
+      <div class="text-right mt-2 text-gray-700 dark:text-gray-100">
+        <span class="font-medium mr-1">180</span>
+        <span class="text-sm text-gray-400 dark:text-gray-300">kcal</span>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-2">
+        <span
+          class="px-2 py-1 bg-yellow-50 text-yellow-600 text-xs rounded-full dark:bg-yellow-700 dark:text-yellow-200 transition"
+        >
+          <i class="fa-solid fa-cheese mr-1"></i> Lácteo
+        </span>
+      </div>
+    </article>
 
-    <!-- Configuraciones -->
-    <section class="p-4">
-        <h2 class="text-lg font-semibold mb-2">Configuraciones</h2>
-        <div class="bg-white p-4 shadow rounded-md">
-            <p><strong>Supermercado preferido:</strong> Supermercado XYZ</p>
-            <p><strong>Presupuesto mensual:</strong> $300.00</p>
-            <button class="bg-green-500 text-white px-4 py-2 rounded mt-2">Editar Preferencias</button>
-        </div>
-    </section>
+    <!-- Almuerzo -->
+    <article
+      class="card meal-item border-t border-gray-200 dark:border-gray-700 py-4"
+      aria-labelledby="lunch-heading"
+    >
+      <h3
+        id="lunch-heading"
+        class="text-lg font-semibold mb-1 dark:text-indigo-200"
+      >
+        Almuerzo
+      </h3>
+      <p class="text-gray-500 dark:text-gray-300 mb-2">
+        Quinoa con pollo a la parrilla
+      </p>
+      <ul class="text-sm text-gray-500 dark:text-gray-200 list-disc list-inside mb-2">
+        <li>100g de quinoa</li>
+        <li>150g de pollo a la parrilla</li>
+        <li>50g de brócoli</li>
+      </ul>
+      <div class="text-right mt-2 text-gray-700 dark:text-gray-100">
+        <span class="font-medium mr-1">450</span>
+        <span class="text-sm text-gray-400 dark:text-gray-300">kcal</span>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-2">
+        <span
+          class="px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded-full dark:bg-blue-700 dark:text-blue-200 transition"
+        >
+          <i class="fa-solid fa-dumbbell mr-1"></i> Alto en Proteínas
+        </span>
+      </div>
+    </article>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center p-4 mt-4">
-        <p>&copy; 2025 Bware. Todos los derechos reservados.</p>
-    </footer>
+  </div><!-- Fin contenedor principal -->
 
-    <!-- Script para manejar redirecciones o acciones -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            console.log('La página Mis Compras se ha cargado correctamente.');
+  <!-- Scripts -->
+  <script>
+    // Toggle para modo claro/oscuro
+    const htmlEl = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
 
-            // Opcional: manejar alguna acción específica si se llega desde otro botón o enlace
-            if (window.location.hash === '#compras') {
-                console.log('El usuario ha llegado desde el botón de compras.');
-                // Puedes realizar acciones adicionales aquí si es necesario
-            }
-        });
-    </script>
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    htmlEl.setAttribute('data-theme', storedTheme);
+    themeIcon.className = storedTheme === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = htmlEl.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      htmlEl.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeIcon.className = newTheme === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    });
+
+    /*
+      Lógica para:
+      - Actualizar datos desde el backend.
+      - Mostrar notificaciones.
+      - Interacciones adicionales como añadir o eliminar comidas.
+    */
+  </script>
 </body>
 </html>
 

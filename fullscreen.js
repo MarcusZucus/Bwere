@@ -3,29 +3,40 @@
  */
 document.addEventListener("DOMContentLoaded", () => {
   try {
-    const isFullscreenAvailable =
-      document.documentElement.requestFullscreen ||
-      document.documentElement.webkitRequestFullscreen ||
-      document.documentElement.msRequestFullscreen;
-
-    if (isFullscreenAvailable) {
-      activateFullScreen();
-    } else {
-      alert("El modo de pantalla completa no está disponible en este navegador.");
+    const fullscreenButton = document.getElementById("fullscreen-button");
+    if (!fullscreenButton) {
+      console.error("No se encontró el botón de pantalla completa.");
+      return;
     }
 
-    // Aplica estilos para ocupar el 100% de la pantalla
-    applyFullScreenStyles();
-    preventScroll();
-    requestImmersiveMode();
+    // Detectar clic en el botón para activar pantalla completa
+    fullscreenButton.addEventListener("click", () => {
+      activateFullScreen();
+    });
 
     // Detectar cuando el usuario sale del modo pantalla completa
     document.addEventListener("fullscreenchange", () => {
       if (!document.fullscreenElement) {
-        console.log("El usuario salió del modo pantalla completa. Intentando reactivar...");
-        activateFullScreen();
+        console.log("El usuario salió del modo pantalla completa.");
       }
     });
+
+    // Intentar bloquear la orientación si es compatible
+    if ('orientation' in screen && 'lock' in screen.orientation) {
+      screen.orientation.lock("portrait-primary")
+        .then(() => {
+          console.log("La orientación de pantalla se bloqueó con éxito en portrait-primary.");
+        })
+        .catch((err) => {
+          console.warn("No se pudo bloquear la orientación de pantalla:", err.message);
+        });
+    } else {
+      console.warn("El bloqueo de orientación no es compatible con este dispositivo o navegador.");
+    }
+
+    // Aplicar estilos y prevenir scroll
+    applyFullScreenStyles();
+    preventScroll();
   } catch (error) {
     console.error("Error inicializando pantalla completa:", error);
     alert("Ocurrió un error al activar el modo inmersivo.");
@@ -41,14 +52,21 @@ function activateFullScreen() {
     return;
   }
 
-  if (document.documentElement.requestFullscreen) {
-    document.documentElement.requestFullscreen().catch((err) => {
+  const elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch((err) => {
       console.error("Error al activar pantalla completa:", err);
     });
-  } else if (document.documentElement.webkitRequestFullscreen) {
-    document.documentElement.webkitRequestFullscreen(); // Para navegadores basados en WebKit
-  } else if (document.documentElement.msRequestFullscreen) {
-    document.documentElement.msRequestFullscreen(); // Para navegadores antiguos de Edge
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen().catch((err) => {
+      console.error("Error al activar pantalla completa (webkit):", err);
+    });
+  } else if (elem.msRequestFullscreen) {
+    elem.msRequestFullscreen().catch((err) => {
+      console.error("Error al activar pantalla completa (ms):", err);
+    });
+  } else {
+    console.warn("El modo de pantalla completa no está disponible en este navegador.");
   }
 }
 
@@ -56,17 +74,18 @@ function activateFullScreen() {
  * Solicita el modo inmersivo para ocultar el notch, la barra inferior y otros elementos del sistema.
  */
 function requestImmersiveMode() {
-  if ("screen" in window && "orientation" in screen) {
-    try {
-      screen.orientation.lock("portrait-primary").catch((err) => {
-        console.warn("No se pudo bloquear la orientación de pantalla:", err);
+  if ('orientation' in screen && 'lock' in screen.orientation) {
+    screen.orientation.lock("portrait-primary")
+      .then(() => {
+        console.log("La orientación de pantalla se bloqueó con éxito en portrait-primary.");
+      })
+      .catch((err) => {
+        console.warn("No se pudo bloquear la orientación de pantalla:", err.message);
       });
-    } catch (error) {
-      console.warn("La API de orientación de pantalla no está disponible.");
-    }
+  } else {
+    console.warn("El bloqueo de orientación no es compatible con este dispositivo o navegador.");
   }
 
-  // Intenta activar el modo inmersivo
   const metaViewport = document.querySelector("meta[name=viewport]");
   if (!metaViewport) {
     const meta = document.createElement("meta");
@@ -88,6 +107,21 @@ function preventScroll() {
       event.preventDefault();
     },
     { passive: false }
+  );
+  appContainer.addEventListener(
+    "wheel",
+    (event) => {
+      event.preventDefault();
+    },
+    { passive: false }
+  );
+  appContainer.addEventListener(
+    "keydown",
+    (event) => {
+      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown"].includes(event.key)) {
+        event.preventDefault();
+      }
+    }
   );
 }
 
@@ -153,15 +187,15 @@ function exitFullScreen() {
         console.error("Error al salir de pantalla completa:", err);
       });
     } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen(); // Para navegadores basados en WebKit
+      document.webkitExitFullscreen().catch((err) => {
+        console.error("Error al salir de pantalla completa (webkit):", err);
+      });
     } else if (document.msExitFullscreen) {
-      document.msExitFullscreen(); // Para navegadores antiguos de Edge
+      document.msExitFullscreen().catch((err) => {
+        console.error("Error al salir de pantalla completa (ms):", err);
+      });
     }
   } else {
     console.log("No hay elementos en pantalla completa para desactivar.");
   }
 }
-
-
-// Opcional: Asignar salida de pantalla completa a un botón
-// document.getElementById("exitButton").addEventListener("click", exitFullScreen);

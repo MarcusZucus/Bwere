@@ -4,25 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#F5F5F5">
+
+  <!-- Ajusta tu política CSP según la estructura de tu proyecto -->
+  <meta 
+    name="Content-Security-Policy" 
+    content="
+      default-src 'self'; 
+      connect-src 'self' https://apis.bwere.com; 
+      img-src 'self' data:; 
+      script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; 
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; 
+      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
+  
   <meta name="description" content="Bwere: Potencia tu bienestar con una PWA optimizada y moderna.">
   <meta name="author" content="Equipo Bwere">
   <meta name="keywords" content="Bwere, PWA, bienestar, chat, sensores, ECG">
 
-  <!-- Política de Seguridad de Contenido (CSP) mejorada -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://apis.bwere.com; img-src 'self' data:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;">
-
   <title>Bwere</title>
+
+  <!-- Tailwind (asumiendo que generaste un output.css con Tailwind) -->
+  <link href="./output.css" rel="stylesheet">
 
   <!-- Manifest para PWA -->
   <link rel="manifest" href="/manifest.json">
 
-  <!-- Carga de Font Awesome desde CDN -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Carga de Font Awesome desde CDN (sin 'integrity' para evitar error) -->
+  <link 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+    rel="stylesheet" 
+    referrerpolicy="no-referrer" 
+  />
 
   <!-- Fuente Quicksand -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" 
+    rel="stylesheet"
+  >
 
-  <!-- Enlace a los archivos CSS -->
+  <!-- Enlace a los archivos CSS locales (ajusta rutas si cambia tu estructura) -->
   <link rel="stylesheet" href="/html_modules/menu.css">
   <link rel="stylesheet" href="/html_modules/container-header.css">
   <link rel="stylesheet" href="/html_modules/input-buttons.css">
@@ -31,7 +50,6 @@
   <link rel="stylesheet" href="/html_modules/messages.css">
   <link rel="stylesheet" href="/html_modules/variables-global.css">
   <link rel="stylesheet" href="/html_modules/styles.css">
-  <link rel="stylesheet" href="/html_modules/home/responsive.css">
 
   <!-- Scripts de los módulos -->
   <script defer type="module" src="/html_modules/modules/chat.js"></script>
@@ -39,10 +57,14 @@
   <script defer type="module" src="/html_modules/modules/animations.js"></script>
   <script defer src="/prevent-scroll.js"></script>
   <script defer type="module" src="/service-worker-registration.js"></script>
-  <script defer type="module" src="/html_modules/home/exchangeToken.js"></script>
 
-  <!-- Optimización para cargas rápidas -->
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style">
+  <!-- Optimización para cargas rápidas (preload) -->
+  <link 
+    rel="preload" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+    as="style"
+    referrerpolicy="no-referrer"
+  >
   <link rel="preload" href="/html_modules/styles.css" as="style">
   <link rel="preload" href="/html_modules/container-header.css" as="style">
   <link rel="preload" href="/html_modules/input-buttons.css" as="style">
@@ -52,15 +74,22 @@
   <link rel="preload" href="/html_modules/variables-global.css" as="style">
 </head>
 <body>
-  <!-- Botón para pruebas de pantalla completa (puedes ocultarlo en producción) -->
-  <button id="fullscreen-button" onclick="enableFullScreenMode()" style="display: none;">Activar Pantalla Completa</button>
+  <!-- Botón para pruebas de pantalla completa (oculto) -->
+  <button id="fullscreen-button" style="display: none; visibility: hidden;">
+    Activar Pantalla Completa
+  </button>
 
   <div id="chat-container" aria-labelledby="chat-header" role="region">
     <!-- Encabezado -->
     <header id="chat-header" aria-label="Encabezado del chat">
       <h2 style="font-family: 'Quicksand', sans-serif; font-weight: 600;">Bwere</h2>
       <!-- Botón del menú -->
-      <button id="menu-button" aria-label="Abrir menú" aria-controls="sidebar" aria-expanded="false">
+      <button 
+        id="menu-button" 
+        aria-label="Abrir menú" 
+        aria-controls="sidebar" 
+        aria-expanded="false"
+      >
         <span class="line line-1"></span>
         <span class="line line-2"></span>
       </button>
@@ -79,7 +108,12 @@
       </button>
       <!-- Campo de entrada -->
       <label for="message-input" class="visually-hidden">Escribe tu mensaje</label>
-      <input id="message-input" type="text" placeholder="Escribe un mensaje..." aria-label="Escribe un mensaje" />
+      <input 
+        id="message-input" 
+        type="text" 
+        placeholder="Escribe un mensaje..." 
+        aria-label="Escribe un mensaje" 
+      />
       <!-- Botón de enviar mensaje con el ícono -->
       <button id="send-button" aria-label="Enviar mensaje">
         <i class="fas fa-paper-plane" aria-hidden="true"></i>
@@ -115,85 +149,42 @@
       <div class="heart"></div>
       <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
         <path class="line" d="
-          M30,100 L100,100 Q120,70 140,100 Q160,130 180,100 
-          Q200,70 220,100 Q240,130 260,100 Q280,70 300,100 
+          M30,100 L100,100 Q120,70 140,100 
+          Q160,130 180,100 Q200,70 220,100 
+          Q240,130 260,100 Q280,70 300,100 
           L370,100
         " />
       </svg>
     </div>
   </template>
 
-  <!-- JavaScript para funcionalidades dinámicas -->
+  <!-- Scripts adicionales al final del body -->
   <script>
-    // Función para habilitar la pantalla completa
-    function enableFullScreenMode() {
-      const element = document.documentElement;
-      if (element.requestFullscreen) {
-        element.requestFullscreen();
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen(); // Para navegadores basados en WebKit
-      } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen(); // Para navegadores antiguos de Edge
-      }
-    }
-
-    // Detecta cambios en el tamaño de la ventana
-    window.addEventListener('resize', () => {
-      const inputArea = document.getElementById('input-area');
-      const messagesArea = document.getElementById('messages');
-      const viewportHeight = window.innerHeight;
-
-      // Si la altura de la ventana disminuye (teclado visible)
-      if (viewportHeight < 600) {
-        inputArea.style.position = 'fixed'; // Siempre visible
-        inputArea.style.bottom = '0';      // Por encima del teclado
-        inputArea.style.zIndex = '1000';   // Mayor z-index para asegurar que esté al frente
-
-        // Ajustar la altura del área de mensajes
-        messagesArea.style.paddingBottom = '120px'; // Espacio adicional para evitar solapamientos
-      } else {
-        // Restaurar posición y altura cuando el teclado no esté visible
-        inputArea.style.position = 'fixed';
-        inputArea.style.bottom = '0';
-        messagesArea.style.paddingBottom = '60px'; // Altura normal del input-area
-      }
-    });
-
-    // Ajuste inicial al cargar la página
-    window.dispatchEvent(new Event('resize'));
-
-    // Registro del Service Worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(function(registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Service Worker registration failed:', error);
-        });
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
       const menuButton = document.getElementById("menu-button");
       const sidebar = document.getElementById("sidebar");
       const misComprasButton = document.getElementById("mis-compras-button");
 
-      // Alternar el menú al hacer clic en el botón
+      // Alternar menú lateral
       menuButton.addEventListener("click", () => {
         const isOpen = sidebar.classList.contains("menu-visible");
         sidebar.classList.toggle("menu-visible");
         menuButton.classList.toggle("menu-open");
       });
 
-      // Cierra el menú al hacer clic fuera de él
+      // Cierra el menú al hacer clic fuera
       document.addEventListener("click", (event) => {
-        if (!sidebar.contains(event.target) && !menuButton.contains(event.target) && sidebar.classList.contains("menu-visible")) {
+        if (
+          !sidebar.contains(event.target) && 
+          !menuButton.contains(event.target) && 
+          sidebar.classList.contains("menu-visible")
+        ) {
           sidebar.classList.remove("menu-visible");
           menuButton.classList.remove("menu-open");
         }
       });
 
-      // Forzar navegación a "Mis Compras"
+      // Ir a "Mis Compras"
       misComprasButton.addEventListener("click", (event) => {
         event.preventDefault();
         try {
@@ -205,7 +196,9 @@
       });
     });
   </script>
+
+  <!-- Otros scripts (Fullscreen, mis_compras, etc.) -->
+  <script src="/fullscreen.js" defer></script>
   <script src="/mis_compras.js" defer></script>
 </body>
 </html>
-
